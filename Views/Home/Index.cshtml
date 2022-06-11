@@ -1,0 +1,193 @@
+﻿@model AracKiralamaOtomasyonu.Models.Class.IlanListeViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_PanelLayout.cshtml";
+}
+<div class="content-wrapper">
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <div class="hero-wrap ftco-degree-bg" style="background-image: url('/images/bg_1.jpg');" data-stellar-background-ratio="1">
+            <div class="overlay"></div>
+            <div class="container">
+                <div class="row no-gutters slider-text justify-content-start align-items-center justify-content-center">
+                    <div class="col-lg-8 ftco-animate">
+                        <div class="text w-100 text-center mb-md-5 pb-md-5">
+                            <h1 class="mb-4">Hızlı &amp; Kolay araç kiralama</h1>
+                            <p style="font-size: 18px;">Şirketinize özel mobilite çözümler oluşturuyor ve ihtiyaçlarınıza en uygun şekilde tasarlanmış araç kiralama programı geliştirmenize yardımcı olmaktan mutluluk duyuyoruz.</p>
+                            <a href="/Ilan/IlanListesi" class="icon-wrap  d-flex align-items-center mt-4 justify-content-center">
+                                <div class="icon d-flex align-items-center justify-content-center">
+                                    <span class="ion-ios-play"></span>
+                                </div>
+                                <div class="heading-title ml-5">
+                                    <span>Araç kiralamak artık çok kolay</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <section class="ftco-section ftco-no-pt bg-light">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-12 heading-section text-center ftco-animate mb-5">
+                        <h2 class="mb-2">Yeni Eklenen İlanlar</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="carousel-car owl-carousel">
+                            @foreach (var item in Model.Ilanlars)
+                            {
+                                <div class="item">
+                                    <div class="car-wrap rounded ftco-animate">
+                                        <div class="img rounded d-flex align-items-end" style="background-image: url(/Dosyalar/Public/@item.Dosyalar.Url);">
+                                        </div>
+                                        <div class="text">
+                                            <h2 class="mb-0"><a href="#">@item.Baslik</a></h2>
+                                            <div class="d-flex mb-3">
+                                                <span class="cat font-weight-bold">@item.AracMarka.Ad</span>
+                                                <p class="price ml-auto">@item.Fiyat <span>/ Günlük</span></p>
+                                            </div>
+                                            <p class="d-flex mb-0 d-block"><a href="/Ilan/Ilan/@item.IDIlan" class="btn btn-primary py-2 ml-1">Detay</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="ftco-section ftco-about">
+            <div class="container">
+                <div class="row no-gutters">
+                    <div class="col-md-6 p-md-5 img img-2 d-flex justify-content-center align-items-center" style="background-image: url(/images/about.jpg);">
+                    </div>
+                    <div class="col-md-6 wrap-about ftco-animate">
+                        <div class="heading-section heading-section-white pl-md-5">
+                            <span class="subheading">Hakkımızda</span>
+                            <h2 class="mb-4">Rent a Car'a Hoşgeldiniz</h2>
+
+                            <p>
+                                1990 yılında kurulan Yes Oto Kiralama A.Ş. 1997 yılından itibaren National Car Rental® Türkiye lisansı ile hizmet vermeye başlamıştır.
+                            </p>
+
+                            <p>Türkiye’de ilk günlük araç kiralama markası olan Yes Oto Kiralama, ilk kez havayolu şirketleri ile geliştirdiği iş birliği ile online araç kiralama hizmeti vererek sektöre öncülük etmektedir.</p>
+
+                            <p>
+                                Enterprise Holding bünyesinde bulunan Enterprise Rent-A-Car, Alamo ve National Car Rental markaları, Yes Oto Kiralama A.Ş tarafından Türkiye’de 35 ilde 80'in üzerinde ofis ile temsil edilmektedir.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="ftco-section">
+            <div class="container">
+                <div class="row justify-content-center mb-5">
+                    <div class="col-md-7 text-center heading-section ftco-animate">
+                        <span class="subheading">Hizmetlerimiz</span>
+                        <h2 class="mb-3">Son Hizmetlerimiz</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="services services-2 w-100 text-center">
+                            <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-wedding-car"></span></div>
+                            <div class="text w-100">
+                                <h3 class="heading mb-2">Tura Çıkma İmkanı</h3>
+                                <p>Şehir dışı tur gezisine kiraladığınız araç ile istediğiniz kadar yol kat edebilirsiniz </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="services services-2 w-100 text-center">
+                            <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-transportation"></span></div>
+                            <div class="text w-100">
+                                <h3 class="heading mb-2">Şehirler Arası Yolculuk</h3>
+                                <p>Kiraladığınız araçlar ile şehirler arası yolculuk yapma imkanı</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="services services-2 w-100 text-center">
+                            <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-car"></span></div>
+                            <div class="text w-100">
+                                <h3 class="heading mb-2">Havaalanı Ulaşımı</h3>
+                                <p>Uçak yolculuğunuzun ardından bulunduğunuz havaalanına araç temini</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="services services-2 w-100 text-center">
+                            <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-transportation"></span></div>
+                            <div class="text w-100">
+                                <h3 class="heading mb-2">Türkiye'nin 81 İli</h3>
+                                <p>Araçlarımızı Türkiye'nin 81 ilinden teslim alıp teslim edebilirsiniz</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="ftco-section ftco-intro" style="background-image: url(/images/bg_3.jpg);">
+            <div class="overlay"></div>
+            <div class="container">
+                <div class="row justify-content-end">
+                    <div class="col-md-6 heading-section heading-section-white ftco-animate">
+                        <h3 class="mb-3" style="color:white!important">Sende aracını kiralamak mı istiyorsun? O halde vakit kaybetmeden ilan ver!</h3>
+                        <a href="/Ilan/IlanEkle" class="btn btn-primary btn-lg">İlan ver</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="ftco-counter ftco-section img bg-light" id="section-counter">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-lg-3 justify-content-center counter-wrap ftco-animate">
+                        <div class="block-18">
+                            <div class="text text-border d-flex align-items-center">
+                                <strong class="number" data-number="10">0</strong>
+                                <span>Yıllık <br>Deneyim</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3 justify-content-center counter-wrap ftco-animate">
+                        <div class="block-18">
+                            <div class="text text-border d-flex align-items-center">
+                                <strong class="number" data-number="@Model.Ilanlars.Count">0</strong>
+                                <span>Kiralık <br>Araç</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3 justify-content-center counter-wrap ftco-animate">
+                        <div class="block-18">
+                            <div class="text text-border d-flex align-items-center">
+                                <strong class="number" data-number="@ViewBag.user">0</strong>
+                                <span>Mutlu <br>Müşteri</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3 justify-content-center counter-wrap ftco-animate">
+                        <div class="block-18">
+                            <div class="text d-flex align-items-center">
+                                <strong class="number" data-number="@ViewBag.Company">0</strong>
+                                <span>Kurumsal <br>Firma</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

@@ -1,0 +1,491 @@
+﻿@model AracKiralamaOtomasyonu.Models.Ilanlar
+@{
+    ViewBag.Title = "IlanDuzenle";
+    Layout = "~/Views/Shared/_PanelLayout.cshtml";
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.8.2/css/lightbox.min.css">
+<div class="content-wrapper">
+    <!-- Content -->
+
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">İLANLAR/</span> İlan Düzenle</h4>
+
+        <!-- Basic Layout -->
+        <div class="row">
+            <div class="col-xl">
+                <div class="card mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">İlan Bilgileri</h5>
+                    </div>
+                    <div class="card-body">
+                        <form action="/Admin/IlanOnay" method="post" id="myForm">
+                            <input type="text" class="form-control" id="IDIlan" hidden name="IDIlan" value="@Model.IDIlan" />
+                            <div class="mb-3">
+                                <label class="form-label" for="basic-default-fullname">İlan Başlık</label>
+                                <input type="text" class="form-control" id="Baslik" name="Baslik" value="@Model.Baslik" />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="basic-default-company">Marka</label>
+                                @Html.DropDownList("IDAracMarka", new SelectList(ViewBag.marka, "IDAracMarka", "Ad", Model.AracMarka.Ad), "Seçiniz", new { @class = "form-select", @id = "IDAracMarka", @name = "IDAracMarka", style = " width:100% ; max-width:none" })
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="basic-default-email">Model</label>
+                                <div class="input-group input-group-merge">
+                                    @Html.DropDownList("IDAracModel", new SelectList(ViewBag.model, "IDAracModel", "ModelAd", Model.AracModel.ModelAd), "Seçiniz", new { @class = "form-select", @id = "IDAracModel", @name = "IDAracModel", style = " width:100% ; max-width:none" })
+
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="basic-default-phone">Fiyat</label>
+                                <input type="text"
+                                       id="Fiyat"
+                                       name="Fiyat"
+                                       class="form-control"
+                                       value="@Model.Fiyat" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="basic-default-phone">Trafiğe Çıkış</label>
+                                <input type="date"
+                                       id="Yil"
+                                       name="Yil"
+                                       class="form-control"
+                                       value="@Model.Yil.ToString("yyyy-MM-dd")" />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="basic-default-phone">Kilometre</label>
+                                <input type="text"
+                                       id="Kilometre"
+                                       name="Kilometre"
+                                       class="form-control"
+                                       value="@Model.Kilometre" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="basic-default-phone">Yakıt</label>
+                                <select id="Yakit" name="Yakit" class="form-control">
+                                    <option value="@Model.Yakit" selected hidden>@Model.Yakit</option>
+                                    <option value="Benzin">Benzin</option>
+                                    <option value="Benzin & LPG">Benzin & LPG</option>
+                                    <option value="Dizel">Dizel</option>
+                                    <option value="Elektrik">Elektrik</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="basic-default-phone">Vites</label>
+                                <select id="Vites" name="Vites" class="form-control">
+                                    <option value="@Model.Vites" selected hidden>@Model.Vites</option>
+                                    <option value="Manuel">Manuel</option>
+                                    <option value="Yarı otomatik">Yarı Otomatik</option>
+                                    <option value="Otomatik">Otomatik</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="basic-default-phone">Kasa</label>
+                                <select id="Kasa" name="Kasa" class="form-control">
+                                    <option value="@Model.Kasa" selected hidden>@Model.Kasa</option>
+                                    <option value="Cabrio">Cabrio</option>
+                                    <option value="Coupe">Coupe</option>
+                                    <option value="Hatchback 3 kapı">Hatchback 3 kapı</option>
+                                    <option value="Hatchback 5 kapı">Hatchback 5 kapı</option>
+                                    <option value="Sedan">Sedan</option>
+                                    <option value="Station Wagon">Station Wagon</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="basic-default-phone">Motor gücü</label>
+                                <input id="MotorGucu"
+                                       class="form-control"
+                                       name="MotorGucu"
+                                       value="@Model.MotorGucu" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="basic-default-phone">Motor Hacmi</label>
+                                <input id="MotorHacmi"
+                                       class="form-control"
+                                       name="MotorHacmi"
+                                       value="@Model.MotorHacmi" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="basic-default-phone">Çekiş</label>
+                                <select id="Cekis" name="Cekis" class="form-control">
+                                    <option value="@Model.Cekis" selected hidden>@Model.Cekis</option>
+                                    <option value="Önden Çekiş">Önden Çekiş</option>
+                                    <option value="Arkadan İtiş">Arkadan İtiş</option>
+                                    <option value="4WD (Sürekli)">4WD (Sürekli)</option>
+                                    <option value="AWD (Elektronik)">AWD (Elektronik)</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="basic-default-message">Açıklama</label>
+                                <textarea id="Aciklama" name="Aciklama"
+                                          class="form-control">@Model.Aciklama</textarea>
+                            </div>
+                            <button type="button" onclick="Onay()" class="btn btn-primary">Onayla</button>
+                            <button type="button" onclick="Reddet()" class="btn btn-danger">Reddet</button>
+                            <button type="reset" class="btn btn-secondary" onclick="javascript: history.go(-1)">Vazgeç</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl">
+                <div class="card mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">İlan Görselleri</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="photo-gallery">
+                            <div class="container">
+                                <div class="row photos mt-2">
+                                    @foreach (var item in ViewBag.gorseller)
+                                    {
+                                        <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="~/Dosyalar/Public/@item.Url" data-lightbox="photos"><img class="img-fluid" style="width:100%;height:auto;" src="~/Dosyalar/Public/@item.Url"></a></div>
+                                    }
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- / Content -->
+    <div class="content-backdrop fade"></div>
+</div>
+<style>
+    .photo-gallery {
+        color: #313437;
+        background-color: #fff;
+    }
+
+        .photo-gallery p {
+            color: #7d8285;
+        }
+
+        .photo-gallery h2 {
+            font-weight: bold;
+            margin-bottom: 40px;
+            padding-top: 40px;
+            color: inherit;
+        }
+
+        .photo-gallery .intro {
+            font-size: 16px;
+            max-width: 500px;
+            margin: 0 auto 40px;
+        }
+
+            .photo-gallery .intro p {
+                margin-bottom: 0;
+            }
+
+        .photo-gallery .photos {
+            padding-bottom: 20px;
+        }
+
+        .photo-gallery .item {
+            padding-bottom: 30px;
+        }
+</style>
+<script>
+    function Onay() {
+
+        var baslik = document.getElementById('Baslik').value;
+        var Marka = document.getElementById('IDAracMarka').value;
+        var Model = document.getElementById('IDAracModel').value;
+        var Fiyat = document.getElementById('Fiyat').value;
+        var Yil = document.getElementById('Yil').value;
+        var Kilometre = document.getElementById('Kilometre').value;
+        var Yakit = document.getElementById('Yakit').value;
+        var Vites = document.getElementById('Vites').value;
+        var Kasa = document.getElementById('Kasa').value;
+        var MotorGucu = document.getElementById('MotorGucu').value;
+        var MotorHacmi = document.getElementById('MotorHacmi').value;
+        var Cekis = document.getElementById('Cekis').value;
+        var Aciklama = document.getElementById('Aciklama').value;
+
+/*      Bu kodda  Başlık yazılı değilse alert açılıyor*/
+        if (baslik == "") {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'swal2-confirm',
+                    cancelButton: 'swal2-cancel'
+                },
+                buttonsStyling: true
+            })
+            swalWithBootstrapButtons.fire({
+                text: "Başlığı lütfen yazınız",
+                icon: 'warning',
+                showCancelButton: false,
+            }).then((result) => {
+                if (result.value) {
+                    result.dismiss === Swal.DismissReason.cancel
+                } else if (
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                }
+            })
+        }
+
+            /*      Bu kodda  Marka yazılı değilse alert açılıyor*/
+        else if (Marka == "") {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'swal2-confirm',
+                    cancelButton: 'swal2-cancel'
+                },
+                buttonsStyling: true
+            })
+            swalWithBootstrapButtons.fire({
+                text: "Markayı lütfen yazınız",
+                icon: 'warning',
+                showCancelButton: false,
+            }).then((result) => {
+                if (result.value) {
+                    result.dismiss === Swal.DismissReason.cancel
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                }
+            })
+        }
+            /*      Bu kodda  Model yazılı değilse alert açılıyor*/
+
+        else if (Model == "") {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'swal2-confirm',
+                    cancelButton: 'swal2-cancel'
+                },
+                buttonsStyling: true
+            })
+            swalWithBootstrapButtons.fire({
+                text: "Modeli lütfen yazınız",
+                icon: 'warning',
+                showCancelButton: false,
+            }).then((result) => {
+                if (result.value) {
+                    result.dismiss === Swal.DismissReason.cancel
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                }
+            })
+        }
+            /*      Bu kodda  Marka Fiyat değilse alert açılıyor*/
+        else if (Fiyat == "") {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'swal2-confirm',
+                    cancelButton: 'swal2-cancel'
+                },
+                buttonsStyling: true
+            })
+            swalWithBootstrapButtons.fire({
+                text: "Fiyatı lütfen yazınız",
+                icon: 'warning',
+                showCancelButton: false,
+            }).then((result) => {
+                if (result.value) {
+                    result.dismiss === Swal.DismissReason.cancel
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                }
+            })
+        }
+            /*      Bu kodda  Marka Aracın trafiğe çıkış tarihi yazılı değilse alert açılıyor*/
+        else if (Yil == "") {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'swal2-confirm',
+                    cancelButton: 'swal2-cancel'
+                },
+                buttonsStyling: true
+            })
+            swalWithBootstrapButtons.fire({
+                text: "Trafiğe çıkış tarihini lütfen yazınız",
+                icon: 'warning',
+                showCancelButton: false,
+            }).then((result) => {
+                if (result.value) {
+                    result.dismiss === Swal.DismissReason.cancel
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                }
+            })
+        }
+            /*      Bu kodda  Kilometre yazılı değilse alert açılıyor*/
+        else if (Kilometre == "") {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'swal2-confirm',
+                    cancelButton: 'swal2-cancel'
+                },
+                buttonsStyling: true
+            })
+            swalWithBootstrapButtons.fire({
+                text: "Kilometreyi lütfen yazınız",
+                icon: 'warning',
+                showCancelButton: false,
+            }).then((result) => {
+                if (result.value) {
+                    result.dismiss === Swal.DismissReason.cancel
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                }
+            })
+        }
+
+            /*      Bu kodda  Yakıt tipi yazılı değilse alert açılıyor*/
+        else if (Yakit == "") {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'swal2-confirm',
+                    cancelButton: 'swal2-cancel'
+                },
+                buttonsStyling: true
+            })
+            swalWithBootstrapButtons.fire({
+                text: "Yakit türünü lütfen yazınız",
+                icon: 'warning',
+                showCancelButton: false,
+            }).then((result) => {
+                if (result.value) {
+                    result.dismiss === Swal.DismissReason.cancel
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                }
+            })
+        }
+
+            /*      Bu kodda Vites tipi yazılı değilse alert açılıyor*/
+        else if (Vites == "") {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'swal2-confirm',
+                    cancelButton: 'swal2-cancel'
+                },
+                buttonsStyling: true
+            })
+            swalWithBootstrapButtons.fire({
+                text: "Vites tipini lütfen yazınız",
+                icon: 'warning',
+                showCancelButton: false,
+            }).then((result) => {
+                if (result.value) {
+                    result.dismiss === Swal.DismissReason.cancel
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                }
+            })
+        } /*      Bu kodda Kasa tipi yazılı değilse alert açılıyor*/
+
+        else if (Kasa == "") {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'swal2-confirm',
+                    cancelButton: 'swal2-cancel'
+                },
+                buttonsStyling: true
+            })
+            swalWithBootstrapButtons.fire({
+                text: "Kasa tipini lütfen yazınız",
+                icon: 'warning',
+                showCancelButton: false,
+            }).then((result) => {
+                if (result.value) {
+                    result.dismiss === Swal.DismissReason.cancel
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                }
+            })
+        }
+            /*Bu kodda Ilan bilgilerinin hepsi doğru olduğunda alert açılıyor*/
+        /*Eğer onaylar ise ilan onay formuanuna yönlendiriliyor*/
+        else{
+           const swalWithBootstrapButtons = Swal.mixin(
+            {
+                customClass:
+                    {
+                        confirmButton: 'swal2-confirm',
+                        cancelButton: 'swal2-cancel'
+                    },
+                buttonsStyling: true
+            })
+            swalWithBootstrapButtons.fire(
+                {
+                    text: "İlan bilgilerinin doğru olduğunu onaylıyor musunuz?",
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonText: 'Onayla',
+                    cancelButtonText: 'Vazgeç',
+                }).then((result) =>
+                {
+                    if (result.value)
+                    {
+                        $("#myForm").submit();
+                    }
+                    else if (result.dismiss === Swal.DismissReason.cancel)
+                    {
+                    }
+                })
+        }
+    }
+    /*Bu kodda Ilan bilgilerinin hepsi doğru olmadığında veya farklı durum olduğunda alert açılıyor*/
+    /*Admin bu ilanın onayını reddediyor ve ilan durumu 1 oluyor*/
+    function Reddet() {
+        if (@Model.IDIlan != null) {
+
+            const swalWithBootstrapButtons = Swal.mixin(
+                {
+                    customClass:
+                    {
+                        confirmButton: 'swal2-confirm',
+                        cancelButton: 'swal2-cancel'
+                    },
+                    buttonsStyling: true
+                })
+            swalWithBootstrapButtons.fire(
+                {
+                    text: "İlanın reddedilmesini onaylıyor musunuz?",
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonText: 'Onayla',
+                    cancelButtonText: 'Vazgeç',
+                }).then((result) => {
+                    if (result.value) {
+                 $.ajax({
+                type: "POST",
+                     url: '@Url.Action("IlanReddet", "Admin")',
+                     data: {'IlanID':@Model.IDIlan },
+                     success: function () {
+                         window.location.href = '/Admin/Panel'
+                }
+
+            });
+                    }
+                })
+
+        }
+
+
+    }
+
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.8.2/js/lightbox.min.js"></script>

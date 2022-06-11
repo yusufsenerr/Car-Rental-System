@@ -1,0 +1,296 @@
+﻿@model AracKiralamaOtomasyonu.Models.Class.IlanListeViewModel
+@{
+    ViewBag.Title = "IlanListesi";
+    Layout = "~/Views/Shared/_PanelLayout.cshtml";
+}
+
+<!--Plugin CSS file with desired skin-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/css/ion.rangeSlider.min.css" />
+
+<!--jQuery-->
+
+<style>
+    #myInput {
+        box-sizing: border-box;
+        background-image: url('searchicon.png');
+        background-position: 14px 12px;
+        background-repeat: no-repeat;
+        font-size: 16px;
+        padding: 14px 20px 12px 45px;
+        border: none;
+        border-bottom: 1px solid #ddd;
+    }
+
+        #myInput:focus {
+            outline: 3px solid #ddd;
+        }
+
+    .dropdown {
+        position: relative;
+        display: inline-block;
+
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f6f6f6;
+        min-width: 230px;
+        overflow: auto;
+        border: 1px solid #ddd;
+        z-index: 1;
+    }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+    .dropdown a:hover {
+        background-color: #ddd;
+    }
+
+    .irs--sharp.irs-with-grid {
+        max-width: 200px !important;
+        
+    }
+    .irs--sharp .irs-bar {
+        background-color: #4549f9;
+    }
+    .irs--sharp .irs-from, .irs--sharp .irs-to, .irs--sharp .irs-single {
+        background-color: #696cff !important;
+    }
+        .irs--sharp .irs-handle > i:first-child {
+            border-top-color: #696cff !important;
+        }
+    .irs--sharp .irs-from:before, .irs--sharp .irs-to:before, .irs--sharp .irs-single:before {
+        border-top-color: #696cff !important;
+    }
+    .irs--sharp .irs-handle {
+        background-color: #696cff !important;
+    }
+    .irs--sharp .irs-min, .irs--sharp .irs-max {
+        background-color: #696cff !important;
+    }
+
+    .nopadding {
+        padding: 0px !important;
+    }
+    .car-wrap .text {
+        border-top: none;
+        padding: 10px 10px 10px;
+    }
+</style>
+<section class="ftco-section ftco-no-pt bg-light mt-5">
+    <div class="container">
+        <div class="row mt-3 mb-5">
+            <div class="col-md-12 nopadding  justify-content-center">
+                <form method="post" action="/Ilan/IlanListesi">
+
+
+                    <div class="dropdown mr-2" style="min-width:220px!important">
+                        @if (Model.arama != "")
+                        {<input class="form-control" placeholder="Başlık, marka veya model ara" id="Ara" name="Ara" value="@Model.arama" />}
+                        @if (Model.arama == "")
+                        {<input class="form-control" placeholder="Başlık, marka veya model ara" id="Ara" name="Ara" />}
+                    </div>
+
+
+                    <div class="dropdown mr-2">
+                        <select id="marka" class="form-select" name="marka">
+                            @if (Model.marka != null)
+                            {
+                                <option selected hidden value="@Model.marka">@Model.marka</option>
+                            }
+                            @if (Model.marka == null)
+                            {
+                                <option disabled selected hidden>Marka</option>
+                            }
+
+                            @foreach (var item in Model.AracMarka)
+                            {
+                                <option value="@item.Ad">@item.Ad</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="dropdown mr-2">
+                        <select id="modeli" class="form-select" name="modeli">
+                            @if (Model.modeli != null)
+                            {
+                                <option selected hidden value="@Model.modeli">@Model.modeli</option>
+                            }
+                            @if (Model.modeli == null)
+                            {
+                                <option disabled selected hidden>Model</option>
+                            }
+                            <option id="markasec" disabled>Marka seçiniz</option>
+                        </select>
+                    </div>
+                    <div class="dropdown mr-2">
+                        <select id="vites" class="form-select" name="vites">
+                            @if (Model.vites != null)
+                            {
+                                <option selected hidden value="@Model.vites">@Model.vites</option>
+                            }
+                            @if (Model.vites == null)
+                            {
+                                <option disabled selected hidden>Vites</option>
+                            }
+                            <option value="Manuel">Manuel</option>
+                            <option value="Yarı Otomatik">Yarı Otomatik</option>
+                            <option value="Otomatik">Otomatik</option>
+
+                        </select>
+                    </div>
+
+                    <div class="dropdown mr-2">
+                        <select id="cekis" class="form-select" name="cekis">
+                            @if (Model.cekis != null)
+                            {
+                                <option selected hidden value="@Model.cekis">@Model.cekis</option>
+                            }
+                            @if (Model.cekis == null)
+                            {
+                                <option disabled selected hidden>Çekiş</option>
+                            }
+                            <option value="Önden Çekiş">Önden Çekiş</option>
+                            <option value="Arkadan İtiş">Arkadan İtiş</option>
+                            <option value="4WD (Sürekli)">4WD (Sürekli)</option>
+                            <option value="AWD (Elektronik)">AWD (Elektronik)</option>
+
+                        </select>
+                    </div>
+                    <div class="dropdown mr-2">
+                        <select id="kasa" class="form-select" name="kasa">
+                            @if (Model.kasa != null)
+                            {
+                                <option selected hidden value="@Model.kasa">@Model.kasa</option>
+                            }
+                            @if (Model.kasa == null)
+                            {
+                                <option disabled selected hidden>Kasa</option>
+                            }
+                            <option value="Cabrio">Cabrio</option>
+                            <option value="Hatchback 3 kapı">Hatchback 3 kapı</option>
+                            <option value="Hatchback 5 kapı">Hatchback 5 kapı</option>
+                            <option value="Sedan">Sedan</option>
+                            <option value="Station Wagon">Station Wagon</option>
+                        </select>
+                    </div>
+
+                    <div class="dropdown mr-2">
+                        <select id="yakit" class="form-select" name="yakit">
+                            @if (Model.yakit != null)
+                            {
+                                <option selected hidden value="@Model.yakit">@Model.yakit</option>
+                            }
+                            @if (Model.yakit == null)
+                            {
+                                <option disabled selected hidden>Yakıt</option>
+                            }
+                            <option value="Benzin">Benzin</option>
+                            <option value="Benzin & LPG">Benzin & LPG</option>
+                            <option value="Dizel">Dizel</option>
+                            <option value="Elektrik">Elektrik</option>
+                        </select>
+                    </div>
+
+                    <div class="dropdown">
+                        <button type="submit" class="btn btn-primary" title="Ara"><i class="fa fa-filter"></i></button>
+                        @if (Model.arama != null || Model.marka != null || Model.modeli != null || Model.cekis != null || Model.kasa != null || Model.yakit != null || Model.vites != null)
+                        {
+                            <a href="IlanListesi" class="btn btn-primary" title="Filtreyi Temizle"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                        }
+                    </div>
+
+                    <div class="dropdown" style="display:block!important">
+                        <label class="label">Fiyat Aralığı</label>
+                        <input type="text" class="js-range-slider" style="max-width:100px!important;" name="fiyat" id="fiyat" value="" />
+                        <input type="text" hidden name="minfiyat" id="minfiyat" value="0" />
+                        <input type="text" hidden name="maxfiyat" id="maxfiyat" value="0" />
+                    </div>
+                </form>
+            </div>
+
+
+
+        </div>
+        <div class="row item-cars">
+            @if (Model.Ilanlars.Count == 0)
+            {
+                <div class="col-md-12 mt-2 justify-content-center ">
+                    <h1 style="text-align:center!important">Aradığınız kriterlere uygun ilan bulunamadı</h1>
+                    <div class=" row justify-content-center"><img src="~/Dosyalar/Public/not-found.png" class="img-responsive" style="width:70%;height:auto;" /></div>
+
+                </div>
+            }
+            @foreach (var item in Model.Ilanlars)
+            {
+                <div class="col-md-3 mt-2">
+                    <div class="item">
+                        <div class="car-wrap rounded ">
+                            <div class="img rounded d-flex align-items-end" style="background-image: url(/Dosyalar/Public/@item.Dosyalar.Url);">
+                            </div>
+                            <div class="text">
+                                <h2 class="mb-0" id="baslik"><a href="/Ilan/Ilan/@item.IDIlan">@item.Baslik</a></h2>
+                                <div class="d-flex mb-3">
+                                    <span id="aracmarka">@item.AracMarka.Ad @item.AracModel.ModelAd</span>
+                                    <p class="price ml-auto">@item.Fiyat ₺ <span style="color:black!important">/ Günlük</span></p>
+                                </div>
+                                <p class="d-flex mb-0 d-block"><a href="/Ilan/Ilan/@item.IDIlan" class="btn btn-primary py-2 ml-1">Detaylar</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+</section>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+
+
+<!--Plugin JavaScript file-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/js/ion.rangeSlider.min.js"></script>
+<script>
+    $("#fiyat").ionRangeSlider({
+        type: "double",
+        skin: "sharp",
+        grid: true,
+        min: 100,
+        max: 3000,
+        from:100,
+        to: 800,
+        prefix: "₺",
+        onChange: function (data) {
+            // Called right after range slider instance initialised
+            var min = document.getElementById("minfiyat").value = data.from;
+            var max = document.getElementById("maxfiyat").value = data.to;
+        },
+    });
+    $('select[name="marka"]').on('change', function () {
+        var marka = $(this).val();
+
+        $.ajax({
+            type: "POST",
+            url: "/Ilan/AracMarkaListesi",
+            data: { marka: marka },
+            success: function (data) {
+
+                $('#modeli').html('');
+                var options = '';
+                options += '<option value="Model" disabled selected hidden>Model</option>';
+                for (var i = 0; i < data.length; i++) {
+                    options += '<option value="' + data[i].ModelAd + '">' + data[i].ModelAd + '</option>';
+                }
+                $('#modeli').append(options)
+
+            }
+        });
+    });
+
+</script>
+

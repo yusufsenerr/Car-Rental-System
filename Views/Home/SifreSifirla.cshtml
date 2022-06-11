@@ -1,0 +1,163 @@
+﻿
+@{
+    ViewBag.Title = "SifreSifirla";
+    Layout = "~/Views/Shared/_PanelLayout.cshtml";
+}
+
+<div class="container pt-5" style="background-color: #ecf0f1">
+    <!-- Outer Row -->
+    <div class="row justify-content-center">
+        <div class="col-xl-112 col-lg-12 col-md-12">
+            <div class="card o-hidden border-0 shadow-lg my-5">
+                <div class="card-body p-0">
+                    <!-- Nested Row within Card Body -->
+                    <div class="row">
+                        <div class="col-lg-6 pt-5" style="padding-left:30px!important">
+                            <img src="~/Dosyalar/Public/bsp9.jpg" style="width:100%;height:auto;" />
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="p-5">
+                                <div class="text-center">
+                                    <h1 class="h4 text-gray-900 mb-4">Yeni Şifre</h1>
+                                </div>
+                                <form class="user" id="myForm" name="myForm" action="/Home/SifreSifirlaMethod" method="post">
+                                    <div class="mb-5 text-center">
+                                        <span style="display:none; visibility:hidden ;color:Red !important" id="Login1_FailureText">Şifreyi sıfırlamak için size verilen süre doldu</span>
+                                    </div>
+                                    <input type="hidden" t class="form-control form-control-user" value="@ViewBag.kullaniciid" id="ID" aria-describedby="ID" name="ID" style="visibility:hidden!important">
+                                    <input type="hidden" class="form-control form-control-user" value="@ViewBag.guid" id="guid" aria-describedby="guid" name="guid" style="visibility:hidden!important">
+                                    <input type="hidden" class="form-control form-control-user" value="@ViewBag.Eposta" id="Eposta" aria-describedby="Eposta" name="Eposta" style="visibility:hidden!important">
+                                    <div class="form-group">
+                                        <input type="password" class="form-control form-control-user"
+                                               id="yenisifre" aria-describedby="yenisifre" name="yenisifre"
+                                               placeholder="Şifre">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" class="form-control form-control-user"
+                                               id="yenisifre2" aria-describedby="yenisifre2" name="yenisifre2"
+                                               placeholder="Şifre (Tekrar)">
+                                    </div>
+
+                                    <button type="button" onclick="SifremiUnuttumMethod()" class="btn btn-primary btn-user btn-block">
+                                        Şifre Yenile
+                                    </button>
+                                </form>
+                                <hr>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+        window.onload = function () {
+                   if (@ViewBag.hata == 1) {
+                document.getElementById('Login1_FailureText').style.display = "";
+                document.getElementById('Login1_FailureText').style.visibility = 'visible';
+            }
+    };
+
+    function SifremiUnuttumMethod() {
+        var sifre = document.getElementById('yenisifre').value;
+        var sifre2 = document.getElementById('yenisifre2').value;
+
+
+        if (sifre == "" || sifre2 == "") {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'swal2-confirm',
+                    cancelButton: 'swal2-cancel'
+                },
+                buttonsStyling: true
+            })
+            swalWithBootstrapButtons.fire({
+                text: "Şifre boş girilemez",
+                icon: 'warning',
+                showCancelButton: false,
+            }).then((result) => {
+                if (result.value) {
+                    result.dismiss === Swal.DismissReason.cancel
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                }
+            })
+        }
+        else if (sifre != sifre2) {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'swal2-confirm',
+                    cancelButton: 'swal2-cancel'
+                },
+                buttonsStyling: true
+            })
+            swalWithBootstrapButtons.fire({
+                text: "Şifreler aynı değil",
+                icon: 'warning',
+                showCancelButton: false,
+            }).then((result) => {
+                if (result.value) {
+                    result.dismiss === Swal.DismissReason.cancel
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                }
+            })
+        }
+        else if (sifre.length < 8 || sifre.length > 30) {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'swal2-confirm',
+                    cancelButton: 'swal2-cancel'
+                },
+                buttonsStyling: true
+            })
+            swalWithBootstrapButtons.fire({
+                text: "Şifre en az 8, en fazla 30 karakter olmalıdır",
+                icon: 'warning',
+                showCancelButton: false,
+            }).then((result) => {
+                if (result.value) {
+                    result.dismiss === Swal.DismissReason.cancel
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                }
+            })
+        }
+
+        else if (sifre.search(/[A-Z]/) < 0 && sifre.search(/[a-z]/) < 0) {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'swal2-confirm',
+                    cancelButton: 'swal2-cancel'
+                },
+                buttonsStyling: true
+            })
+            swalWithBootstrapButtons.fire({
+                text: "",
+                icon: 'warning',
+                showCancelButton: false,
+            }).then((result) => {
+                if (result.value) {
+                    result.dismiss === Swal.DismissReason.cancel
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                }
+            })
+        }
+        else {
+            $("#myForm").submit();
+        }
+    }
+
+
+</script>
+

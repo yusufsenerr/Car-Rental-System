@@ -1,0 +1,316 @@
+﻿
+@{
+    ViewBag.Title = "Guncelle";
+    Layout = "~/Views/Shared/_PanelLayout.cshtml";
+}
+
+<div class="content-wrapper">
+    <!-- Content -->
+
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">KURUMSAL / Güncelle</span> / @Model.Ad</h4>
+        <form action="/Kurumsal/GuncelleMethod" enctype="multipart/form-data" method="post" id="myForm">
+            <!-- Basic Layout -->
+            <div class="row">
+                <div class="col-xl">
+                    <div class="card mb-4">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0">Firma Bilgileri</h5>
+                        </div>
+                        <div class="card-body">
+
+                            <div class="mb-3">
+                                <label class="form-label" for="basic-default-fullname">Firma Adı</label>
+                                <input type="text" class="form-control" id="Ad" name="Ad" value="@Model.Ad" />
+                                <input type="text" hidden class="form-control" id="ID" name="ID" value="@Model.ID" />
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label" for="basic-default-fullname">Telefon No</label>
+                                <input type="text" class="form-control" id="Telefon" name="Telefon" value="@Model.Telefon" />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="basic-default-fullname">Adres</label>
+                                <input type="text" class="form-control" id="Adres" name="Adres" value="@Model.Adres" />
+                            </div>
+                            @*<div class="mb-3">
+                                <h5>İlan Görselleri</h5>
+                                <div id='dropArea' style='height: auto; overflow: auto'>
+                                    <span id='drop'>Fotoğraf ekle</span>
+
+                                    @Html.EJS().Uploader("FileUpload").DropArea(".control-fluid").AllowedExtensions(".png,.jpeg,.jpg").Removing("onFileRemove").AsyncSettings(new Syncfusion.EJ2.Inputs.UploaderAsyncSettings { SaveUrl = @Url.Content("~/Uploader/Save"), RemoveUrl = @Url.Content("~/Uploader/Remove") }).Render()
+
+                                </div>
+                            </div>*@
+                            <button type="submit" class="btn btn-primary">Güncelle</button>
+                            <button type="reset" class="btn btn-secondary" onclick="javascript: history.go(-1)">Vazgeç</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- / Content -->
+    <div class="content-backdrop fade"></div>
+</div>
+<script>
+    function onFileRemove(args) {
+        args.postRawFile = true;
+    }
+
+    function Onay() {
+
+        var baslik = document.getElementById('Baslik').value;
+        var Marka = document.getElementById('IDAracMarka').value;
+        var Model = document.getElementById('IDAracModel').value;
+        var Fiyat = document.getElementById('Fiyat').value;
+        var Yil = document.getElementById('Yil').value;
+        var Kilometre = document.getElementById('Kilometre').value;
+        var Yakit = document.getElementById('Yakit').value;
+        var Vites = document.getElementById('Vites').value;
+        var Kasa = document.getElementById('Kasa').value;
+        var MotorGucu = document.getElementById('MotorGucu').value;
+        var MotorHacmi = document.getElementById('MotorHacmi').value;
+        var Cekis = document.getElementById('Cekis').value;
+        var Aciklama = document.getElementById('Aciklama').value;
+
+        if (baslik == "") {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'swal2-confirm',
+                    cancelButton: 'swal2-cancel'
+                },
+                buttonsStyling: true
+            })
+            swalWithBootstrapButtons.fire({
+                text: "Başlığı lütfen yazınız",
+                icon: 'warning',
+                showCancelButton: false,
+            }).then((result) => {
+                if (result.value) {
+                    result.dismiss === Swal.DismissReason.cancel
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                }
+            })
+        }
+
+        else if (Marka == "") {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'swal2-confirm',
+                    cancelButton: 'swal2-cancel'
+                },
+                buttonsStyling: true
+            })
+            swalWithBootstrapButtons.fire({
+                text: "Markayı lütfen yazınız",
+                icon: 'warning',
+                showCancelButton: false,
+            }).then((result) => {
+                if (result.value) {
+                    result.dismiss === Swal.DismissReason.cancel
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                }
+            })
+        }
+
+        else if (Model == "") {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'swal2-confirm',
+                    cancelButton: 'swal2-cancel'
+                },
+                buttonsStyling: true
+            })
+            swalWithBootstrapButtons.fire({
+                text: "Modeli lütfen yazınız",
+                icon: 'warning',
+                showCancelButton: false,
+            }).then((result) => {
+                if (result.value) {
+                    result.dismiss === Swal.DismissReason.cancel
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                }
+            })
+        }
+
+        else if (Fiyat == "") {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'swal2-confirm',
+                    cancelButton: 'swal2-cancel'
+                },
+                buttonsStyling: true
+            })
+            swalWithBootstrapButtons.fire({
+                text: "Fiyatı lütfen yazınız",
+                icon: 'warning',
+                showCancelButton: false,
+            }).then((result) => {
+                if (result.value) {
+                    result.dismiss === Swal.DismissReason.cancel
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                }
+            })
+        }
+
+        else if (Yil == "") {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'swal2-confirm',
+                    cancelButton: 'swal2-cancel'
+                },
+                buttonsStyling: true
+            })
+            swalWithBootstrapButtons.fire({
+                text: "Trafiğe çıkış tarihini lütfen yazınız",
+                icon: 'warning',
+                showCancelButton: false,
+            }).then((result) => {
+                if (result.value) {
+                    result.dismiss === Swal.DismissReason.cancel
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                }
+            })
+        }
+
+        else if (Kilometre == "") {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'swal2-confirm',
+                    cancelButton: 'swal2-cancel'
+                },
+                buttonsStyling: true
+            })
+            swalWithBootstrapButtons.fire({
+                text: "Kilometreyi lütfen yazınız",
+                icon: 'warning',
+                showCancelButton: false,
+            }).then((result) => {
+                if (result.value) {
+                    result.dismiss === Swal.DismissReason.cancel
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                }
+            })
+        }
+
+
+        else if (Yakit == "") {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'swal2-confirm',
+                    cancelButton: 'swal2-cancel'
+                },
+                buttonsStyling: true
+            })
+            swalWithBootstrapButtons.fire({
+                text: "Yakit türünü lütfen yazınız",
+                icon: 'warning',
+                showCancelButton: false,
+            }).then((result) => {
+                if (result.value) {
+                    result.dismiss === Swal.DismissReason.cancel
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                }
+            })
+        }
+
+
+        else if (Vites == "") {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'swal2-confirm',
+                    cancelButton: 'swal2-cancel'
+                },
+                buttonsStyling: true
+            })
+            swalWithBootstrapButtons.fire({
+                text: "Vites tipini lütfen yazınız",
+                icon: 'warning',
+                showCancelButton: false,
+            }).then((result) => {
+                if (result.value) {
+                    result.dismiss === Swal.DismissReason.cancel
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                }
+            })
+        }
+
+        else if (Kasa == "") {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'swal2-confirm',
+                    cancelButton: 'swal2-cancel'
+                },
+                buttonsStyling: true
+            })
+            swalWithBootstrapButtons.fire({
+                text: "Kasa tipini lütfen yazınız",
+                icon: 'warning',
+                showCancelButton: false,
+            }).then((result) => {
+                if (result.value) {
+                    result.dismiss === Swal.DismissReason.cancel
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                }
+            })
+        }
+        else {
+            const swalWithBootstrapButtons = Swal.mixin(
+                {
+                    customClass:
+                    {
+                        confirmButton: 'swal2-confirm',
+                        cancelButton: 'swal2-cancel'
+                    },
+                    buttonsStyling: true
+                })
+            swalWithBootstrapButtons.fire(
+                {
+                    text: "İlan bilgilerinin doğru olduğunu onaylıyor musunuz?",
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonText: 'Onayla',
+                    cancelButtonText: 'Vazgeç',
+                }).then((result) => {
+                    if (result.value) {
+                        $("#myForm").submit();
+
+
+                    }
+                    else if (result.dismiss === Swal.DismissReason.cancel) {
+                    }
+                })
+        }
+    }
+
+</script>
+

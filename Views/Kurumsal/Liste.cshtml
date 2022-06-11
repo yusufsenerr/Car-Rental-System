@@ -1,0 +1,143 @@
+﻿@model AracKiralamaOtomasyonu.Models.Class.KurumsalListe
+@{
+    ViewBag.Title = "IlanListesi";
+    Layout = "~/Views/Shared/_PanelLayout.cshtml";
+}
+
+<!--Plugin CSS file with desired skin-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/css/ion.rangeSlider.min.css" />
+
+<!--jQuery-->
+
+<style>
+    #myInput {
+        box-sizing: border-box;
+        background-image: url('searchicon.png');
+        background-position: 14px 12px;
+        background-repeat: no-repeat;
+        font-size: 16px;
+        padding: 14px 20px 12px 45px;
+        border: none;
+        border-bottom: 1px solid #ddd;
+    }
+
+        #myInput:focus {
+            outline: 3px solid #ddd;
+        }
+
+    .dropdown {
+        position: relative;
+        display: inline-block;
+        margin-top: 10px;
+        margin-right: 10px;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f6f6f6;
+        min-width: 230px;
+        overflow: auto;
+        border: 1px solid #ddd;
+        z-index: 1;
+    }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+    .dropdown a:hover {
+        background-color: #ddd;
+    }
+
+    .irs--sharp.irs-with-grid {
+        max-width: 200px !important;
+    }
+
+    .irs--sharp .irs-bar {
+        background-color: #4549f9;
+    }
+
+    .irs--sharp .irs-from, .irs--sharp .irs-to, .irs--sharp .irs-single {
+        background-color: #696cff !important;
+    }
+
+    .irs--sharp .irs-handle > i:first-child {
+        border-top-color: #696cff !important;
+    }
+
+    .irs--sharp .irs-from:before, .irs--sharp .irs-to:before, .irs--sharp .irs-single:before {
+        border-top-color: #696cff !important;
+    }
+
+    .irs--sharp .irs-handle {
+        background-color: #696cff !important;
+    }
+
+    .irs--sharp .irs-min, .irs--sharp .irs-max {
+        background-color: #696cff !important;
+    }
+
+    .nopadding {
+        padding: 0px !important;
+    }
+
+    .car-wrap .text {
+        border-top: none;
+        padding: 10px 10px 10px;
+    }
+</style>
+<section class="ftco-section ftco-no-pt bg-light mt-5">
+    <div class="container">
+        <div class="row mt-3 mb-5">
+            <div class="col-md-12 nopadding  justify-content-center">
+                <form method="post" action="/Kurumsal/Liste">
+
+
+                    <div class="dropdown" style="min-width:220px!important">
+                        @if (Model.arama != "")
+                        {<input class="form-control" placeholder="Başlık, marka veya model ara" id="Ara" name="Ara" value="@Model.arama" />}
+                        @if (Model.arama == "")
+                        {<input class="form-control" placeholder="Başlık, marka veya model ara" id="Ara" name="Ara" />}
+                    </div>
+                   
+                    <div class="dropdown">
+                        <button type="submit" class="btn btn-primary" title="Ara"><i class="fa fa-filter"></i></button>
+                    </div>
+                </form>
+            </div>
+
+
+
+        </div>
+        <div class="row item-cars">
+            @if (Model.Kurumsal.Count == 0)
+            {
+                <div class="col-md-12 mt-2 justify-content-center ">
+                    <h1 style="text-align:center!important">Aradığınız kriterlere uygun kurumsal firma bulunamadı</h1>
+                    <div class=" row justify-content-center"><img src="~/Dosyalar/Public/not-found.png" class="img-responsive" style="width:70%;height:auto;" /></div>
+
+                </div>
+            }
+            @foreach (var item in Model.Kurumsal)
+            {
+                <div class="col-md-3 mt-2">
+                    <div class="item">
+                        <div class="car-wrap rounded ">
+                            <div class="img rounded d-flex align-items-end" style="background-image:url(/Dosyalar/Public/@item.LogoUrl);">
+                            </div>
+                            <div class="text">
+                                <h2 class="mb-0" id="baslik"><a href="Detay/@item.ID">@item.Ad</a></h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+</section>
+

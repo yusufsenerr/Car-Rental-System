@@ -1,0 +1,270 @@
+﻿
+@{
+    ViewBag.Title = "Kayıt Ol";
+    Layout = "~/Views/Shared/_PanelLayout.cshtml";
+}
+
+<div class="container pt-5" style="background-color: #ecf0f1">
+    <!-- Outer Row -->
+    <div class="row justify-content-center">
+        <div class="col-xl-112 col-lg-12 col-md-12">
+            <div class="card o-hidden border-0 shadow-lg my-5">
+                <div class="card-body p-0">
+                    <!-- Nested Row within Card Body -->
+                    <div class="row">
+                        <div class="col-lg-6 pt-5" style="padding-left:30px!important">
+                            <img src="~/Dosyalar/Public/bsp9.jpg" style="width:100%;height:auto;" />
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="p-5">
+                                <div class="text-center">
+                                    <h1 class="h4 text-gray-900 mb-4">ÜYE OL</h1>
+                                </div>
+                                <form class="user" id="myForm" name="myForm" action="/Home/KayıtMethod" method="post">
+                                    <div class="mb-5 text-center">
+                                        <span style="display:none; visibility:hidden ;color:Red !important" id="Login1_FailureText">E-Posta sistemde kayıtlı</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" required class="form-control form-control-user"
+                                               id="ad" aria-describedby="ad" name="ad"
+                                               placeholder="Adınız">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" required class="form-control form-control-user"
+                                               id="soyad" aria-describedby="soyad" name="soyad"
+                                               placeholder="Soyadınız">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="tel" onkeypress="return event.charCode >= 48 && event.charCode <= 57" required maxlength="11" max="11" class="form-control form-control-user"
+                                               id="telefon" aria-describedby="telefon" name="telefon"
+                                               placeholder="Telefon Numarası">
+                                        <input type="text" id="telefon" class="form-control" style="display: none;">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="email" required class="form-control form-control-user"
+                                               id="eposta" aria-describedby="eposta" name="eposta"
+                                               placeholder="E-Posta Adresiniz">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" required class="form-control form-control-user"
+                                               id="sifre" placeholder="Şifre" name="sifre">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" required class="form-control form-control-user"
+                                               id="sifre2" placeholder="Şifre (Tekrar)" name="sifre2">
+                                    </div>
+                                    <button type="button" onclick="KayitMethod()" class="btn btn-primary btn-user btn-block">
+                                        ÜYE OL
+                                    </button>
+                                </form>
+                                <hr>
+                                <div class="text-center">
+                                    <a class="small" href="/Home/Giris">Giriş Yap</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+
+    function KayitMethod() {
+        var ad = document.getElementById('ad').value;
+        var soyad = document.getElementById('soyad').value;
+        var telefon = document.getElementById('telefon').value;
+        var eposta = document.getElementById('eposta').value;
+        var sifre = document.getElementById('sifre').value;
+        var sifre2 = document.getElementById('sifre2').value;
+
+        if (ad == "") {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'swal2-confirm',
+                    cancelButton: false
+                },
+                buttonsStyling: true
+            })
+            swalWithBootstrapButtons.fire({
+                text: "Adınız boş girilemez",
+                icon: 'warning',
+                showCancelButton: false,
+            }).then((result) => {
+                if (result.value) {
+                    result.dismiss === Swal.DismissReason.cancel
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                }
+            })
+        }
+        else if (soyad == "") {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'swal2-confirm',
+                },
+                buttonsStyling: true
+            })
+            swalWithBootstrapButtons.fire({
+                text: "Soyadınız boş girilemez",
+                icon: 'warning',
+                showCancelButton: false,
+            }).then((result) => {
+                if (result.value) {
+                    result.dismiss === Swal.DismissReason.cancel
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                }
+            })
+        }
+        else if (telefon == "") {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'swal2-confirm',
+                    cancelButton: 'swal2-cancel'
+                },
+                buttonsStyling: true
+            })
+            swalWithBootstrapButtons.fire({
+                text: "Telefonunuz boş girilemez",
+                icon: 'warning',
+                showCancelButton: false,
+            }).then((result) => {
+                if (result.value) {
+                    result.dismiss === Swal.DismissReason.cancel
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                }
+            })
+        }
+        else if (eposta == "") {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'swal2-confirm',
+                    cancelButton: 'swal2-cancel'
+                },
+                buttonsStyling: true
+            })
+            swalWithBootstrapButtons.fire({
+                text: "E-posta adresiniz boş girilemez",
+                icon: 'warning',
+                showCancelButton: false,
+            }).then((result) => {
+                if (result.value) {
+                    result.dismiss === Swal.DismissReason.cancel
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                }
+            })
+        }
+
+
+
+
+        else if (sifre == "" || sifre2 == "") {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'swal2-confirm',
+                    cancelButton: 'swal2-cancel'
+                },
+                buttonsStyling: true
+            })
+            swalWithBootstrapButtons.fire({
+                text: "Şifre boş girilemez",
+                icon: 'warning',
+                showCancelButton: false,
+            }).then((result) => {
+                if (result.value) {
+                    result.dismiss === Swal.DismissReason.cancel
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                }
+            })
+        }
+        else if (sifre != sifre2) {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'swal2-confirm',
+                    cancelButton: 'swal2-cancel'
+                },
+                buttonsStyling: true
+            })
+            swalWithBootstrapButtons.fire({
+                text: "Şifreler aynı değil",
+                icon: 'warning',
+                showCancelButton: false,
+            }).then((result) => {
+                if (result.value) {
+                    result.dismiss === Swal.DismissReason.cancel
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                }
+            })
+        }
+        else if (sifre.length < 8 || sifre.length > 30) {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'swal2-confirm',
+                    cancelButton: 'swal2-cancel'
+                },
+                buttonsStyling: true
+            })
+            swalWithBootstrapButtons.fire({
+                text: "Şifre en az 8, en fazla 30 karakter olmalıdır",
+                icon: 'warning',
+                showCancelButton: false,
+            }).then((result) => {
+                if (result.value) {
+                    result.dismiss === Swal.DismissReason.cancel
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                }
+            })
+        }
+
+        else if (sifre.search(/[A-Z]/) < 0 && sifre.search(/[a-z]/) < 0) {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'swal2-confirm',
+                    cancelButton: 'swal2-cancel'
+                },
+                buttonsStyling: true
+            })
+            swalWithBootstrapButtons.fire({
+                text: "",
+                icon: 'warning',
+                showCancelButton: false,
+            }).then((result) => {
+                if (result.value) {
+                    result.dismiss === Swal.DismissReason.cancel
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                }
+            })
+        }
+        else {
+            $("#myForm").submit();
+        }
+    }
+
+
+</script>

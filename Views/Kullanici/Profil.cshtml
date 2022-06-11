@@ -1,0 +1,426 @@
+﻿    @model AracKiralamaOtomasyonu.Models.Kullanici
+@{
+    ViewBag.Title = "Profil";
+    Layout = "~/Views/Shared/_PanelLayout.cshtml";
+}
+<div class="content-wrapper">
+    <!-- Content -->
+
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="card mb-4">
+                    <h5 class="card-header">Profil</h5>
+                    <!-- Account -->
+                    <div class="card-body">
+                        <div class="d-flex align-items-start align-items-sm-center gap-4">
+                            @if (Model.ProfilFotoUrl == null)
+                            {
+                                <img src="~/Dosyalar/Profil/default-profile.jpg"
+                                     class="d-block rounded"
+                                     height="100"
+                                     width="100"
+                                     id="uploadedAvatar" />
+                            }
+                            @if (Model.ProfilFotoUrl != null)
+                            {
+                                <img src="~/Dosyalar/Profil/@Model.ProfilFotoUrl"
+                                     class="d-block rounded"
+                                     height="100"
+                                     width="100"
+                                     id="uploadedAvatar" />
+                            }
+                            <div class="button-wrapper">
+
+                                <button type="button"
+                                        class="btn btn-primary"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#basicModal">
+                                    Fotoğraf Yükle
+                                </button>
+
+                                <i class="bx bx-upload"></i>
+
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="my-0" />
+                    <div class="card-body">
+                        <form id="formAccountSettings" name="formAccountSettings" method="post" action="/Admin/ProfilGuncelle">
+                            <div class="row">
+
+                                <input class="form-control"
+                                       type="text"
+                                       id="IDKullanici"
+                                       name="IDKullanici"
+                                       value="@Model.IDKullanici"
+                                       hidden />
+                                <div class="mb-3 col-md-6">
+                                    <label for="firstName" class="form-label">Ad</label>
+                                    <input class="form-control"
+                                           type="text"
+                                           id="Ad"
+                                           name="Ad"
+                                           value="@Model.Ad"
+                                           autofocus />
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="lastName" class="form-label">Soyad</label>
+                                    <input class="form-control" type="text" name="Soyad" id="Soyad" value="@Model.Soyad" />
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="email" class="form-label">E-posta</label>
+                                    <input class="form-control"
+                                           type="text"
+                                           id="Eposta"
+                                           name="Eposta"
+                                           value="@Model.Eposta"
+                                           placeholder="john.doe@example.com" />
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="organization" class="form-label">Doğum Tarihi</label>
+                                    <input type="date"
+                                           class="form-control"
+                                           id="DogumTarihi"
+                                           name="DogumTarihi"
+                                           value="@Model.DogumTarihi.ToString("yyyy-MM-dd")" />
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label class="form-label" for="phoneNumber">Telefon Numarası</label>
+                                    <div class="input-group input-group-merge">
+                                        <span class="input-group-text">TR (+90)</span>
+                                        <input type="tel"
+                                               id="Telefon"
+                                               name="Telefon"
+                                               class="form-control"
+                                               value="@Model.Telefon"
+                                               placeholder="202 555 0111" />
+                                    </div>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="address" class="form-label">Adres</label>
+                                    <input type="text" class="form-control" id="Adres" value="@Model.Adres" name="Adres" placeholder="Adres" />
+                                </div>
+                            </div>
+                            <div class="mt-2">
+                                <button type="button" onclick="KayitMethod()" id="kaydet" class="btn btn-primary btn-user btn-block">
+                                    Kaydet
+                                </button>
+                                <button type="reset" class="btn btn-outline-secondary" onclick="javascript: history.go(-1)">Vazgeç</button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /Account -->
+                </div>
+                <div class="card">
+                    <h5 class="card-header">Hesabı Sil</h5>
+                    <div class="card-body">
+                        <div class="mb-3 col-12 mb-0">
+                            <div class="alert alert-warning">
+                                <h6 class="alert-heading fw-bold mb-1">Hesabınızı silmek istediğinize emin misiniz?</h6>
+                                <p class="mb-0">Hesabınızı sildikten sonra geri dönüşü yoktur. Lütfen emin olun</p>
+                            </div>
+                        </div>
+                        <form id="formAccountDeactivation" onsubmit="return false">
+                            <div class="form-check mb-3">
+                                <input class="form-check-input"
+                                       type="checkbox"
+                                       name="accountActivation"
+                                       id="accountActivation" />
+                                <label class="form-check-label" for="accountActivation">Hesabımın silinmesini onaylıyorum</label>
+                            </div>
+                            <button type="button" onclick="HespaSil()" class="btn btn-danger deactivate-account">Hesabı Sil</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="content-backdrop fade"></div>
+
+</div>
+
+
+<div class="modal fade" id="basicModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action="/Kullanici/ProfilFotoYukle" method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel1">Profil Fotoğrafını Yükle</h5>
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col mb-3">
+                            <input hidden name="ID" id="ID" value="@Model.IDKullanici" />
+                            @Html.EJS().Uploader("UploadFiles").Selected("uploadFile").AsyncSettings(new Syncfusion.EJ2.Inputs.UploaderAsyncSettings { SaveUrl = @Url.Content("~/Kullanici/ProfilFotoYukle") }).Render()
+
+                            <style>
+                                .e-upload .e-upload-files .e-upload-file-list .e-file-container .e-file-status.e-upload-fails{
+                                    visibility:hidden
+                                }
+                                .e-upload .e-upload-files .e-upload-file-list .e-file-container .e-file-status.e-upload-fails
+                                {
+                                    color:greenyellow
+                                }
+                            </style>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" id="kaydetbtn" style="visibility:hidden" class="btn btn-success" >
+                        Kaydet
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                        Vazgeç
+                    </button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    function KayitMethod() {
+        var ad = document.getElementById('Ad').value;
+        var soyad = document.getElementById('Soyad').value;
+        var eposta = document.getElementById('Eposta').value;
+        var DogumTarihi = document.getElementById('DogumTarihi').value;
+        var Adres = document.getElementById('Adres').value;
+        var telefon = document.getElementById('Telefon').value;
+
+        //Ad boş girildiyse alert açılmasını sağlıyor
+        if (ad == "") {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'swal2-confirm',
+                    cancelButton: 'swal2-cancel'
+                },
+                buttonsStyling: true
+            })
+            swalWithBootstrapButtons.fire({
+                text: "Adınızı lütfen yazınız",
+                icon: 'warning',
+                showCancelButton: false,
+            }).then((result) => {
+                if (result.value) {
+                    result.dismiss === Swal.DismissReason.cancel
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                }
+            })
+        }
+                //SoyAd boş girildiyse alert açılmasını sağlıyor
+        else if (soyad == "") {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'swal2-confirm',
+                    cancelButton: 'swal2-cancel'
+                },
+                buttonsStyling: true
+            })
+            swalWithBootstrapButtons.fire({
+                text: "Soyadınızı lütfen yazınız",
+                icon: 'warning',
+                showCancelButton: false,
+            }).then((result) => {
+                if (result.value) {
+                    result.dismiss === Swal.DismissReason.cancel
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                }
+            })
+        }
+                    //E-posta boş girildiyse alert açılmasını sağlıyor
+        else if (eposta == "") {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'swal2-confirm',
+                    cancelButton: 'swal2-cancel'
+                },
+                buttonsStyling: true
+            })
+            swalWithBootstrapButtons.fire({
+                text: "E-postanızı lütfen yazınız",
+                icon: 'warning',
+                showCancelButton: false,
+            }).then((result) => {
+                if (result.value) {
+                    result.dismiss === Swal.DismissReason.cancel
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                }
+            })
+        }
+                    //E-posta boş değilse sistemde kayıtlı olan bir e-posta girildi mi diye kontrol ediyorum
+        else if (eposta != "") {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("EpostaKontrol", "Admin")',
+                data: { 'eposta': eposta, 'id':@Model.IDKullanici },
+                success: function (data) {
+                    if (data.success) {
+                        Save();
+                    }
+                    else {
+                        const swalWithBootstrapButtons = Swal.mixin({
+                            customClass: {
+                                confirmButton: 'swal2-confirm',
+                                cancelButton: 'swal2-cancel'
+                            },
+                            buttonsStyling: true
+                        })
+                        swalWithBootstrapButtons.fire({
+                            text: "E-posta Sistemde Kayıtlı",
+                            icon: 'warning',
+                            showCancelButton: true,
+                        })
+                    }
+                }
+
+            });
+        }
+            //Doğum tarihi boş girildiyse alert açılmasını sağlıyor
+        else if (DogumTarihi == "") {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'swal2-confirm',
+                    cancelButton: 'swal2-cancel'
+                },
+                buttonsStyling: true
+            })
+            swalWithBootstrapButtons.fire({
+                text: "Doğum tarihinizi lütfen yazınız",
+                icon: 'warning',
+                showCancelButton: false,
+            }).then((result) => {
+                if (result.value) {
+                    result.dismiss === Swal.DismissReason.cancel
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                }
+            })
+        }
+            //Adres boş girildiyse alert açılmasını sağlıyor
+        else if (Adres == "") {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'swal2-confirm',
+                    cancelButton: 'swal2-cancel'
+                },
+                buttonsStyling: true
+            })
+            swalWithBootstrapButtons.fire({
+                text: "Adresinizi lütfen yazınız",
+                icon: 'warning',
+                showCancelButton: false,
+            }).then((result) => {
+                if (result.value) {
+                    result.dismiss === Swal.DismissReason.cancel
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                }
+            })
+        }
+            //Telefon boş girildiyse alert açılmasını sağlıyor
+        else if (telefon == "") {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'swal2-confirm',
+                    cancelButton: 'swal2-cancel'
+                },
+                buttonsStyling: true
+            })
+            swalWithBootstrapButtons.fire({
+                text: "Telefon numaranızı lütfen yazınız",
+                icon: 'warning',
+                showCancelButton: false,
+            }).then((result) => {
+                if (result.value) {
+                    result.dismiss === Swal.DismissReason.cancel
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                }
+            })
+        }
+            //Formu submit ediyor
+        else {
+            $("#formAccountSettings").submit();
+        }
+    }
+
+
+    function HespaSil() {
+
+        var kontrol = document.getElementById('accountActivation').checked;
+                //Hesabımı silmeyi onaylıyorum checkbox'ını kontrol ediyorum
+        if (kontrol == false) {
+            //Eğer işaretlemedi ise onay kutusunu işaretlemediniz şeklinde alert açılıyor
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'swal2-confirm',
+                    cancelButton: 'swal2-cancel'
+                },
+                buttonsStyling: true
+            })
+            swalWithBootstrapButtons.fire({
+                text: "Hesabımın silinmesini onaylıyorum kutusunu işaretlemediniz",
+                icon: 'warning',
+                showCancelButton: false,
+            }).then((result) => {
+                if (result.value) {
+                    result.dismiss === Swal.DismissReason.cancel
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                }
+            })
+
+        }
+        else {
+            //Eğer onay kutusunu işaretlerse hesabi silme metoduna yönlendiriyorum
+                        $.ajax({
+                type: "POST",
+                url: '@Url.Action("HesapSil", "Admin")',
+                data: { 'id':@Model.IDKullanici },
+                success: function (data) {
+                    if (data.success) {
+                        window.onload('/Home/Login')
+                    }
+                }
+
+            });
+
+        }
+    }
+</script>
+<script>
+
+    function uploadFile(args) {
+
+        document.getElementById('kaydetbtn').style.visibility = 'visible';
+    }
+    
+    
+</script>

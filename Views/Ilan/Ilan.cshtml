@@ -1,0 +1,533 @@
+﻿@model AracKiralamaOtomasyonu.Models.Class.IlanViewModel
+@{
+    ViewBag.Title = "Ilan";
+    Layout = "~/Views/Shared/_PanelLayout.cshtml";
+}
+
+<!-- bootstrap.min css -->
+<!-- Animate css -->
+<link rel="stylesheet" href="~/Content/ilanDetay/animate.css">
+<!-- Slick Carousel -->
+<link rel="stylesheet" href="~/Content/ilanDetay/slick-theme.css">
+<link rel="stylesheet" href="~/Content/ilanDetay/slick.css">
+<link rel="stylesheet" href="~/Content/ilanDetay/style.css" />
+<link href="~/Content/ilanDetay/bootstrap.min.css" rel="stylesheet" />
+
+<!-- Main Stylesheet -->
+<section class=" ftco-car-details">
+    <div class="container">
+        <div class="row">
+            <div class="subheading">
+                <h2>@Model.Ilanlars.Baslik</h2>
+                <hr />
+            </div>
+            <div class="col-md-6">
+                <div class="car-details">
+                    <div class="single-product-slider">
+                        <div id='carousel-custom' class='carousel slide' data-ride='carousel'>
+                            <div class='carousel-outer'>
+                                <!-- me art lab slider -->
+                                @if (Model.Dosyalar.Url != null)
+                                {
+                                    <div class='carousel-inner '>
+                                        <div class='item active'>
+                                            <img src='~/Dosyalar/Public/@Model.Dosyalar.Url' alt='' data-zoom-image="~/Dosyalar/Public/@Model.Dosyalar.Url" />
+                                        </div>
+                                        @foreach (var item in Model.Dosyalars)
+                                        {
+                                            <div class='item'>
+                                                <img src='~/Dosyalar/Public/@item.Url' alt='' data-zoom-image="~/Dosyalar/Public/@item.Url" />
+                                            </div>
+                                        }
+
+
+                                    </div>
+                                }
+
+
+                                <!-- sag sol -->
+                                <a class='left carousel-control' href='#carousel-custom' data-slide='prev'>
+                                    <i class="fa fa-arrow-left" style="color:black!important"></i>
+                                </a>
+                                <a class='right carousel-control' href='#carousel-custom' data-slide='next'>
+                                    <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </div>
+
+                            <!-- thumb -->
+                            <ol class='carousel-indicators mCustomScrollbar meartlab'>
+                                <li data-target='#carousel-custom' data-slide-to='0' class='active'>
+                                    <img src='~/Dosyalar/Public/@Model.Dosyalar.Url ' alt='' />
+                                </li>
+                                @foreach (var item in Model.Dosyalars)
+                                {
+                                    <li data-target='#carousel-custom' data-slide-to='1'>
+                                        <img src='~/Dosyalar/Public/@item.Url' alt='' />
+                                    </li>
+                                }
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-5">
+                <div class="text">
+                    <span style="color:dodgerblue; font-size:18px!important">@Model.Ilanlars.Fiyat ₺</span>                <div class=" float-end">
+    @if (Model.Ilanlars.Durum != "4" || Model.Ilanlars.IDMusteri != Convert.ToInt16(Session["KullaniciId"]))
+    {
+        if (Session["KullaniciId"] == null)
+        {
+            <a href="/Home/Giris"
+               class="btn btn-primary">
+                Aracı Kirala
+            </a>
+        }
+        if (Session["KullaniciId"] != null)
+        {
+            <button type="button"
+                    class="btn btn-primary"
+                    data-bs-toggle="modal"
+                    data-bs-target="#basicModal">
+                Aracı Kirala
+            </button>
+        }
+
+    }
+
+</div>
+                </div>
+                <table class="table table-bordered mt-4">
+
+                    <tr>
+                        <td>İlan Tarihi</td>
+                        <td>@Model.Ilanlars.IlanTarihi.ToString("yyyy-MM-dd")</td>
+                    </tr>
+                    <tr>
+                        <td>Marka</td>
+                        <td>@Model.Ilanlars.AracMarka.Ad</td>
+                    </tr>
+                    <tr>
+                        <td>Model</td>
+                        <td>@Model.Ilanlars.AracModel.ModelAd</td>
+                    </tr>
+                    <tr>
+                        <td>Yıl</td>
+                        <td>@Model.Ilanlars.Yil.ToString("yyyy-MM-dd")</td>
+                    </tr>
+                    <tr>
+                        <td>Yakıt</td>
+                        <td>@Model.Ilanlars.Yakit</td>
+                    </tr>
+                    <tr>
+                        <td>Vites</td>
+                        <td>@Model.Ilanlars.Vites</td>
+                    </tr>
+                    <tr>
+                        <td>KM</td>
+                        <td>@Model.Ilanlars.Kilometre</td>
+                    </tr>
+                    <tr>
+                        <td>Çekiş</td>
+                        <td>@Model.Ilanlars.Cekis</td>
+                    </tr>
+                    <tr>
+                        <td>Kasa Tipi</td>
+                        <td>@Model.Ilanlars.Kasa</td>
+                    </tr>
+                    <tr>
+                        <td>Motor Gücü</td>
+                        <td>@Model.Ilanlars.MotorGucu</td>
+                    </tr>
+                    <tr>
+                        <td>Motor Hacmi</td>
+                        <td>@Model.Ilanlars.MotorHacmi cc</td>
+                    </tr>
+                    <tr>
+                        <td>Aracın Bulunduğu Adres</td>
+                        <td>@Model.Ilanlars.Kullanici.Adres</td>
+                    </tr>
+                </table>
+
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 pills">
+                <div class="bd-example bd-example-tabs">
+                    <div class="d-flex justify-content-center">
+                        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+
+                            <li class="nav-item mr-2">
+                                <a class="nav-link active" id="Güvenlik-tab" data-toggle="pill" href="#pills-Güvenlik" role="tab" style="background-color: #696cff!important; color:white!important" aria-controls="pills-description" aria-expanded="true">Araç Özellikleri</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="aciklama-tab" data-toggle="pill" href="#pills-aciklama" style="background-color: #696cff!important; color:white!important" role="tab" aria-controls="pills-aciklama" aria-expanded="true">Açıklama</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="tab-content" id="pills-tabContent" style="min-height:400px!important;">
+                        <div class="tab-pane fade in active" id="pills-Güvenlik" role="tabpanel" aria-labelledby="pills-description-tab">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h3>Güvenlik</h3>
+                                    <ul class="features">
+                                        @if (@Model.Ilanlars.AracGuvenlik.ABS == true)
+                                        {
+                                            <li class="check"><span class="ion-ios-checkmark"></span>ABS</li>
+                                        }
+                                        @if (@Model.Ilanlars.AracGuvenlik.ABS != true)
+                                        {
+                                            <li class="remove"><span class="ion-ios-close"></span>ABS</li>
+                                        }
+                                        @if (@Model.Ilanlars.AracGuvenlik.CocukKilidi == true)
+                                        {
+                                            <li class="check"><span class="ion-ios-checkmark"></span>Çocuk Kilidi</li>
+                                        }
+                                        @if (@Model.Ilanlars.AracGuvenlik.CocukKilidi != true)
+                                        {
+                                            <li class="remove"><span class="ion-ios-close"></span>Çocuk Kilidi</li>
+                                        }
+                                        @if (@Model.Ilanlars.AracGuvenlik.HavaYastigi == true)
+                                        {
+                                            <li class="check"><span class="ion-ios-checkmark"></span>Hava Yastiği</li>
+                                        }
+                                        @if (@Model.Ilanlars.AracGuvenlik.HavaYastigi != true)
+                                        {
+                                            <li class="remove"><span class="ion-ios-close"></span>Hava Yastiği</li>
+                                        }
+                                        @if (@Model.Ilanlars.AracGuvenlik.YokusDestegi == true)
+                                        {
+                                            <li class="check"><span class="ion-ios-checkmark"></span>Yokuş Desteği</li>
+                                        }
+                                        @if (@Model.Ilanlars.AracGuvenlik.YokusDestegi != true)
+                                        {
+                                            <li class="remove"><span class="ion-ios-close"></span>Yokuş Desteği</li>
+                                        }
+
+                                        @if (@Model.Ilanlars.AracGuvenlik.LastikAriza == true)
+                                        {
+                                            <li class="check"><span class="ion-ios-checkmark"></span>Lastik Ariza</li>
+                                        }
+                                        @if (@Model.Ilanlars.AracGuvenlik.LastikAriza != true)
+                                        {
+                                            <li class="remove"><span class="ion-ios-close"></span>Lastik Ariza</li>
+                                        }
+
+                                        @if (@Model.Ilanlars.AracGuvenlik.MerkeziKilit == true)
+                                        {
+                                            <li class="check"><span class="ion-ios-checkmark"></span>Merkezi Kilit</li>
+                                        }
+                                        @if (@Model.Ilanlars.AracGuvenlik.MerkeziKilit != true)
+                                        {
+                                            <li class="remove"><span class="ion-ios-close"></span>Merkez iKilit</li>
+                                        }
+
+                                    </ul>
+                                </div>
+                                <div class="col-md-3">
+                                    <h3>İç Donanım</h3>
+                                    <ul class="features">
+                                        @if (@Model.Ilanlars.AracIcDonanim.DeriKoltuk == true)
+                                        {
+                                            <li class="check"><span class="ion-ios-checkmark"></span>Deri Koltuk</li>
+                                        }
+                                        @if (@Model.Ilanlars.AracIcDonanim.DeriKoltuk != true)
+                                        {
+                                            <li class="remove"><span class="ion-ios-close"></span>Deri Koltuk</li>
+                                        }
+                                        @if (@Model.Ilanlars.AracIcDonanim.GeriGorusKamera == true)
+                                        {
+                                            <li class="check"><span class="ion-ios-checkmark"></span>Geri Görüş Kamerası</li>
+                                        }
+                                        @if (@Model.Ilanlars.AracIcDonanim.GeriGorusKamera != true)
+                                        {
+                                            <li class="remove"><span class="ion-ios-close"></span>Geri Görüş Kamerası</li>
+                                        }
+                                        @if (@Model.Ilanlars.AracIcDonanim.HidrolikDireksiyon == true)
+                                        {
+                                            <li class="check"><span class="ion-ios-checkmark"></span>Hidrolik Direksiyon</li>
+                                        }
+                                        @if (@Model.Ilanlars.AracIcDonanim.HidrolikDireksiyon != true)
+                                        {
+                                            <li class="remove"><span class="ion-ios-close"></span>Hidrolik Direksiyon</li>
+                                        }
+                                        @if (@Model.Ilanlars.AracIcDonanim.HizSabitleyici == true)
+                                        {
+                                            <li class="check"><span class="ion-ios-checkmark"></span>Hız Sabitleyici</li>
+                                        }
+                                        @if (@Model.Ilanlars.AracIcDonanim.HizSabitleyici != true)
+                                        {
+                                            <li class="remove"><span class="ion-ios-close"></span>Hız Sabitleyici</li>
+                                        }
+
+                                        @if (@Model.Ilanlars.AracIcDonanim.Klima == true)
+                                        {
+                                            <li class="check"><span class="ion-ios-checkmark"></span>Klima</li>
+                                        }
+                                        @if (@Model.Ilanlars.AracIcDonanim.Klima != true)
+                                        {
+                                            <li class="remove"><span class="ion-ios-close"></span>Klima</li>
+                                        }
+
+                                        @if (@Model.Ilanlars.AracIcDonanim.KumasKoltuk == true)
+                                        {
+                                            <li class="check"><span class="ion-ios-checkmark"></span>Kumaş Koltuk</li>
+                                        }
+                                        @if (@Model.Ilanlars.AracIcDonanim.KumasKoltuk != true)
+                                        {
+                                            <li class="remove"><span class="ion-ios-close"></span>Kumaş Koltuk</li>
+                                        }
+                                        @if (@Model.Ilanlars.AracIcDonanim.SogutmaliKoltuk == true)
+                                        {
+                                            <li class="check"><span class="ion-ios-checkmark"></span>Soğutmalı Koltuk</li>
+                                        }
+                                        @if (@Model.Ilanlars.AracIcDonanim.SogutmaliKoltuk != true)
+                                        {
+                                            <li class="remove"><span class="ion-ios-close"></span>Soğutmalı Koltuk</li>
+                                        }
+
+                                        @if (@Model.Ilanlars.AracIcDonanim.YolBilgisayarı == true)
+                                        {
+                                            <li class="check"><span class="ion-ios-checkmark"></span>Yol Bilgisayarı</li>
+                                        }
+                                        @if (@Model.Ilanlars.AracIcDonanim.YolBilgisayarı != true)
+                                        {
+                                            <li class="remove"><span class="ion-ios-close"></span>Yol Bilgisayarı</li>
+                                        }
+
+                                    </ul>
+                                </div>
+                                <div class="col-md-3">
+                                    <h3>Dış Donanım</h3>
+                                    <ul class="features">
+                                        @if (@Model.Ilanlars.AracDisDonanim.ElektrikliAyna == true)
+                                        {
+                                            <li class="check"><span class="ion-ios-checkmark"></span>Elektrikli Ayna</li>
+                                        }
+                                        @if (@Model.Ilanlars.AracDisDonanim.ElektrikliAyna != true)
+                                        {
+                                            <li class="remove"><span class="ion-ios-close"></span>Elektrikli Ayna</li>
+                                        }
+                                        @if (@Model.Ilanlars.AracDisDonanim.FarLed == true)
+                                        {
+                                            <li class="check"><span class="ion-ios-checkmark"></span>Led Far</li>
+                                        }
+                                        @if (@Model.Ilanlars.AracDisDonanim.FarLed != true)
+                                        {
+                                            <li class="remove"><span class="ion-ios-close"></span>Led Far</li>
+                                        }
+                                        @if (@Model.Ilanlars.AracDisDonanim.FarSis == true)
+                                        {
+                                            <li class="check"><span class="ion-ios-checkmark"></span>Sis Farı</li>
+                                        }
+                                        @if (@Model.Ilanlars.AracDisDonanim.FarSis != true)
+                                        {
+                                            <li class="remove"><span class="ion-ios-close"></span>Sis Farı</li>
+                                        }
+                                        @if (@Model.Ilanlars.AracDisDonanim.OtomatikKatlananAyna == true)
+                                        {
+                                            <li class="check"><span class="ion-ios-checkmark"></span>Otomatik Katlanan Ayna</li>
+                                        }
+                                        @if (@Model.Ilanlars.AracDisDonanim.OtomatikKatlananAyna != true)
+                                        {
+                                            <li class="remove"><span class="ion-ios-close"></span>Otomatik Katlanan Ayna</li>
+                                        }
+
+                                        @if (@Model.Ilanlars.AracDisDonanim.ParkAsistani == true)
+                                        {
+                                            <li class="check"><span class="ion-ios-checkmark"></span>Park Asistani</li>
+                                        }
+                                        @if (@Model.Ilanlars.AracDisDonanim.ParkAsistani != true)
+                                        {
+                                            <li class="remove"><span class="ion-ios-close"></span>Park Asistani</li>
+                                        }
+
+                                        @if (@Model.Ilanlars.AracDisDonanim.ParkSensoru == true)
+                                        {
+                                            <li class="check"><span class="ion-ios-checkmark"></span>Park Sensoru</li>
+                                        }
+                                        @if (@Model.Ilanlars.AracDisDonanim.ParkSensoru != true)
+                                        {
+                                            <li class="remove"><span class="ion-ios-close"></span>Park Sensoru</li>
+                                        }
+
+                                        @if (@Model.Ilanlars.AracDisDonanim.RomorkDemiri == true)
+                                        {
+                                            <li class="check"><span class="ion-ios-checkmark"></span>Römork Demiri</li>
+                                        }
+                                        @if (@Model.Ilanlars.AracDisDonanim.RomorkDemiri != true)
+                                        {
+                                            <li class="remove"><span class="ion-ios-close"></span>Römork Demiri</li>
+                                        }
+
+                                    </ul>
+                                </div>
+                                <div class="col-md-3">
+                                    <h3>Multimedya</h3>
+                                    <ul class="features">
+                                        @if (@Model.Ilanlars.AracMultiMedya.AUX == true)
+                                        {
+                                            <li class="check"><span class="ion-ios-checkmark"></span>AUX</li>
+                                        }
+                                        @if (@Model.Ilanlars.AracMultiMedya.AUX != true)
+                                        {
+                                            <li class="remove"><span class="ion-ios-close"></span>AUX</li>
+                                        }
+                                        @if (@Model.Ilanlars.AracMultiMedya.Bluetooth == true)
+                                        {
+                                            <li class="check"><span class="ion-ios-checkmark"></span>Bluetooth</li>
+                                        }
+                                        @if (@Model.Ilanlars.AracMultiMedya.Bluetooth != true)
+                                        {
+                                            <li class="remove"><span class="ion-ios-close"></span>Bluetooth</li>
+                                        }
+                                        @if (@Model.Ilanlars.AracMultiMedya.Navigasyon == true)
+                                        {
+                                            <li class="check"><span class="ion-ios-checkmark"></span>Navigasyon</li>
+                                        }
+                                        @if (@Model.Ilanlars.AracMultiMedya.Navigasyon != true)
+                                        {
+                                            <li class="remove"><span class="ion-ios-close"></span>Navigasyon</li>
+                                        }
+                                        @if (@Model.Ilanlars.AracMultiMedya.Radyo == true)
+                                        {
+                                            <li class="check"><span class="ion-ios-checkmark"></span>Radyo</li>
+                                        }
+                                        @if (@Model.Ilanlars.AracMultiMedya.Radyo != true)
+                                        {
+                                            <li class="remove"><span class="ion-ios-close"></span>Radyo</li>
+                                        }
+
+                                        @if (@Model.Ilanlars.AracMultiMedya.TV == true)
+                                        {
+                                            <li class="check"><span class="ion-ios-checkmark"></span>TV</li>
+                                        }
+                                        @if (@Model.Ilanlars.AracMultiMedya.TV != true)
+                                        {
+                                            <li class="remove"><span class="ion-ios-close"></span>TV</li>
+                                        }
+
+                                        @if (@Model.Ilanlars.AracMultiMedya.USB == true)
+                                        {
+                                            <li class="check"><span class="ion-ios-checkmark"></span>USB</li>
+                                        }
+                                        @if (@Model.Ilanlars.AracMultiMedya.USB != true)
+                                        {
+                                            <li class="remove"><span class="ion-ios-close"></span>USB</li>
+                                        }
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="pills-aciklama" role="tabpanel" aria-labelledby="pills-manufacturer-tab">
+                            <p>@Model.Ilanlars.Aciklama</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal " id="basicModal" >
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form action="/Rezervasyon/Ekle" method="post">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel1">Aracı Kirala</h5>
+
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="row">
+                            <input hidden name="IDSatici" id="IDSatici" value="@Model.Ilanlars.IDMusteri" />
+                            <input hidden name="IDIlan" id="IDIlan" value="@Model.Ilanlars.IDIlan" />
+                            <input hidden name="Fiyat" id="Fiyat" value="@Model.Ilanlars.Fiyat" />
+                            <div class="form-group">
+                                <label>Alış Tarihi</label>
+                                <input type="date" id="AlisTarih" name="AlisTarih" min="@DateTime.Now" max="@DateTime.Now" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label>Bitiş Tarihi</label>
+                                <input type="date" id="BitisTarih" name="BitisTarih" min="@DateTime.Now" max="@DateTime.Now" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" id="kaydetbtn" class="btn btn-primary">
+                            Kirala
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                            Vazgeç
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</section>
+<style>
+    .btn-primary {
+        background-color: #696cff !important;
+        color: white !important;
+    }
+</style>
+<script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+        crossorigin="anonymous"></script>
+<script>
+    $(function () {
+        var dtToday = new Date();
+
+        var month = dtToday.getMonth() + 2;
+        var month2 = dtToday.getMonth()+1;
+        var day = dtToday.getDate();
+        var year = dtToday.getFullYear();
+
+        if (month < 10)
+            month = '0' + month.toString();
+        if (day < 10)
+            day = '0' + day.toString();
+
+
+        if (month2 < 10)
+            month2 = '0' + month2.toString();
+
+
+        var maxDate = year + '-' + month + '-' + day;
+        $('#BitisTarih').attr('max', maxDate);
+
+        var minDate = year + '-' + month2 + '-' + day;
+        $('#BitisTarih').attr('min', minDate);
+
+        var maxDate = year + '-' + month + '-' + day;
+        $('#AlisTarih').attr('max', maxDate);
+
+        var minDate = year + '-' + month2 + '-' + day;
+        $('#AlisTarih').attr('min', minDate);
+    });
+</script>
+<style>
+    .nav-pills > li.active > a, .nav-pills > li.active > a:focus, .nav-pills > li.active > a:hover {
+        color: white !important;
+        background-color: #1089ff !important;
+    }
+    .nav-pills li a {
+        color: #1089ff !important;
+    }
+</style>
+
+
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery.bootstrap-touchspin.min.js"></script>
+<script src="~/Scripts/instafeed.min.js"></script>
+<!-- Instagram Feed Js -->
+<script src="~/Scripts/ekko-lightbox.min.js"></script>
+<!-- Count Down Js -->
+<script src="~/Scripts/jquery.syotimer.min.js"></script>
+
+<!-- slick Carousel -->
+<script src="~/Scripts/slick.min.js"></script>
+<script src="~/Scripts/slick-animation.min.js"></script>

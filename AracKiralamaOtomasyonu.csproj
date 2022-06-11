@@ -1,0 +1,700 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{877A1EA3-0C74-4E62-9CCB-FDB6D6A1CBAB}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AracKiralamaOtomasyonu</RootNamespace>
+    <AssemblyName>AracKiralamaOtomasyonu</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44371</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TypeScriptToolsVersion>4.3</TypeScriptToolsVersion>
+    <TypeScriptLib>dom,es2015</TypeScriptLib>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Syncfusion.EJ2, Version=18.4500.0.49, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syncfusion.EJ2.MVC5.18.4.0.49\lib\net45\Syncfusion.EJ2.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Licensing, Version=19.4460.0.55, Culture=neutral, PublicKeyToken=632609b4d040f6b4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syncfusion.Licensing.19.4.0.55\lib\net46\Syncfusion.Licensing.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\IlanController.cs" />
+    <Compile Include="Controllers\KullaniciController.cs" />
+    <Compile Include="Controllers\KurumsalController.cs" />
+    <Compile Include="Controllers\RezervasyonController.cs" />
+    <Compile Include="Filtre\GirisFiltre.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202205221713490_AracKiralama.cs" />
+    <Compile Include="Migrations\202205221713490_AracKiralama.Designer.cs">
+      <DependentUpon>202205221713490_AracKiralama.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Class\IlanViewModel.cs" />
+    <Compile Include="Models\Class\ImageResize.cs" />
+    <Compile Include="Models\Class\KurumsalViewModel.cs" />
+    <Compile Include="Models\Class\PanelViewModel.cs" />
+    <Compile Include="Models\Context\AracDisDonanim.cs" />
+    <Compile Include="Models\Context\AracGuvenlik.cs" />
+    <Compile Include="Models\Context\AracIcDonanim.cs" />
+    <Compile Include="Models\Context\AracKiralamaContext.cs" />
+    <Compile Include="Models\Context\AracMarka.cs" />
+    <Compile Include="Models\Context\AracMultiMedya.cs" />
+    <Compile Include="Models\Context\Dosyalar.cs" />
+    <Compile Include="Models\Context\EpostaDogrulama.cs" />
+    <Compile Include="Models\Context\Kurumsal.cs" />
+    <Compile Include="Models\Context\SifreSifirlama.cs" />
+    <Compile Include="Models\Context\Ilanlar.cs" />
+    <Compile Include="Models\Context\Kullanici.cs" />
+    <Compile Include="Models\Context\AracModel.cs" />
+    <Compile Include="Models\Context\Personel.cs" />
+    <Compile Include="Models\Context\Rezervasyon.cs" />
+    <Compile Include="Models\Map\AracDisDonanimMap.cs" />
+    <Compile Include="Models\Map\AracGuvenlikMap.cs" />
+    <Compile Include="Models\Map\AracIcDonanimMap.cs" />
+    <Compile Include="Models\Map\AracMarkaMap.cs" />
+    <Compile Include="Models\Map\AracModelMap.cs" />
+    <Compile Include="Models\Map\AracMultiMedyaMap.cs" />
+    <Compile Include="Models\Map\DosyaMap.cs" />
+    <Compile Include="Models\Map\EpostaDogrulamaMap.cs" />
+    <Compile Include="Models\Map\IlanlarMap.cs" />
+    <Compile Include="Models\Map\KullaniciMap.cs" />
+    <Compile Include="Models\Map\KurumsalMap.cs" />
+    <Compile Include="Models\Map\PersonelMap.cs" />
+    <Compile Include="Models\Map\RezervasyonMap.cs" />
+    <Compile Include="Models\Map\SifreSifirlamaMap.cs" />
+    <Compile Include="PasswordHash\HashingHelper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\ajax-loader.gif" />
+    <Content Include="Content\animate.css" />
+    <Content Include="Content\aos.css" />
+    <Content Include="Content\apex-charts.css" />
+    <Content Include="Content\bootstrap-datepicker.css" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\bootstrap\bootstrap-grid.css" />
+    <Content Include="Content\bootstrap\bootstrap-reboot.css" />
+    <Content Include="Content\boxicons.css" />
+    <Content Include="Content\core.css" />
+    <Content Include="Content\css\bootstrap-reboot.css" />
+    <Content Include="Content\css\mixins\_text-hide.css" />
+    <Content Include="Content\ej2\bootstrap-dark.css" />
+    <Content Include="Content\ej2\bootstrap.css" />
+    <Content Include="Content\ej2\bootstrap4.css" />
+    <Content Include="Content\ej2\compatibility\bootstrap.css" />
+    <Content Include="Content\ej2\compatibility\bootstrap4.css" />
+    <Content Include="Content\ej2\compatibility\fabric.css" />
+    <Content Include="Content\ej2\compatibility\highcontrast.css" />
+    <Content Include="Content\ej2\compatibility\material.css" />
+    <Content Include="Content\ej2\fabric-dark.css" />
+    <Content Include="Content\ej2\fabric.css" />
+    <Content Include="Content\ej2\highcontrast.css" />
+    <Content Include="Content\ej2\material-dark.css" />
+    <Content Include="Content\ej2\material.css" />
+    <Content Include="Content\flaticon.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\fonts\boxicons.css" />
+    <Content Include="Content\icomoon.css" />
+    <Content Include="Content\ilanDetay\animate.css" />
+    <Content Include="Content\ilanDetay\bootstrap.min.css" />
+    <Content Include="Content\ilanDetay\slick-theme.css" />
+    <Content Include="Content\ilanDetay\slick.css" />
+    <Content Include="Content\ilanDetay\style.css" />
+    <Content Include="Content\ionicons.min.css" />
+    <Content Include="Content\jquery.timepicker.css" />
+    <Content Include="Content\magnific-popup.css" />
+    <Content Include="Content\open-iconic-bootstrap.min.css" />
+    <Content Include="Content\owl.carousel.min.css" />
+    <Content Include="Content\owl.theme.default.min.css" />
+    <Content Include="Content\perfect-scrollbar.css" />
+    <Content Include="Content\style.css" />
+    <Content Include="Content\theme-default.css" />
+    <Content Include="Dosyalar\Profil\default-profile.jpg" />
+    <Content Include="Dosyalar\Public\bsp9.jpg" />
+    <Content Include="Dosyalar\Public\arac.jpeg" />
+    <Content Include="Dosyalar\Public\arac2.jpg" />
+    <Content Include="Dosyalar\Public\not-found.png" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\flaticon\backup.txt" />
+    <Content Include="fonts\flaticon\font\flaticon.css" />
+    <Content Include="fonts\flaticon\font\flaticon.html" />
+    <Content Include="fonts\flaticon\font\Flaticon.svg" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="fonts\icomoon\icomoon.svg" />
+    <Content Include="fonts\ionicons\css\ionicons.min.css" />
+    <Content Include="fonts\ionicons\fonts\ionicons.svg" />
+    <Content Include="fonts\open-iconic\open-iconic.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="images\about.jpg" />
+    <Content Include="images\bg_1.jpg" />
+    <Content Include="images\bg_2.jpg" />
+    <Content Include="images\bg_3.jpg" />
+    <Content Include="images\car-1.jpg" />
+    <Content Include="images\car-10.jpg" />
+    <Content Include="images\car-11.jpg" />
+    <Content Include="images\car-12.jpg" />
+    <Content Include="images\car-2.jpg" />
+    <Content Include="images\car-3.jpg" />
+    <Content Include="images\car-4.jpg" />
+    <Content Include="images\car-5.jpg" />
+    <Content Include="images\car-6.jpg" />
+    <Content Include="images\car-7.jpg" />
+    <Content Include="images\car-8.jpg" />
+    <Content Include="images\car-9.jpg" />
+    <Content Include="images\image_1.jpg" />
+    <Content Include="images\image_2.jpg" />
+    <Content Include="images\image_3.jpg" />
+    <Content Include="images\image_4.jpg" />
+    <Content Include="images\image_5.jpg" />
+    <Content Include="images\image_6.jpg" />
+    <Content Include="images\loc.png" />
+    <Content Include="images\panel\car-rent.png" />
+    <Content Include="images\panel\car-rental.png" />
+    <Content Include="images\panel\man.png" />
+    <Content Include="images\person_1.jpg" />
+    <Content Include="images\person_2.jpg" />
+    <Content Include="images\person_3.jpg" />
+    <Content Include="images\person_4.jpg" />
+    <Content Include="PanelTemplate\assets\css\demo.css" />
+    <Content Include="PanelTemplate\assets\img\avatars\1.png" />
+    <Content Include="PanelTemplate\assets\img\avatars\5.png" />
+    <Content Include="PanelTemplate\assets\img\avatars\6.png" />
+    <Content Include="PanelTemplate\assets\img\avatars\7.png" />
+    <Content Include="PanelTemplate\assets\img\backgrounds\18.jpg" />
+    <Content Include="PanelTemplate\assets\img\elements\1.jpg" />
+    <Content Include="PanelTemplate\assets\img\elements\11.jpg" />
+    <Content Include="PanelTemplate\assets\img\elements\12.jpg" />
+    <Content Include="PanelTemplate\assets\img\elements\13.jpg" />
+    <Content Include="PanelTemplate\assets\img\elements\17.jpg" />
+    <Content Include="PanelTemplate\assets\img\elements\18.jpg" />
+    <Content Include="PanelTemplate\assets\img\elements\19.jpg" />
+    <Content Include="PanelTemplate\assets\img\elements\2.jpg" />
+    <Content Include="PanelTemplate\assets\img\elements\20.jpg" />
+    <Content Include="PanelTemplate\assets\img\elements\3.jpg" />
+    <Content Include="PanelTemplate\assets\img\elements\4.jpg" />
+    <Content Include="PanelTemplate\assets\img\elements\5.jpg" />
+    <Content Include="PanelTemplate\assets\img\elements\7.jpg" />
+    <Content Include="PanelTemplate\assets\img\favicon\favicon.ico" />
+    <Content Include="PanelTemplate\assets\img\icons\brands\asana.png" />
+    <Content Include="PanelTemplate\assets\img\icons\brands\behance.png" />
+    <Content Include="PanelTemplate\assets\img\icons\brands\dribbble.png" />
+    <Content Include="PanelTemplate\assets\img\icons\brands\facebook.png" />
+    <Content Include="PanelTemplate\assets\img\icons\brands\github.png" />
+    <Content Include="PanelTemplate\assets\img\icons\brands\google.png" />
+    <Content Include="PanelTemplate\assets\img\icons\brands\instagram.png" />
+    <Content Include="PanelTemplate\assets\img\icons\brands\mailchimp.png" />
+    <Content Include="PanelTemplate\assets\img\icons\brands\slack.png" />
+    <Content Include="PanelTemplate\assets\img\icons\brands\twitter.png" />
+    <Content Include="PanelTemplate\assets\img\icons\unicons\cc-primary.png" />
+    <Content Include="PanelTemplate\assets\img\icons\unicons\cc-success.png" />
+    <Content Include="PanelTemplate\assets\img\icons\unicons\cc-warning.png" />
+    <Content Include="PanelTemplate\assets\img\icons\unicons\chart-success.png" />
+    <Content Include="PanelTemplate\assets\img\icons\unicons\chart.png" />
+    <Content Include="PanelTemplate\assets\img\icons\unicons\paypal.png" />
+    <Content Include="PanelTemplate\assets\img\icons\unicons\wallet-info.png" />
+    <Content Include="PanelTemplate\assets\img\icons\unicons\wallet.png" />
+    <Content Include="PanelTemplate\assets\img\illustrations\girl-doing-yoga-light.png" />
+    <Content Include="PanelTemplate\assets\img\illustrations\man-with-laptop-light.png" />
+    <Content Include="PanelTemplate\assets\img\illustrations\page-misc-error-light.png" />
+    <Content Include="PanelTemplate\assets\img\layouts\layout-container-light.png" />
+    <Content Include="PanelTemplate\assets\img\layouts\layout-fluid-light.png" />
+    <Content Include="PanelTemplate\assets\img\layouts\layout-without-menu-light.png" />
+    <Content Include="PanelTemplate\assets\img\layouts\layout-without-navbar-light.png" />
+    <Content Include="PanelTemplate\assets\js\config.js" />
+    <Content Include="PanelTemplate\assets\js\dashboards-analytics.js" />
+    <Content Include="PanelTemplate\assets\js\extended-ui-perfect-scrollbar.js" />
+    <Content Include="PanelTemplate\assets\js\form-basic-inputs.js" />
+    <Content Include="PanelTemplate\assets\js\main.js" />
+    <Content Include="PanelTemplate\assets\js\pages-account-settings-account.js" />
+    <Content Include="PanelTemplate\assets\js\ui-modals.js" />
+    <Content Include="PanelTemplate\assets\js\ui-popover.js" />
+    <Content Include="PanelTemplate\assets\js\ui-toasts.js" />
+    <Content Include="PanelTemplate\assets\vendor\css\core.css" />
+    <Content Include="PanelTemplate\assets\vendor\css\pages\page-account-settings.css" />
+    <Content Include="PanelTemplate\assets\vendor\css\pages\page-auth.css" />
+    <Content Include="PanelTemplate\assets\vendor\css\pages\page-icons.css" />
+    <Content Include="PanelTemplate\assets\vendor\css\pages\page-misc.css" />
+    <Content Include="PanelTemplate\assets\vendor\css\theme-default.css" />
+    <Content Include="PanelTemplate\assets\vendor\fonts\boxicons.css" />
+    <Content Include="Content\fonts\boxicons\boxicons.svg" />
+    <Content Include="PanelTemplate\assets\vendor\js\bootstrap.js" />
+    <Content Include="PanelTemplate\assets\vendor\js\helpers.js" />
+    <Content Include="PanelTemplate\assets\vendor\js\menu.js" />
+    <Content Include="PanelTemplate\assets\vendor\libs\apex-charts\apex-charts.css" />
+    <Content Include="PanelTemplate\assets\vendor\libs\apex-charts\apexcharts.js" />
+    <Content Include="PanelTemplate\assets\vendor\libs\highlight\highlight-github.css" />
+    <Content Include="PanelTemplate\assets\vendor\libs\highlight\highlight.css" />
+    <Content Include="PanelTemplate\assets\vendor\libs\highlight\highlight.js" />
+    <Content Include="PanelTemplate\assets\vendor\libs\jquery\jquery.js" />
+    <Content Include="PanelTemplate\assets\vendor\libs\masonry\masonry.js" />
+    <Content Include="PanelTemplate\assets\vendor\libs\perfect-scrollbar\perfect-scrollbar.css" />
+    <Content Include="PanelTemplate\assets\vendor\libs\perfect-scrollbar\perfect-scrollbar.js" />
+    <Content Include="PanelTemplate\assets\vendor\libs\popper\popper.js" />
+    <Content Include="PanelTemplate\html\auth-forgot-password-basic.html" />
+    <Content Include="PanelTemplate\html\auth-login-basic.html" />
+    <Content Include="PanelTemplate\html\auth-register-basic.html" />
+    <Content Include="PanelTemplate\html\cards-basic.html" />
+    <Content Include="PanelTemplate\html\extended-ui-perfect-scrollbar.html" />
+    <Content Include="PanelTemplate\html\extended-ui-text-divider.html" />
+    <Content Include="PanelTemplate\html\form-layouts-horizontal.html" />
+    <Content Include="PanelTemplate\html\form-layouts-vertical.html" />
+    <Content Include="PanelTemplate\html\forms-basic-inputs.html" />
+    <Content Include="PanelTemplate\html\forms-input-groups.html" />
+    <Content Include="PanelTemplate\html\icons-boxicons.html" />
+    <Content Include="PanelTemplate\html\index.html" />
+    <Content Include="PanelTemplate\html\layouts-blank.html" />
+    <Content Include="PanelTemplate\html\layouts-container.html" />
+    <Content Include="PanelTemplate\html\layouts-fluid.html" />
+    <Content Include="PanelTemplate\html\layouts-without-menu.html" />
+    <Content Include="PanelTemplate\html\layouts-without-navbar.html" />
+    <Content Include="PanelTemplate\html\pages-account-settings-account.html" />
+    <Content Include="PanelTemplate\html\pages-account-settings-connections.html" />
+    <Content Include="PanelTemplate\html\pages-account-settings-notifications.html" />
+    <Content Include="PanelTemplate\html\pages-misc-error.html" />
+    <Content Include="PanelTemplate\html\pages-misc-under-maintenance.html" />
+    <Content Include="PanelTemplate\html\tables-basic.html" />
+    <Content Include="PanelTemplate\html\ui-accordion.html" />
+    <Content Include="PanelTemplate\html\ui-alerts.html" />
+    <Content Include="PanelTemplate\html\ui-badges.html" />
+    <Content Include="PanelTemplate\html\ui-buttons.html" />
+    <Content Include="PanelTemplate\html\ui-carousel.html" />
+    <Content Include="PanelTemplate\html\ui-collapse.html" />
+    <Content Include="PanelTemplate\html\ui-dropdowns.html" />
+    <Content Include="PanelTemplate\html\ui-footer.html" />
+    <Content Include="PanelTemplate\html\ui-list-groups.html" />
+    <Content Include="PanelTemplate\html\ui-modals.html" />
+    <Content Include="PanelTemplate\html\ui-navbar.html" />
+    <Content Include="PanelTemplate\html\ui-offcanvas.html" />
+    <Content Include="PanelTemplate\html\ui-pagination-breadcrumbs.html" />
+    <Content Include="PanelTemplate\html\ui-progress.html" />
+    <Content Include="PanelTemplate\html\ui-spinners.html" />
+    <Content Include="PanelTemplate\html\ui-tabs-pills.html" />
+    <Content Include="PanelTemplate\html\ui-toasts.html" />
+    <Content Include="PanelTemplate\html\ui-tooltips-popovers.html" />
+    <Content Include="PanelTemplate\html\ui-typography.html" />
+    <Content Include="PanelTemplate\js\bootstrap.js" />
+    <Content Include="PanelTemplate\js\helpers.js" />
+    <Content Include="PanelTemplate\js\menu.js" />
+    <Content Include="PanelTemplate\libs\apex-charts\apexcharts.js" />
+    <Content Include="PanelTemplate\libs\highlight\highlight.js" />
+    <Content Include="PanelTemplate\libs\jquery\jquery.js" />
+    <Content Include="PanelTemplate\libs\masonry\masonry.js" />
+    <Content Include="PanelTemplate\libs\perfect-scrollbar\perfect-scrollbar.js" />
+    <Content Include="PanelTemplate\libs\popper\popper.js" />
+    <Content Include="PanelTemplate\tasks\build.js" />
+    <Content Include="PanelTemplate\tasks\prod.js" />
+    <Content Include="Scripts\aos.js" />
+    <Content Include="Scripts\bootstrap-datepicker.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Content\.DS_Store" />
+    <Content Include="Content\bootstrap\.DS_Store" />
+    <Content Include="Content\css\.DS_Store" />
+    <Content Include="Scripts\.DS_Store" />
+    <Content Include="fonts\.DS_Store" />
+    <Content Include="fonts\flaticon\.DS_Store" />
+    <Content Include="fonts\flaticon\font\.DS_Store" />
+    <Content Include="fonts\flaticon\font\Flaticon.eot" />
+    <Content Include="fonts\flaticon\font\Flaticon.ttf" />
+    <Content Include="fonts\flaticon\font\Flaticon.woff" />
+    <Content Include="fonts\flaticon\font\Flaticon.woff2" />
+    <Content Include="fonts\flaticon\font\_flaticon.scss" />
+    <Content Include="fonts\flaticon\license\license.pdf" />
+    <Content Include="fonts\icomoon\icomoon.eot" />
+    <Content Include="fonts\icomoon\icomoon.ttf" />
+    <Content Include="fonts\icomoon\icomoon.woff" />
+    <Content Include="fonts\ionicons\css\_ionicons.scss" />
+    <Content Include="fonts\ionicons\fonts\.DS_Store" />
+    <Content Include="fonts\ionicons\fonts\ionicons.eot" />
+    <Content Include="fonts\ionicons\fonts\ionicons.ttf" />
+    <Content Include="fonts\ionicons\fonts\ionicons.woff" />
+    <Content Include="fonts\ionicons\fonts\ionicons.woff2" />
+    <Content Include="fonts\open-iconic\open-iconic.eot" />
+    <Content Include="fonts\open-iconic\open-iconic.otf" />
+    <Content Include="fonts\open-iconic\open-iconic.ttf" />
+    <Content Include="fonts\open-iconic\open-iconic.woff" />
+    <Content Include="images\.DS_Store" />
+    <Content Include="libman.json" />
+    <Content Include="Content\fonts\boxicons\boxicons.eot" />
+    <Content Include="Content\fonts\boxicons\boxicons.ttf" />
+    <Content Include="Content\fonts\boxicons\boxicons.woff" />
+    <Content Include="Content\fonts\boxicons\boxicons.woff2" />
+    <Content Include="PanelTemplate\fonts\boxicons.scss" />
+    <Content Include="PanelTemplate\libs\apex-charts\apex-charts.scss" />
+    <Content Include="PanelTemplate\libs\highlight\highlight-github.scss" />
+    <Content Include="PanelTemplate\libs\highlight\highlight.scss" />
+    <Content Include="PanelTemplate\libs\perfect-scrollbar\perfect-scrollbar.scss" />
+    <Content Include="PanelTemplate\scss\core.scss" />
+    <Content Include="PanelTemplate\scss\pages\page-account-settings.scss" />
+    <Content Include="PanelTemplate\scss\pages\page-auth.scss" />
+    <Content Include="PanelTemplate\scss\pages\page-icons.scss" />
+    <Content Include="PanelTemplate\scss\pages\page-misc.scss" />
+    <Content Include="PanelTemplate\scss\theme-default.scss" />
+    <Content Include="PanelTemplate\scss\_bootstrap-extended.scss" />
+    <Content Include="PanelTemplate\scss\_bootstrap-extended\forms\_floating-labels.scss" />
+    <Content Include="PanelTemplate\scss\_bootstrap-extended\forms\_form-control.scss" />
+    <Content Include="PanelTemplate\scss\_bootstrap-extended\forms\_form-range.scss" />
+    <Content Include="PanelTemplate\scss\_bootstrap-extended\forms\_form-select.scss" />
+    <Content Include="PanelTemplate\scss\_bootstrap-extended\forms\_input-group.scss" />
+    <Content Include="PanelTemplate\scss\_bootstrap-extended\forms\_labels.scss" />
+    <Content Include="PanelTemplate\scss\_bootstrap-extended\forms\_validation.scss" />
+    <Content Include="PanelTemplate\scss\_bootstrap-extended\mixins\_alert.scss" />
+    <Content Include="PanelTemplate\scss\_bootstrap-extended\mixins\_badge.scss" />
+    <Content Include="PanelTemplate\scss\_bootstrap-extended\mixins\_buttons.scss" />
+    <Content Include="PanelTemplate\scss\_bootstrap-extended\mixins\_caret.scss" />
+    <Content Include="PanelTemplate\scss\_bootstrap-extended\mixins\_dropdown.scss" />
+    <Content Include="PanelTemplate\scss\_bootstrap-extended\mixins\_forms.scss" />
+    <Content Include="PanelTemplate\scss\_bootstrap-extended\mixins\_list-group.scss" />
+    <Content Include="PanelTemplate\scss\_bootstrap-extended\mixins\_misc.scss" />
+    <Content Include="PanelTemplate\scss\_bootstrap-extended\mixins\_navs.scss" />
+    <Content Include="PanelTemplate\scss\_bootstrap-extended\mixins\_pagination.scss" />
+    <Content Include="PanelTemplate\scss\_bootstrap-extended\mixins\_progress.scss" />
+    <Content Include="PanelTemplate\scss\_bootstrap-extended\mixins\_table-variants.scss" />
+    <Content Include="PanelTemplate\scss\_bootstrap-extended\mixins\_toasts.scss" />
+    <Content Include="PanelTemplate\scss\_bootstrap-extended\_accordion.scss" />
+    <Content Include="PanelTemplate\scss\_bootstrap-extended\_alert.scss" />
+    <Content Include="PanelTemplate\scss\_bootstrap-extended\_badge.scss" />
+    <Content Include="PanelTemplate\scss\_bootstrap-extended\_breadcrumb.scss" />
+    <Content Include="PanelTemplate\scss\_bootstrap-extended\_button-group.scss" />
+    <Content Include="PanelTemplate\scss\_bootstrap-extended\_buttons.scss" />
+    <Content Include="PanelTemplate\scss\_bootstrap-extended\_card.scss" />
+    <Content Include="PanelTemplate\scss\_bootstrap-extended\_carousel.scss" />
+    <Content Include="PanelTemplate\scss\_bootstrap-extended\_close.scss" />
+    <Content Include="PanelTemplate\scss\_bootstrap-extended\_dropdown.scss" />
+    <Content Include="PanelTemplate\scss\_bootstrap-extended\_forms.scss" />
+    <Content Include="PanelTemplate\scss\_bootstrap-extended\_functions.scss" />
+    <Content Include="PanelTemplate\scss\_bootstrap-extended\_include.scss" />
+    <Content Include="PanelTemplate\scss\_bootstrap-extended\_list-group.scss" />
+    <Content Include="PanelTemplate\scss\_bootstrap-extended\_mixins.scss" />
+    <Content Include="PanelTemplate\scss\_bootstrap-extended\_modal.scss" />
+    <Content Include="PanelTemplate\scss\_bootstrap-extended\_nav.scss" />
+    <Content Include="PanelTemplate\scss\_bootstrap-extended\_navbar.scss" />
+    <Content Include="PanelTemplate\scss\_bootstrap-extended\_offcanvas.scss" />
+    <Content Include="PanelTemplate\scss\_bootstrap-extended\_pagination.scss" />
+    <Content Include="PanelTemplate\scss\_bootstrap-extended\_popover.scss" />
+    <Content Include="PanelTemplate\scss\_bootstrap-extended\_progress.scss" />
+    <Content Include="PanelTemplate\scss\_bootstrap-extended\_reboot.scss" />
+    <Content Include="PanelTemplate\scss\_bootstrap-extended\_root.scss" />
+    <Content Include="PanelTemplate\scss\_bootstrap-extended\_spinners.scss" />
+    <Content Include="PanelTemplate\scss\_bootstrap-extended\_tables.scss" />
+    <Content Include="PanelTemplate\scss\_bootstrap-extended\_toasts.scss" />
+    <Content Include="PanelTemplate\scss\_bootstrap-extended\_tooltip.scss" />
+    <Content Include="PanelTemplate\scss\_bootstrap-extended\_type.scss" />
+    <Content Include="PanelTemplate\scss\_bootstrap-extended\_utilities-ltr.scss" />
+    <Content Include="PanelTemplate\scss\_bootstrap-extended\_utilities.scss" />
+    <Content Include="PanelTemplate\scss\_bootstrap-extended\_variables.scss" />
+    <Content Include="PanelTemplate\scss\_bootstrap.scss" />
+    <Content Include="PanelTemplate\scss\_colors.scss" />
+    <Content Include="PanelTemplate\scss\_components.scss" />
+    <Content Include="PanelTemplate\scss\_components\mixins\_app-brand.scss" />
+    <Content Include="PanelTemplate\scss\_components\mixins\_avatar.scss" />
+    <Content Include="PanelTemplate\scss\_components\mixins\_footer.scss" />
+    <Content Include="PanelTemplate\scss\_components\mixins\_menu.scss" />
+    <Content Include="PanelTemplate\scss\_components\mixins\_misc.scss" />
+    <Content Include="PanelTemplate\scss\_components\mixins\_navbar.scss" />
+    <Content Include="PanelTemplate\scss\_components\mixins\_text-divider.scss" />
+    <Content Include="PanelTemplate\scss\_components\_app-brand.scss" />
+    <Content Include="PanelTemplate\scss\_components\_avatar.scss" />
+    <Content Include="PanelTemplate\scss\_components\_base.scss" />
+    <Content Include="PanelTemplate\scss\_components\_common.scss" />
+    <Content Include="PanelTemplate\scss\_components\_footer.scss" />
+    <Content Include="PanelTemplate\scss\_components\_include.scss" />
+    <Content Include="PanelTemplate\scss\_components\_layout.scss" />
+    <Content Include="PanelTemplate\scss\_components\_menu.scss" />
+    <Content Include="PanelTemplate\scss\_components\_mixins.scss" />
+    <Content Include="PanelTemplate\scss\_components\_text-divider.scss" />
+    <Content Include="PanelTemplate\scss\_components\_variables.scss" />
+    <Content Include="PanelTemplate\scss\_custom-variables\_bootstrap-extended.scss" />
+    <Content Include="PanelTemplate\scss\_custom-variables\_components.scss" />
+    <Content Include="PanelTemplate\scss\_custom-variables\_libs.scss" />
+    <Content Include="PanelTemplate\scss\_custom-variables\_pages.scss" />
+    <Content Include="PanelTemplate\scss\_custom-variables\_support.scss" />
+    <Content Include="PanelTemplate\scss\_theme\_common.scss" />
+    <Content Include="PanelTemplate\scss\_theme\_theme.scss" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="Scripts\ej2\ej2.min.js" />
+    <Content Include="Scripts\ej2\ej2.min.js.map" />
+    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\config.js" />
+    <Content Include="Scripts\ekko-lightbox.min.js" />
+    <Content Include="Scripts\google-map.js" />
+    <Content Include="Scripts\helpers.js" />
+    <Content Include="Scripts\instafeed.min.js" />
+    <Content Include="Scripts\jquery-3.2.1.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.js" />
+    <Content Include="Scripts\jquery-3.4.1.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-migrate-3.0.1.min.js" />
+    <Content Include="Scripts\jquery.animateNumber.min.js" />
+    <Content Include="Scripts\jquery.bootstrap-touchspin.min.js" />
+    <Content Include="Scripts\jquery.easing.1.3.js" />
+    <Content Include="Scripts\jquery.js" />
+    <Content Include="Scripts\jquery.magnific-popup.min.js" />
+    <Content Include="Scripts\jquery.min.js" />
+    <Content Include="Scripts\jquery.stellar.min.js" />
+    <Content Include="Scripts\jquery.syotimer.min.js" />
+    <Content Include="Scripts\jquery.timepicker.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jquery.waypoints.min.js" />
+    <Content Include="Scripts\main.js" />
+    <Content Include="Scripts\menu.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\owl.carousel.min.js" />
+    <Content Include="Scripts\perfect-scrollbar.js" />
+    <Content Include="Scripts\popper.min.js" />
+    <Content Include="Scripts\range.js" />
+    <Content Include="Scripts\rangeslider\ion.rangeSlider.js" />
+    <Content Include="Scripts\rangeslider\ion.rangeSlider.min.js" />
+    <Content Include="Scripts\script.js" />
+    <Content Include="Scripts\scrollax.min.js" />
+    <Content Include="Scripts\slick-animation.min.js" />
+    <Content Include="Scripts\slick.min.js" />
+    <Content Include="Scripts\sweetalert2.all.js" />
+    <Content Include="Content\sweetalert2.min.css" />
+    <Content Include="Scripts\sweetalert2.min.js" />
+    <Content Include="Scripts\ui-modals.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\ScriptsPartial.cshtml" />
+    <Content Include="Views\Home\Giris.cshtml" />
+    <Content Include="Views\Mail\EpostaDogrulama.cshtml" />
+    <Content Include="Views\Home\Kayit.cshtml" />
+    <Content Include="Views\Home\EpostaDogrulamaBasarili.cshtml" />
+    <Content Include="Views\Home\SifremiUnuttum.cshtml" />
+    <Content Include="Views\Mail\SifreSifirlama.cshtml" />
+    <Content Include="Views\Home\SifreSifirla.cshtml" />
+    <Content Include="Views\Admin\Panel.cshtml" />
+    <Content Include="Views\Shared\_PanelLayout.cshtml" />
+    <Content Include="Views\Shared\PanelNavbarPartial.cshtml" />
+    <Content Include="Views\Kullanici\Profil.cshtml" />
+    <Content Include="Views\Admin\IlanDuzenle.cshtml" />
+    <Content Include="Views\Ilan\Ilan.cshtml" />
+    <Content Include="Views\Shared\ContentPartial.cshtml" />
+    <Content Include="Views\Kullanici\Index.cshtml" />
+    <Content Include="Views\Ilan\IlanEkle.cshtml" />
+    <Content Include="Views\Ilan\IlanListesi.cshtml" />
+    <Content Include="Views\Ilan\IlanDuzenle.cshtml" />
+    <Content Include="Views\Ilan\Ilanlarim.cshtml" />
+    <Content Include="Views\Kurumsal\Liste.cshtml" />
+    <Content Include="Views\Kurumsal\Detay.cshtml" />
+    <Content Include="Views\Kurumsal\Ekle.cshtml" />
+    <Content Include="Views\Kurumsal\FirmaListe.cshtml" />
+    <Content Include="Views\Kurumsal\Guncelle.cshtml" />
+    <Content Include="Views\Kullanici\Panel.cshtml" />
+    <Content Include="Views\Rezervasyon\Liste.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Resource\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="packages.config" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="Scripts\ej2\ej2.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202205221713490_AracKiralama.resx">
+      <DependentUpon>202205221713490_AracKiralama.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>58077</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44371/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Bu proje bu bilgisayarda olmayan NuGet paketlerine başvuru yapıyor. Bunları indirmek için NuGet Paket Geri Yükleme'yi kullanın. Daha fazla bilgi için, bkz. http://go.microsoft.com/fwlink/?LinkID=322105. Eksik dosya: {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

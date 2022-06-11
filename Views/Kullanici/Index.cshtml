@@ -1,0 +1,118 @@
+﻿@model IEnumerable<AracKiralamaOtomasyonu.Models.Kullanici>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_PanelLayout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProfilFotoUrl)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ad)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Soyad)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.KullaniciAd)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Telefon)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TCKimlik)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Adres)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DogumTarihi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cinsiyet)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Eposta)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SifreHash)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SifreSalt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Dogrulama)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.KayitTarihi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SonGirisTarihi)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProfilFotoUrl)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ad)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Soyad)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.KullaniciAd)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Telefon)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TCKimlik)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Adres)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DogumTarihi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cinsiyet)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Eposta)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SifreHash)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SifreSalt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Dogrulama)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.KayitTarihi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SonGirisTarihi)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IDKullanici }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IDKullanici }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IDKullanici })
+        </td>
+    </tr>
+}
+
+</table>

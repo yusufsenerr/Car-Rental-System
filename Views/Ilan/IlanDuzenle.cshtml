@@ -1,0 +1,765 @@
+﻿@model AracKiralamaOtomasyonu.Models.Ilanlar
+@{
+    ViewBag.Title = "IlanDuzenle";
+    Layout = "~/Views/Shared/_PanelLayout.cshtml";
+}
+<style>
+    .upload-image {
+        width: 150px;
+        height: 150px;
+        display: inline-flex;
+        background-size: contain;
+        margin: 7px;
+        text-align: center;
+        line-height: 10;
+        border-radius: 5px;
+    }
+
+        .upload-image:after {
+            content: "";
+            position: absolute;
+            top: 6px;
+            left: 6px;
+            width: inherit;
+            height: inherit;
+            background: lightgray url('http://via.placeholder.com/300?text=Loading...') no-repeat center;
+            color: transparent;
+        }
+
+    .photo-gallery {
+        color: #313437;
+        background-color: #fff;
+    }
+
+        .photo-gallery p {
+            color: #7d8285;
+        }
+
+        .photo-gallery h2 {
+            font-weight: bold;
+            margin-bottom: 40px;
+            padding-top: 40px;
+            color: inherit;
+        }
+
+        .photo-gallery .intro {
+            font-size: 16px;
+            max-width: 500px;
+            margin: 0 auto 40px;
+        }
+
+            .photo-gallery .intro p {
+                margin-bottom: 0;
+            }
+
+        .photo-gallery .photos {
+            padding-bottom: 20px;
+        }
+
+        .photo-gallery .item {
+            padding-bottom: 30px;
+        }
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.8.2/css/lightbox.min.css">
+<div class="content-wrapper">
+    <!-- Content -->
+
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">İLANLAR/</span> İlan Düzenle</h4>
+        <form action="/Ilan/IlanDuzenleMethod" method="post" id="myForm">
+            <!-- Basic Layout -->
+            <div class="row">
+                <div class="col-xl">
+                    <div class="card mb-4">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0">İlan Bilgileri</h5>
+                        </div>
+                        <div class="card-body">
+
+                            <input type="text" class="form-control" id="IDIlan" hidden name="IDIlan" value="@Model.IDIlan" />
+                            <div class="mb-3">
+                                <label class="form-label" for="basic-default-fullname">İlan Başlık</label>
+                                <input type="text" class="form-control" id="Baslik" name="Baslik" value="@Model.Baslik" />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="basic-default-company">Marka</label>
+                                @Html.DropDownList("IDAracMarka", new SelectList(ViewBag.marka, "IDAracMarka", "Ad", Model.AracMarka.Ad), new { @class = "form-select", @id = "IDAracMarka", @name = "IDAracMarka", style = " width:100% ; max-width:none" })
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="basic-default-email">Model</label>
+                                <div class="input-group input-group-merge">
+                                        <select id="IDAracModel" class="form-select" name="IDAracModel">
+                                            <option value="@Model.AracModel.IDAracModel" selected hidden>@Model.AracModel.ModelAd</option>
+                                        </select>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="basic-default-phone">Fiyat</label>
+                                <input type="text"
+                                       id="Fiyat"
+                                       name="Fiyat"
+                                       class="form-control"
+                                       value="@Model.Fiyat" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="basic-default-phone">Trafiğe Çıkış</label>
+                                <input type="date"
+                                       id="Yil"
+                                       name="Yil"
+                                       class="form-control"
+                                       value="@Model.Yil.ToString("yyyy-MM-dd")" />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="basic-default-phone">Kilometre</label>
+                                <input type="text"
+                                       id="Kilometre"
+                                       name="Kilometre"
+                                       class="form-control"
+                                       value="@Model.Kilometre" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="basic-default-phone">Yakıt</label>
+                                <select id="Yakit" name="Yakit" class="form-control">
+                                    <option value="@Model.Yakit" selected hidden>@Model.Yakit</option>
+                                    <option value="Benzin">Benzin</option>
+                                    <option value="Benzin & LPG">Benzin & LPG</option>
+                                    <option value="Dizel">Dizel</option>
+                                    <option value="Elektrik">Elektrik</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="basic-default-phone">Vites</label>
+                                <select id="Vites" name="Vites" class="form-control">
+                                    <option value="@Model.Vites" selected hidden>@Model.Vites</option>
+                                    <option value="Manuel">Manuel</option>
+                                    <option value="Yarı otomatik">Yarı Otomatik</option>
+                                    <option value="Otomatik">Otomatik</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="basic-default-phone">Kasa</label>
+                                <select id="Kasa" name="Kasa" class="form-control">
+                                    <option value="@Model.Kasa" selected hidden>@Model.Kasa</option>
+                                    <option value="Cabrio">Cabrio</option>
+                                    <option value="Coupe">Coupe</option>
+                                    <option value="Hatchback 3 kapı">Hatchback 3 kapı</option>
+                                    <option value="Hatchback 5 kapı">Hatchback 5 kapı</option>
+                                    <option value="Sedan">Sedan</option>
+                                    <option value="Station Wagon">Station Wagon</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="basic-default-phone">Motor gücü</label>
+                                <input id="MotorGucu"
+                                       class="form-control"
+                                       name="MotorGucu"
+                                       value="@Model.MotorGucu" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="basic-default-phone">Motor Hacmi</label>
+                                <input id="MotorHacmi"
+                                       class="form-control"
+                                       name="MotorHacmi"
+                                       value="@Model.MotorHacmi" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="basic-default-phone">Çekiş</label>
+                                <select id="Cekis" name="Cekis" class="form-control">
+                                    <option value="@Model.Cekis" selected hidden>@Model.Cekis</option>
+                                    <option value="Önden Çekiş">Önden Çekiş</option>
+                                    <option value="Arkadan İtiş">Arkadan İtiş</option>
+                                    <option value="4WD (Sürekli)">4WD (Sürekli)</option>
+                                    <option value="AWD (Elektronik)">AWD (Elektronik)</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="basic-default-message">Açıklama</label>
+                                <textarea id="Aciklama" name="Aciklama"
+                                          class="form-control">@Model.Aciklama</textarea>
+                            </div>
+                            <button type="button" onclick="Onay()" class="btn btn-primary">Kaydet</button>
+                            <button type="reset" class="btn btn-secondary" onclick="javascript: history.go(-1)">Vazgeç</button>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl">
+                    <div class="card mb-4">
+                            <div class="container">
+                            <div class="row photos mt-2">
+                                <div class="col-md-6">
+                                    <h5>Güvenlik</h5>
+                                    <label>ABS</label><input class="e-checkbox-wrapper float-left mr-1 " style="margin-top:4px !important" id="ABS" @if (Model.AracGuvenlik.ABS == true) {<text> checked </text> } value="true" type="checkbox" name="ABS" />
+                                    <input class="e-checkbox-wrapper" type="hidden" id="ABS" value="false" name="ABS" />
+                                    <br />
+
+                                    <label>Yokuş Desteği</label><input class="e-checkbox-wrapper float-left mr-1 " style="margin-top:4px !important" id="checkbox" @if (Model.AracGuvenlik.YokusDestegi == true) { <text> checked </text> } type="checkbox" value="true" name="YokusDestegi" />
+                                    <input class="e-checkbox-wrapper" type="hidden" value="false" name="YokusDestegi" />
+                                    <br />
+                                    <label>Hava Yastığı</label><input class="e-checkbox-wrapper float-left mr-1 " style="margin-top:4px !important" id="checkbox" @if (Model.AracGuvenlik.HavaYastigi == true) { <text> checked </text> } type="checkbox" value="true" name="HavaYastigi" />
+                                    <input class="e-checkbox-wrapper" type="hidden" value="false" name="HavaYastigi" />
+                                    <br />
+                                    <label>Çocuk Kilidi</label><input class="e-checkbox-wrapper float-left mr-1 " style="margin-top:4px !important" id="checkbox" @if (Model.AracGuvenlik.CocukKilidi == true) { <text> checked </text> } type="checkbox" value="true" name="CocukKilidi" />
+                                    <input class="e-checkbox-wrapper" type="hidden" value="false" name="CocukKilidi" />
+
+                                    <br />
+                                    <label>Lastik Arıza Göstergesi</label><input class="e-checkbox-wrapper float-left mr-1 " style="margin-top:4px !important" id="checkbox" @if (Model.AracGuvenlik.LastikAriza == true) { <text> checked </text> } type="checkbox" value="true" name="LastikAriza" />
+                                    <input class="e-checkbox-wrapper" type="hidden" value="false" name="LastikAriza" />
+                                    <br />
+                                    <label>Merkezi Kilit</label><input class="e-checkbox-wrapper float-left mr-1 " style="margin-top:4px !important" id="checkbox" type="checkbox" @if (Model.AracGuvenlik.MerkeziKilit == true) { <text> checked </text> } value="true" name="MerkeziKilit" />
+                                    <input class="e-checkbox-wrapper" type="hidden" value="false" name="MerkeziKilit" />
+                                </div>
+                                <div class="col-md-6">
+                                    <h5>Multimedya</h5>
+
+                                    <label>Radyo</label><input class="e-checkbox-wrapper float-left mr-1 " style="margin-top:4px !important" id="checkbox" @if (Model.AracMultiMedya.Radyo == true) { <text> checked </text> } type="checkbox" value="true" name="Radyo" />
+                                    <input class="e-checkbox-wrapper" type="hidden" value="false" name="Radyo" />
+                                    <br />
+
+                                    <label>TV</label><input class="e-checkbox-wrapper float-left mr-1 " style="margin-top:4px !important" id="checkbox" @if (Model.AracMultiMedya.TV == true) { <text> checked </text> } type="checkbox" value="true" name="TV" />
+                                    <input class="e-checkbox-wrapper" type="hidden" value="false" name="TV" />
+                                    <br />
+
+                                    <label>Bluetooth</label><input class="e-checkbox-wrapper float-left mr-1 " style="margin-top:4px !important" id="checkbox" @if (Model.AracMultiMedya.Bluetooth == true) { <text> checked </text> } type="checkbox" value="true" name="Bluetooth" />
+                                    <input class="e-checkbox-wrapper" type="hidden" value="false" name="Bluetooth" />
+                                    <br />
+
+                                    <label>USB</label><input class="e-checkbox-wrapper float-left mr-1 " style="margin-top:4px !important" id="checkbox" @if (Model.AracMultiMedya.USB == true) { <text> checked </text> } type="checkbox" value="true" name="USB" />
+                                    <input class="e-checkbox-wrapper" type="hidden" value="false" name="USB" />
+                                    <br />
+
+                                    <label>AUX</label><input class="e-checkbox-wrapper float-left mr-1 " style="margin-top:4px !important" id="checkbox" @if (Model.AracMultiMedya.AUX == true) { <text> checked </text> } type="checkbox" value="true" name="AUX" />
+                                    <input class="e-checkbox-wrapper" type="hidden" value="false" name="AUX" />
+                                    <br />
+
+                                    <label>Navigasyon</label><input class="e-checkbox-wrapper float-left mr-1 " style="margin-top:4px !important" @if (Model.AracMultiMedya.Navigasyon == true) { <text> checked </text> } id="checkbox" type="checkbox" value="true" name="Navigasyon" />
+                                    <input class="e-checkbox-wrapper" type="hidden" value="false" name="Navigasyon" />
+                                    <br />
+                                </div>
+
+                                <hr />
+                                <div class="col-md-6">
+                                    <h5>İç Donanım</h5>
+
+                                    <label>Deri Koltuk</label><input class="e-checkbox-wrapper float-left mr-1 " style="margin-top:4px !important" @if (Model.AracIcDonanim.DeriKoltuk == true) { <text> checked </text> } id="checkbox" type="checkbox" value="true" name="DeriKoltuk" />
+                                    <input class="e-checkbox-wrapper" type="hidden" value="false" name="DeriKoltuk" />
+                                    <br />
+
+                                    <label>Soğutmalı Koltuk</label><input class="e-checkbox-wrapper float-left mr-1 " style="margin-top:4px !important" id="checkbox" @if (Model.AracIcDonanim.SogutmaliKoltuk == true) { <text> checked </text> } type="checkbox" value="true" name="SogutmaliKoltuk" />
+                                    <input class="e-checkbox-wrapper" type="hidden" value="false" name="SogutmaliKoltuk" />
+                                    <br />
+                                    <label>Yol Bilgisayarı</label><input class="e-checkbox-wrapper float-left mr-1 " style="margin-top:4px !important" id="checkbox" @if (Model.AracIcDonanim.YolBilgisayarı == true) { <text> checked </text> } type="checkbox" value="true" name="YolBilgisayarı" />
+                                    <input class="e-checkbox-wrapper" type="hidden" value="false" name="YolBilgisayari" />
+                                    <br />
+                                    <label>Kumaş Koltuk</label><input class="e-checkbox-wrapper float-left mr-1 " style="margin-top:4px !important" id="checkbox" @if (Model.AracIcDonanim.KumasKoltuk == true) { <text> checked </text> } type="checkbox" value="true" name="KumasKoltuk" />
+                                    <input class="e-checkbox-wrapper" type="hidden" value="false" name="KumasKoltuk" />
+                                    <br />
+                                    <label>Klima</label><input class="e-checkbox-wrapper float-left mr-1 " style="margin-top:4px !important" id="checkbox" @if (Model.AracIcDonanim.Klima == true) { <text> checked </text> } type="checkbox" value="true" name="Klima" />
+                                    <input class="e-checkbox-wrapper" type="hidden" value="false" name="Klima" />
+                                    <br />
+                                    <label>Hidrolik Direksiyon</label><input class="e-checkbox-wrapper float-left mr-1 " style="margin-top:4px !important" @if (Model.AracIcDonanim.HidrolikDireksiyon == true) { <text> checked </text> } id="checkbox" type="checkbox" value="true" name="HidrolikDireksiyon" />
+                                    <input class="e-checkbox-wrapper" type="hidden" value="false" name="HidrolikDireksiyon" />
+                                    <br />
+                                    <label>Hız Sabitleyici</label><input class="e-checkbox-wrapper float-left mr-1 " style="margin-top:4px !important" @if (Model.AracIcDonanim.HizSabitleyici == true) { <text> checked </text> } id="checkbox" type="checkbox" value="true" name="HizSabitleyici" />
+                                    <input class="e-checkbox-wrapper" type="hidden" value="false" name="HizSabitleyici" />
+                                    <br />
+                                    <label>Geri Gorüş Kamerası</label><input class="e-checkbox-wrapper float-left mr-1 " style="margin-top:4px !important" @if (Model.AracIcDonanim.GeriGorusKamera == true) { <text> checked </text> } id="checkbox" type="checkbox" value="true" name="GeriGorusKamera" />
+                                    <input class="e-checkbox-wrapper" type="hidden" value="false" name="GeriGorusKamera" />
+                                </div>
+                                <div class="col-md-6">
+                                    <h5>Dış Donanım</h5>
+                                    <label>Led Far</label><input class="e-checkbox-wrapper float-left mr-1 " style="margin-top:4px !important" id="checkbox" type="checkbox" @if (Model.AracDisDonanim.FarLed == true) { <text> checked </text> } value="true" name="FarLed" />
+                                    <input class="e-checkbox-wrapper" type="hidden" value="false" name="FarLed" />
+                                    <br />
+                                    <label>Sis Farı</label><input class="e-checkbox-wrapper float-left mr-1 " style="margin-top:4px !important" id="checkbox" type="checkbox" @if (Model.AracDisDonanim.FarSis == true) { <text> checked </text> } value="true" name="FarSis" />
+                                    <input class="e-checkbox-wrapper" type="hidden" value="false" name="FarSis" />
+                                    <br />
+                                    <label>Sunroof</label><input class="e-checkbox-wrapper float-left mr-1 " style="margin-top:4px !important" id="checkbox" type="checkbox" @if (Model.AracDisDonanim.Sunroof == true) { <text> checked </text> } value="true" name="Sunroof" />
+                                    <input class="e-checkbox-wrapper" type="hidden" value="false" name="Sunroof" />
+                                    <br />
+                                    <label>Elektrikli Ayna</label><input class="e-checkbox-wrapper float-left mr-1 " style="margin-top:4px !important" id="checkbox" type="checkbox" @if (Model.AracDisDonanim.ElektrikliAyna == true) { <text> checked </text> } value="true" name="ElektrikliAyna" />
+                                    <input class="e-checkbox-wrapper" type="hidden" value="false" name="ElektrikliAyna" />
+                                    <br />
+                                    <label>Park Sensoru</label><input class="e-checkbox-wrapper float-left mr-1 " style="margin-top:4px !important" id="checkbox" type="checkbox" @if (Model.AracDisDonanim.ParkSensoru == true) { <text> checked </text> } value="true" name="ParkSensoru" />
+                                    <input class="e-checkbox-wrapper" type="hidden" value="false" name="ParkSensoru" />
+                                    <br />
+                                    <label>Otomatik Katlanan Ayna</label><input class="e-checkbox-wrapper float-left mr-1 " style="margin-top:4px !important" id="checkbox" type="checkbox" @if (Model.AracDisDonanim.OtomatikKatlananAyna == true) { <text> checked </text> } value="true" name="OtomatikKatlananAyna" />
+                                    <input class="e-checkbox-wrapper" type="hidden" value="false" name="OtomatikKatlananAyna" />
+                                    <br />
+                                    <label>Romörk Demiri</label><input class="e-checkbox-wrapper float-left mr-1 " style="margin-top:4px !important" id="checkbox" type="checkbox" value="true" @if (Model.AracDisDonanim.RomorkDemiri == true) { <text> checked </text> } name="RomorkDemiri" />
+                                    <input class="e-checkbox-wrapper" type="hidden" value="false" name="RomorkDemiri" />
+                                    <br />
+                                    <label>Park Asistani</label><input class="e-checkbox-wrapper float-left mr-1 " style="margin-top:4px !important" id="checkbox" type="checkbox" value="true" @if (Model.AracDisDonanim.ParkAsistani == true) { <text> checked </text> } name="ParkAsistani" />
+                                    <input class="e-checkbox-wrapper" type="hidden" value="false" name="ParkAsistani" />
+                                </div>
+
+                            </div>
+                            <hr />
+                        </div>
+
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5>İlan Görselleri</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="photo-gallery">
+                                <div class="container">
+                                    <div class="row photos mt-2">
+                                        @if (Model.Dosyalar.Url == "default-car.jpg")
+                                        {
+                                            <div id='dropArea' style='height: auto; overflow: auto'>
+                                                <span id='drop'>Fotoğraf ekle</span>
+
+                                                @Html.EJS().Uploader("UploadFiles").DropArea(".control-fluid").AllowedExtensions(".jpg,.png,.jpeg").Selected("onSelect").Progress("onFileUpload").Removing("onFileRemove").Failure("onUploadFailed").AsyncSettings(new Syncfusion.EJ2.Inputs.UploaderAsyncSettings { SaveUrl = @Url.Content("~/Kullanici/IlanEkle") }).Render()
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            foreach (var item in ViewBag.gorseller)
+                                            {
+                                                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="~/Dosyalar/Public/@item.Url" data-lightbox="photos"><img class="img-fluid" style="width:100%;height:auto;" src="~/Dosyalar/Public/@item.Url"></a> <a href="/Ilan/IlanFotoSil/@item.IDDosya" class="btn btn-danger btn-sm" style="margin-top:5px!important" type="button">Sil</a></div>
+                                            }
+                                            <div id='dropArea' style='height: auto; overflow: auto'>
+                                                <span id='drop'>Fotoğraf ekle</span>
+
+                                                @Html.EJS().Uploader("UploadFiles").DropArea(".control-fluid").AllowedExtensions(".jpg,.png,.jpeg").Selected("onSelect").Progress("onFileUpload").Removing("onFileRemove").Failure("onUploadFailed").AsyncSettings(new Syncfusion.EJ2.Inputs.UploaderAsyncSettings { SaveUrl = @Url.Content("~/Kullanici/IlanEkle") }).Render()
+                                            </div>
+                                        }
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- / Content -->
+    <div class="content-backdrop fade"></div>
+</div>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+<script>
+    $('select[name="IDAracMarka"]').on('change', function () {
+        var idmarka = $(this).val();
+
+        $.ajax({
+            type: "POST",
+            url: "/Ilan/AracMarkaListesi",
+            data: { idmarka: idmarka },
+            success: function (data) {
+
+                $('#IDAracModel').html('');
+                var options = '';
+                options += '<option value="IDAracModel" disabled selected hidden>Model Seçiniz</option>';
+                for (var i = 0; i < data.length; i++) {
+                    options += '<option value="' + data[i].IDAracModel + '">' + data[i].ModelAd + '</option>';
+                }
+                $('#IDAracModel').append(options)
+
+            }
+        });
+    });
+
+    var parentElement;
+    var filesName = [];
+    var progressbarContainer;
+
+    function onSelect(args) {
+        if (!document.getElementById('dropArea').querySelector('li')) {
+            this.filesData = [];
+        }
+        if (ej.base.isNullOrUndefined(document.getElementById('dropArea').querySelector('.e-upload-files'))) {
+            parentElement = ej.base.createElement('ul', { className: 'e-upload-files' });
+            document.getElementsByClassName('e-upload')[0].appendChild(parentElement);
+        }
+        var validFiles = validateFiles(args, this.filesData);
+        if (validFiles.length === 0) {
+            args.cancel = true;
+            return;
+        }
+        for (var i = 0; i < validFiles.length; i++) {
+            formSelectedData(validFiles[i], this);
+        }
+        this.filesData = this.filesData.concat(validFiles);
+        args.cancel = true;
+    }
+    function validateFiles(args, viewedFiles) {
+        var modifiedFiles = [];
+        var validFiles = [];
+        var isModified = false;
+        if (args.event.type === 'drop') {
+            isModified = true;
+            var allImages = ['png', 'jpg', 'jpeg'];
+            var chooseFiles = args.filesData;
+            for (var i = 0; i < chooseFiles.length; i++) {
+                var selectFile = chooseFiles[i];
+                if (allImages.indexOf(selectFile.type) !== -1) {
+                    modifiedFiles.push(selectFile);
+                }
+            }
+        }
+        var files = modifiedFiles.length > 0 || isModified ? modifiedFiles : args.filesData;
+        if (filesName.length > 0) {
+            for (var j = 0; j < files.length; j++) {
+                var file = files[j];
+                if (filesName.indexOf(file.name) === -1) {
+                    filesName.push(file.name);
+                    validFiles.push(file);
+                }
+            }
+        } else {
+            for (var k = 0; k < files.length; k++) {
+                var validFile = files[k];
+                filesName.push(validFile.name);
+                validFiles.push(validFile);
+            }
+        }
+        return validFiles;
+    }
+
+    function formSelectedData(file, proxy) {
+        var liEle = ej.base.createElement('li', { className: 'e-upload-file-list', attrs: { 'data-file-name': file.name } });
+        var imageTag = ej.base.createElement('IMG', { className: 'upload-image', attrs: { 'alt': 'Image' } });
+        var wrapper = ej.base.createElement('span', { className: 'wrapper' });
+        wrapper.appendChild(imageTag);
+        liEle.appendChild(wrapper);
+        liEle.appendChild(ej.base.createElement('div', { className: 'name file-name', innerHTML: file.name, attrs: { 'title': file.name } }));
+        liEle.appendChild(ej.base.createElement('div', { className: 'file-size', innerHTML: proxy.bytesToSize(file.size) }));
+        var clearbtn;
+        var uploadbtn;
+        clearbtn = ej.base.createElement('span', { id: 'removeIcon', className: 'e-icons e-file-remove-btn', attrs: { 'title': 'Remove' } });
+        ej.base.EventHandler.add(clearbtn, 'click', removeFiles, proxy);
+        uploadbtn = ej.base.createElement('span', { className: 'e-upload-icon e-icons e-file-remove-btn', attrs: { 'title': 'Upload' } });
+        uploadbtn.setAttribute('id', 'iconUpload');
+        ej.base.EventHandler.add(uploadbtn, 'click', uploadFile, proxy);
+        progressbarContainer = ej.base.createElement('progress', { className: 'progressbar', id: 'progressBar', attrs: { value: '0', max: '100' } });
+        liEle.appendChild(clearbtn);
+        liEle.appendChild(uploadbtn);
+        liEle.appendChild(progressbarContainer);
+        readURL(liEle, file);
+        document.querySelector('.e-upload-files').appendChild(liEle);
+        proxy.fileList.push(liEle);
+    }
+    function uploadFile(args) {
+        var uploadObj = document.getElementById("UploadFiles").ej2_instances[0]
+        uploadObj.upload([this.filesData[this.fileList.indexOf(args.currentTarget.parentElement)]]);
+    }
+    function removeFiles(args) {
+        var uploadObj = document.getElementById("UploadFiles").ej2_instances[0]
+        var removeFile = this.filesData[this.fileList.indexOf(args.currentTarget.parentElement)];
+        var statusCode = removeFile.statusCode;
+        if (statusCode === '2') {
+            this.remove(removeFile, true);
+        } else {
+            var li = args.currentTarget.parentElement;
+            ej.base.detach(li);
+        }
+        filesName.splice(filesName.indexOf(removeFile.name), 1);
+        this.filesData.splice(this.fileList.indexOf(args.currentTarget.parentElement), 1);
+        this.fileList.splice(this.fileList.indexOf(args.currentTarget.parentElement), 1);
+        uploadObj.element.value = '';
+    }
+    function onFileUpload(args) {
+        var li = document.getElementById('dropArea').querySelector('[data-file-name="' + args.file.name + '"]');
+        var iconEle = li.querySelector('#iconUpload');
+        iconEle.style.cursor = 'not-allowed';
+        iconEle.classList.add('e-uploaded');
+        ej.base.EventHandler.remove(li.querySelector('#iconUpload'), 'click', uploadFile);
+        var progressValue = Math.round((args.e.loaded / args.e.total) * 100);
+        if (!isNaN(progressValue) && li.querySelector('.progressbar')) {
+            li.getElementsByTagName('progress')[0].value = progressValue;
+        }
+    }
+    function generateSpinner(targetElement) {
+        ej.popups.createSpinner({ target: targetElement, width: '25px' });
+        ej.popups.showSpinner(targetElement);
+    }
+    function onUploadFailed(args) {
+        var li = document.getElementById('dropArea').querySelector('[data-file-name="' + args.file.name + '"]');
+        li.querySelector('.file-name').style.color = 'red';
+        if (args.operation === 'upload') {
+            ej.base.EventHandler.remove(li.querySelector('#iconUpload'), 'click', uploadFile);
+            li.querySelector('.progressbar').style.visibility = 'hidden';
+        }
+    }
+    function onFileRemove(args) {
+        args.postRawFile = false;
+    }
+    function readURL(li, args) {
+        var preview = li.querySelector('.upload-image');
+        var file = args.rawFile;
+        var reader = new FileReader();
+        reader.addEventListener('load', function () { preview.src = reader.result; }, false);
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    }
+
+    function onSuccess(guid) {
+        window.location.href = '/Admin/Panel';
+    }
+
+</script>
+
+<script>
+    function Onay() {
+
+        var baslik = document.getElementById('Baslik').value;
+        var Marka = document.getElementById('IDAracMarka').value;
+        var Model = document.getElementById('IDAracModel').value;
+        var Fiyat = document.getElementById('Fiyat').value;
+        var Yil = document.getElementById('Yil').value;
+        var Kilometre = document.getElementById('Kilometre').value;
+        var Yakit = document.getElementById('Yakit').value;
+        var Vites = document.getElementById('Vites').value;
+        var Kasa = document.getElementById('Kasa').value;
+        var MotorGucu = document.getElementById('MotorGucu').value;
+        var MotorHacmi = document.getElementById('MotorHacmi').value;
+        var Cekis = document.getElementById('Cekis').value;
+        var Aciklama = document.getElementById('Aciklama').value;
+
+        /*      Bu kodda  Başlık yazılı değilse alert açılıyor*/
+        if (baslik == "") {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'swal2-confirm',
+                    cancelButton: 'swal2-cancel'
+                },
+                buttonsStyling: true
+            })
+            swalWithBootstrapButtons.fire({
+                text: "Başlığı lütfen yazınız",
+                icon: 'warning',
+                showCancelButton: false,
+            }).then((result) => {
+                if (result.value) {
+                    result.dismiss === Swal.DismissReason.cancel
+                } else if (
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                }
+            })
+        }
+
+        /*      Bu kodda  Marka yazılı değilse alert açılıyor*/
+        else if (Marka == "") {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'swal2-confirm',
+                    cancelButton: 'swal2-cancel'
+                },
+                buttonsStyling: true
+            })
+            swalWithBootstrapButtons.fire({
+                text: "Markayı lütfen yazınız",
+                icon: 'warning',
+                showCancelButton: false,
+            }).then((result) => {
+                if (result.value) {
+                    result.dismiss === Swal.DismissReason.cancel
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                }
+            })
+        }
+        /*      Bu kodda  Model yazılı değilse alert açılıyor*/
+
+        else if (Model == "") {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'swal2-confirm',
+                    cancelButton: 'swal2-cancel'
+                },
+                buttonsStyling: true
+            })
+            swalWithBootstrapButtons.fire({
+                text: "Modeli lütfen yazınız",
+                icon: 'warning',
+                showCancelButton: false,
+            }).then((result) => {
+                if (result.value) {
+                    result.dismiss === Swal.DismissReason.cancel
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                }
+            })
+        }
+        /*      Bu kodda  Marka Fiyat değilse alert açılıyor*/
+        else if (Fiyat == "") {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'swal2-confirm',
+                    cancelButton: 'swal2-cancel'
+                },
+                buttonsStyling: true
+            })
+            swalWithBootstrapButtons.fire({
+                text: "Fiyatı lütfen yazınız",
+                icon: 'warning',
+                showCancelButton: false,
+            }).then((result) => {
+                if (result.value) {
+                    result.dismiss === Swal.DismissReason.cancel
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                }
+            })
+        }
+        /*      Bu kodda  Marka Aracın trafiğe çıkış tarihi yazılı değilse alert açılıyor*/
+        else if (Yil == "") {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'swal2-confirm',
+                    cancelButton: 'swal2-cancel'
+                },
+                buttonsStyling: true
+            })
+            swalWithBootstrapButtons.fire({
+                text: "Trafiğe çıkış tarihini lütfen yazınız",
+                icon: 'warning',
+                showCancelButton: false,
+            }).then((result) => {
+                if (result.value) {
+                    result.dismiss === Swal.DismissReason.cancel
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                }
+            })
+        }
+        /*      Bu kodda  Kilometre yazılı değilse alert açılıyor*/
+        else if (Kilometre == "") {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'swal2-confirm',
+                    cancelButton: 'swal2-cancel'
+                },
+                buttonsStyling: true
+            })
+            swalWithBootstrapButtons.fire({
+                text: "Kilometreyi lütfen yazınız",
+                icon: 'warning',
+                showCancelButton: false,
+            }).then((result) => {
+                if (result.value) {
+                    result.dismiss === Swal.DismissReason.cancel
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                }
+            })
+        }
+
+        /*      Bu kodda  Yakıt tipi yazılı değilse alert açılıyor*/
+        else if (Yakit == "") {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'swal2-confirm',
+                    cancelButton: 'swal2-cancel'
+                },
+                buttonsStyling: true
+            })
+            swalWithBootstrapButtons.fire({
+                text: "Yakit türünü lütfen yazınız",
+                icon: 'warning',
+                showCancelButton: false,
+            }).then((result) => {
+                if (result.value) {
+                    result.dismiss === Swal.DismissReason.cancel
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                }
+            })
+        }
+
+        /*      Bu kodda Vites tipi yazılı değilse alert açılıyor*/
+        else if (Vites == "") {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'swal2-confirm',
+                    cancelButton: 'swal2-cancel'
+                },
+                buttonsStyling: true
+            })
+            swalWithBootstrapButtons.fire({
+                text: "Vites tipini lütfen yazınız",
+                icon: 'warning',
+                showCancelButton: false,
+            }).then((result) => {
+                if (result.value) {
+                    result.dismiss === Swal.DismissReason.cancel
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                }
+            })
+        } /*      Bu kodda Kasa tipi yazılı değilse alert açılıyor*/
+
+        else if (Kasa == "") {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'swal2-confirm',
+                    cancelButton: 'swal2-cancel'
+                },
+                buttonsStyling: true
+            })
+            swalWithBootstrapButtons.fire({
+                text: "Kasa tipini lütfen yazınız",
+                icon: 'warning',
+                showCancelButton: false,
+            }).then((result) => {
+                if (result.value) {
+                    result.dismiss === Swal.DismissReason.cancel
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                }
+            })
+        }
+        /*Bu kodda Ilan bilgilerinin hepsi doğru olduğunda alert açılıyor*/
+        /*Eğer onaylar ise ilan onay formuanuna yönlendiriliyor*/
+        else {
+            const swalWithBootstrapButtons = Swal.mixin(
+                {
+                    customClass:
+                    {
+                        confirmButton: 'swal2-confirm',
+                        cancelButton: 'swal2-cancel'
+                    },
+                    buttonsStyling: true
+                })
+            swalWithBootstrapButtons.fire(
+                {
+                    text: "İlan bilgilerinin doğru olduğunu onaylıyor musunuz?",
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonText: 'Onayla',
+                    cancelButtonText: 'Vazgeç',
+                }).then((result) => {
+                    if (result.value) {
+                        $("#myForm").submit();
+                    }
+                    else if (result.dismiss === Swal.DismissReason.cancel) {
+                    }
+                })
+        }
+    }
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.8.2/js/lightbox.min.js"></script>
