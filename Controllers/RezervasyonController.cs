@@ -7,6 +7,10 @@ using System.Web.Mvc;
 
 namespace AracKiralamaOtomasyonu.Controllers
 {
+
+    //-DEVELOPER BY YUSUF ŞENER
+    //-https://yusufsener.com.tr/
+    //  -https://github.com/yusufsenerr
     public class RezervasyonController : Controller
     {
         // GET: Rezervasyon

@@ -17,6 +17,10 @@ using static AracKiralamaOtomasyonu.Filtre.GirisFiltre;
 
 namespace AracKiralamaOtomasyonu.Controllers
 {
+
+    //-DEVELOPER BY YUSUF ŞENER
+    //-https://yusufsener.com.tr/
+    //  -https://github.com/yusufsenerr
     public class IlanController : Controller
     {
         private AracKiralamaContext db = new AracKiralamaContext();

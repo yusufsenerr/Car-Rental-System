@@ -12,6 +12,10 @@ using AracKiralamaOtomasyonu.Models.Context;
 
 namespace AracKiralamaOtomasyonu.Controllers
 {
+    //-DEVELOPER BY YUSUF ŞENER
+    //-https://yusufsener.com.tr/
+    //  -https://github.com/yusufsenerr
+
     [LoginFilter]
     public class AdminController : Controller
     {

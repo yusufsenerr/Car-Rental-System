@@ -12,6 +12,10 @@ using AracKiralamaOtomasyonu.PasswordHash;
 
 namespace AracKiralamaOtomasyonu.Controllers
 {
+
+    //-DEVELOPER BY YUSUF ŞENER
+    //-https://yusufsener.com.tr/
+    //  -https://github.com/yusufsenerr
     public class HomeController : Controller
     {
         public ActionResult Index()

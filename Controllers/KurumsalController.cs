@@ -18,6 +18,9 @@ using System.Text;
 namespace AracKiralamaOtomasyonu.Controllers
 {
 
+    //-DEVELOPER BY YUSUF ŞENER
+    //-https://yusufsener.com.tr/
+    //  -https://github.com/yusufsenerr
     public class KurumsalController : Controller
     {
         // GET: Kuurmsal
