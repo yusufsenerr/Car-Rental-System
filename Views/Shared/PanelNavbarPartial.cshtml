@@ -12,35 +12,37 @@
                             <a class="nav-link font-weight-bold" href="/Home/Index">ANASAYFA<span class="sr-only">(current)</span></a>
                             @if (Session["KullaniciId"] == null)
                             {
-            <li class="nav-item active">
-                <a class="nav-link font-weight-bold" href="/Ilan/IlanListesi">İLANLAR</a>
-            </li>
-}
-                            @if (Session["KullaniciId"] != null && Session["YetkiSeviye"].ToString() == "0")
+                    <li class="nav-item active">
+                        <a class="nav-link font-weight-bold" href="/Ilan/IlanListesi">İLANLAR</a>
+                    </li>}
+                            @if (Session["KullaniciId"] != null || Session["KurumsalId"] != null)
                             {
-                <li class="nav-item active">
-                    <a class="nav-link font-weight-bold " href="/Kullanici/Panel">PANEL</a>
-                </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link font-weight-bold dropdown-toggle" href="/Ilan/IlanListesi">İLANLAR</a>
+                    <li class="nav-item active">
+                        <a class="nav-link font-weight-bold " href="/Kullanici/Panel">PANEL</a>
+                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link font-weight-bold dropdown-toggle" href="/Ilan/IlanListesi">İLANLAR</a>
 
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                        <a class="dropdown-item " href="/Ilan/Ilanlarim">İLANLARIM</a>
-                                        <a class="dropdown-item " href="/Ilan/IlanEkle">YENİ İLAN</a>
-                                    </div>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                            <a class="dropdown-item " href="/Ilan/Ilanlarim">İLANLARIM</a>
+                                            <a class="dropdown-item " href="/Ilan/IlanEkle">YENİ İLAN</a>
+                                        </div>
 
 
+                                    </li>}
+                            @if (Session["KurumsalId"] == null)
+                            {
+                                <li class="nav-item active">
+                                    <a class="nav-link font-weight-bold" href="/Kurumsal/Liste">KURUMSAL FİRMALAR</a>
                                 </li>
-}
-                            <li class="nav-item active">
-                                <a class="nav-link font-weight-bold" href="/Kurumsal/Liste">KURUMSAL FİRMALAR</a>
-                            </li>
+                            }
+
                         </ul>
                     </div>
                 </div>
             </div>
             <!-- /Search -->
-            @if (Session["YetkiSeviye"] != null)
+            @if (Session["KullaniciId"] != null || Session["KurumsalId"] != null)
             {
 <ul class="navbar-nav flex-row align-items-center ms-auto">
     <!-- User -->
@@ -61,12 +63,6 @@
                         </div>
                         <div class="flex-grow-1">
                             <span class="fw-semibold d-block">@Session["KullaniciAd"]</span>
-                            @if (Session["YetkiSeviye"].ToString() == "2")
-                            {
-            <small class="text-muted">Admin</small>}
-                            @if (Session["YetkiSeviye"].ToString() == "1")
-                            {
-            <small class="text-muted">Personel</small>}
                         </div>
                     </div>
                 </a>
@@ -90,15 +86,28 @@
     </li>
     <!--/ User -->
 </ul>}
-            @if (Session["KullaniciId"] == null)
+            @if (Session["KullaniciId"] == null && Session["KurumsalId"] == null)
             {
-<div class="navbar-nav flex-row align-items-center ms-auto">
-    <a href="/Home/Giris" class="btn btn-block btn-user btn-block font-weight-bold  mr-2">
-        GİRİŞ YAP
-    </a>
-    <a href="/Home/Kayit" class="btn btn-block btn-user font-weight-bold btn-block">
-        ÜYE OL
-    </a>
-</div>}
+    <div class="navbar-nav flex-row align-items-center ms-auto">
+        <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+                <a class="nav-link font-weight-bold dropdown-toggle" href="#">Giriş Yap</a>
+
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item " href="/Home/Giris">Bireysel</a>
+                    <a class="dropdown-item " href="/Kurumsal/Giris">Kurumsal</a>
+                </div>
+
+
+            </li>
+            <li>
+                <a href="/Home/Kayit" class="btn btn-block btn-user font-weight-bold btn-block">
+                    Kayıt Ol
+                </a>
+            </li>
+        </ul>
+
+
+    </div>}
         </div>
     </nav>

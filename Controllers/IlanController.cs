@@ -79,7 +79,8 @@ namespace AracKiralamaOtomasyonu.Controllers
         [AcceptVerbs("Post")]
         public ActionResult IlanEkleMethod(Ilanlar ilanlars, AracGuvenlik aracGuvenliks, AracDisDonanim aracDisDonanims, AracIcDonanim aracIcDonanims, AracMultiMedya aracMultiMedyas, IEnumerable<HttpPostedFileBase> UploadFiles)
         {
-            var Userid = Convert.ToInt16(Session["KullaniciId"]);
+            var UserID = Convert.ToInt16(Session["KullaniciId"]);
+            var KurumsalID = Convert.ToInt16(Session["KurumsalId"]);
 
             //Formdan gelen arac güvenlik bilgilerini tabloya ekliyorum
             AracGuvenlik aracGuvenlik = new AracGuvenlik();
@@ -156,7 +157,15 @@ namespace AracKiralamaOtomasyonu.Controllers
             ilanlar.MotorGucu = ilanlars.MotorGucu;
             ilanlar.MotorHacmi = ilanlars.MotorHacmi;
             ilanlar.Cekis = ilanlars.Cekis;
-            ilanlar.IDMusteri = Userid;
+            if (UserID != null)
+            {
+                ilanlar.IDMusteri = UserID;
+            }
+            else
+            {
+                ilanlar.IDKurumsal = KurumsalID;
+            }
+
             ilanlar.IDDosya = 1;
 
             db.Ilanlar.Add(ilanlar);
@@ -203,7 +212,7 @@ namespace AracKiralamaOtomasyonu.Controllers
                         Dosyalar dosyalars = new Dosyalar();
 
                         dosyalars.IDIlan = ilanlar.IDIlan;
-                        dosyalars.IDKullanici = Userid;
+                        dosyalars.IDKullanici = UserID;
                         dosyalars.tip = "ilan";
                         dosyalars.Url = "a" + guid2;
 

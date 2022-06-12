@@ -318,15 +318,21 @@ namespace AracKiralamaOtomasyonu.Controllers
                     {
                       var kullanici =  db.Kullanici.Where(x => x.Eposta == basvuru.Eposta).FirstOrDefault();
                         var personel = db.Personel.Where(x => x.Mail == basvuru.Eposta).FirstOrDefault();
+                        var kurumsal = db.Kurumsal.Where(x => x.Eposta == basvuru.Eposta).FirstOrDefault();
                         if (kullanici != null)
                         {
                             ViewBag.kullaniciid = kullanici.IDKullanici;
                             ViewBag.Eposta = kullanici.Eposta;
                         }
-                        else
+                        else if(personel != null)
                         {
                             ViewBag.Eposta = personel.Mail;
                             ViewBag.kullaniciid = personel.IDPersonel;
+                        }
+                        else if(kurumsal != null)
+                        {
+                            ViewBag.Eposta = kurumsal.Eposta;
+                            ViewBag.kullaniciid = kurumsal.ID;
                         }
 
                         ViewBag.guid = title;
@@ -354,13 +360,14 @@ namespace AracKiralamaOtomasyonu.Controllers
 
                 var kullanici = db.Kullanici.Where(x => x.IDKullanici == kullaniciid1 && x.Eposta == Eposta).FirstOrDefault();
                 var personel = db.Personel.Where(x => x.IDPersonel == kullaniciid1 && x.Mail == Eposta).FirstOrDefault();
+                var kurumsal = db.Kurumsal.Where(x => x.ID == kullaniciid1 && x.Eposta == Eposta).FirstOrDefault();
                 string sifreyeni = yenisifre;
                 byte[] passwordHashnew, passwordSaltnew;
                 HashingHelper.CreatePasswordHash(sifreyeni, out passwordHashnew, out passwordSaltnew);
-                if (kullanici == null)
+                if (kullanici != null)
                 {
-                    personel.SifreHash = passwordHashnew;
-                    personel.SifreSalt = passwordSaltnew;
+                    kurumsal.SifreHash = passwordHashnew;
+                    kurumsal.SifreSalt = passwordSaltnew;
                     db.SaveChanges();
 
 
@@ -370,17 +377,30 @@ namespace AracKiralamaOtomasyonu.Controllers
 
                     return RedirectToAction("Giris");
                 }
-                if(personel == null)
+                if(personel != null)
                 {
 
-                    kullanici.SifreHash = passwordHashnew;
-                    kullanici.SifreSalt = passwordSaltnew;
+                    personel.SifreHash = passwordHashnew;
+                    personel.SifreSalt = passwordSaltnew;
                     db.SaveChanges();
                     var talep = db.SifreSifirlama.Where(x => x.DogrulamaLinki == guid).FirstOrDefault();
                     talep.Dogrulama = false;
                     db.SaveChanges();
 
                     return RedirectToAction("Giris");
+                }
+
+                if (kurumsal != null)
+                {
+
+                    kurumsal.SifreHash = passwordHashnew;
+                    kurumsal.SifreSalt = passwordSaltnew;
+                    db.SaveChanges();
+                    var talep = db.SifreSifirlama.Where(x => x.DogrulamaLinki == guid).FirstOrDefault();
+                    talep.Dogrulama = false;
+                    db.SaveChanges();
+
+                    return RedirectToAction("Giris", "Kurumsal");
                 }
                 else
                 {

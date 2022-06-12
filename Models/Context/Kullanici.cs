@@ -29,5 +29,7 @@ namespace AracKiralamaOtomasyonu.Models
         public System.DateTime SonGirisTarihi { get; set; }
         public virtual ICollection<Ilanlar> Ilanlars { get; set; }
 
+        public virtual ICollection<Kurumsal> Kurumsal { get; set; }
+
     }
 }

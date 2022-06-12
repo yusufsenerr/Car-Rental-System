@@ -626,6 +626,9 @@
     <Content Include="Views\Kurumsal\Guncelle.cshtml" />
     <Content Include="Views\Kullanici\Panel.cshtml" />
     <Content Include="Views\Rezervasyon\Liste.cshtml" />
+    <Content Include="Views\Kurumsal\Giris.cshtml" />
+    <Content Include="Views\Kurumsal\Panel.cshtml" />
+    <Content Include="Views\Kurumsal\SifremiUnuttum.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -21,14 +21,14 @@ namespace AracKiralamaOtomasyonu.Models.Map
             this.Property(p => p.Cekis).HasColumnType("nvarchar").HasMaxLength(30);
             this.Property(p => p.Fiyat).HasColumnType("nvarchar").HasColumnType("int");
             this.Property(p => p.IlanTarihi).HasColumnType("date");
-            this.Property(p => p.Kasa).HasColumnType("nvarchar").HasMaxLength(30);
-            this.Property(p => p.Kilometre).HasColumnType("nvarchar").HasMaxLength(30);
-            this.Property(p => p.MotorGucu).HasColumnType("nvarchar").HasMaxLength(30);
-            this.Property(p => p.MotorHacmi).HasColumnType("nvarchar").HasMaxLength(30);
-            this.Property(p => p.Vites).HasColumnType("nvarchar").HasMaxLength(30);
-            this.Property(p => p.Yakit).HasColumnType("nvarchar").HasMaxLength(30);
+            this.Property(p => p.Kasa).HasColumnType("nvarchar").HasMaxLength(50);
+            this.Property(p => p.Kilometre).HasColumnType("nvarchar").HasMaxLength(50);
+            this.Property(p => p.MotorGucu).HasColumnType("nvarchar").HasMaxLength(50);
+            this.Property(p => p.MotorHacmi).HasColumnType("nvarchar").HasMaxLength(50);
+            this.Property(p => p.Vites).HasColumnType("nvarchar").HasMaxLength(50);
+            this.Property(p => p.Yakit).HasColumnType("nvarchar").HasMaxLength(50);
             this.Property(p => p.Yil).HasColumnType("date");
-            this.Property(p => p.Aciklama).HasColumnType("nvarchar").HasMaxLength(250);
+            this.Property(p => p.Aciklama).HasColumnType("nvarchar").HasMaxLength(500);
 
 
             this.HasRequired(p => p.Kullanici).WithMany(p => p.Ilanlars).HasForeignKey(p => p.IDMusteri);

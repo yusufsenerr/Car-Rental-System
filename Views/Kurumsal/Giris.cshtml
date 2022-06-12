@@ -1,0 +1,133 @@
+﻿
+@{
+    ViewBag.Title = "Giris";
+    Layout = "~/Views/Shared/_PanelLayout.cshtml";
+}
+
+<div class="container">
+    <!-- Outer Row -->
+    <div class="row justify-content-center">
+        <div class="col-xl-12 col-lg-12 col-md-12">
+            <div class="card o-hidden border-0 shadow-lg my-5">
+                <div class="card-body ">
+                    <!-- Nested Row within Card Body -->
+                    <div class="row">
+                        <div class="col-lg-6 pt-5" style="padding-left:30px!important">
+                            <img src="~/Dosyalar/Public/bsp9.jpg" style="width:100%;height:auto;" />
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="p-5">
+                                <div class="text-center">
+                                    <h1 class="h4 text-gray-900 mb-4">Hoşgeldiniz !</h1>
+                                </div>
+                                <form class="user" id="myForm" name="myForm" action="/Kurumsal/GirisMethod" method="post">
+                                    <div class="mb-5 text-center">
+                                        <span style="display:none; visibility:hidden ;color:Red !important" id="Login1_FailureText">E-Posta veya şifre hatalı</span>
+                                    </div>
+                                    <div class="mb-5 text-center">
+                                        <span style="display:none; visibility:hidden ;color:Red !important" id="Login2_FailureText">Hesap doğrulanması yapılmadığı için giriş başarısız</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="email" class="form-control form-control-user"
+                                               id="eposta" aria-describedby="eposta" name="eposta"
+                                               placeholder="E-Posta">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" class="form-control form-control-user"
+                                               id="sifre" placeholder="Şifre" name="sifre">
+                                    </div>
+                                    @*<div class="form-group">
+                                            <div class="custom-control custom-checkbox small">
+                                                <input type="checkbox" class="custom-control-input" id="customCheck">
+                                                <label class="custom-control-label" for="customCheck">
+                                                    Beni Hatırla
+                                                </label>
+                                            </div>
+                                        </div>*@
+                                    <button type="button" onclick="GirisMethod()" class="btn btn-primary btn-user btn-block">
+                                        Giriş Yap
+                                    </button>
+                                </form>
+                                <hr>
+                                <div class="text-center">
+                                    <a class="small" href="/Kurumsal/SifremiUnuttum">Şifremi unuttum</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    function GirisMethod() {
+                    var eposta = document.getElementById('eposta').value;
+                    var sifre = document.getElementById('sifre').value;
+
+                    if (eposta == "") {
+                        const swalWithBootstrapButtons = Swal.mixin({
+                            customClass: {
+                                confirmButton: 'swal2-confirm',
+                                cancelButton: 'swal2-cancel'
+                            },
+                            buttonsStyling: true
+                        })
+                        swalWithBootstrapButtons.fire({
+                            text: "E-posta adresiniz boş girilemez",
+                            icon: 'warning',
+                            showCancelButton: false,
+                        }).then((result) => {
+                            if (result.value) {
+                                result.dismiss === Swal.DismissReason.cancel
+                            } else if (
+                                /* Read more about handling dismissals below */
+                                result.dismiss === Swal.DismissReason.cancel
+                            ) {
+                            }
+                        })
+                    }
+
+
+                    else if (sifre == "") {
+                        const swalWithBootstrapButtons = Swal.mixin({
+                            customClass: {
+                                confirmButton: 'swal2-confirm',
+                                cancelButton: 'swal2-cancel'
+                            },
+                            buttonsStyling: true
+                        })
+                        swalWithBootstrapButtons.fire({
+                            text: "Şifre boş girilemez",
+                            icon: 'warning',
+                            showCancelButton: false,
+                        }).then((result) => {
+                            if (result.value) {
+                                result.dismiss === Swal.DismissReason.cancel
+                            } else if (
+                                /* Read more about handling dismissals below */
+                                result.dismiss === Swal.DismissReason.cancel
+                            ) {
+                            }
+                        })
+                    }
+                    else {
+                        $("#myForm").submit();
+                    }
+
+    }
+
+    window.onload = function () {
+                   if (@ViewBag.eror == 1) {
+                document.getElementById('Login1_FailureText').style.display = "";
+                document.getElementById('Login1_FailureText').style.visibility = 'visible';
+            }
+            if (@ViewBag.eror == 2) {
+                document.getElementById('Login2_FailureText').style.display = "";
+                document.getElementById('Login2_FailureText').style.visibility = 'visible';
+            }
+    };
+</script>
+

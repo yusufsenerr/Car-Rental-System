@@ -8,7 +8,12 @@ using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+
+using AracKiralamaOtomasyonu.PasswordHash;
 using static AracKiralamaOtomasyonu.Filtre.GirisFiltre;
+using System.Net.Mail;
+using System.Net;
+using System.Text;
 
 namespace AracKiralamaOtomasyonu.Controllers
 {
@@ -16,6 +21,148 @@ namespace AracKiralamaOtomasyonu.Controllers
     public class KurumsalController : Controller
     {
         // GET: Kuurmsal
+
+        public ActionResult Giris(int? eror)
+        {
+            if (eror != null)
+            {
+                ViewBag.eror = eror;
+            }
+            else
+            {
+                ViewBag.eror = 3;
+            }
+
+            return View();
+        }
+
+
+        //Giriş yap butonuna basılınca bu metoda düşer burada parametre olarak eposta ve sifre gönderilir
+        public ActionResult GirisMethod(string eposta, string sifre)
+
+
+        {
+            using (AracKiralamaContext db = new AracKiralamaContext())
+            {
+                //Sistemde girilen E-posta kullanıcıya ait mi diye kontrol edilir
+                var kurumsal = db.Kurumsal.FirstOrDefault(x => x.Eposta == eposta);
+                //Eğer kullanıcıya ait değilse bu kodun içine girer
+                if (kurumsal == null)
+                {
+                        int eror = 1;
+                        return RedirectToAction("Giris", new { eror });
+                }
+                //Kullanıcının şifresi yanlış ise hatalı şifre şeklinde mesaj gönderilir
+                else if (!HashingHelper.VerifyPasswordHash(sifre, kurumsal.SifreHash, kurumsal.SifreSalt))
+                {
+                    int eror = 1;
+                    return RedirectToAction("Giris", new { eror });
+                }
+                else
+                {
+                    //E-mail ve şifre doğru ise id,ad ve e posta session'a kaydedilri.
+                    Session.Add("KurumsalId", kurumsal.ID);
+                    Session.Add("KullaniciAd", kurumsal.Ad);
+
+                    Session.Add("Email", kurumsal.Eposta);
+                    //profil fotoğrafı sistemde kayıtlı ise kullanıcıc profil fotoğrafı session'a eklenir
+                    if (kurumsal.LogoUrl != null)
+                    {
+                        Session.Add("ProfilFoto", kurumsal.LogoUrl);
+                    }
+                    else
+                    {
+                        //profil fotoğrafı sistemde kayıtlı değil ise kullanıcının profil fotoğrafı default olarak verilir ve session'a eklenir
+                        Session.Add("ProfilFoto", "default-profile.jpg");
+                    }
+
+                    //İşemler sonucunda Kullanici paneline yönlendirilir
+                    return RedirectToAction("Panel");
+                }
+
+            }
+        }
+
+        public ActionResult Panel()
+        {
+            using (AracKiralamaContext db = new AracKiralamaContext())
+            {
+                var ilan = db.Ilanlar;
+                var Userid = Convert.ToInt16(Session["KullaniciId"]);
+
+                PanelViewModel model = new PanelViewModel();
+                model.Ilanlars = ilan.Include("AracMarka").Include("AracModel").Where(x => x.IDKurumsal == Userid).OrderByDescending(x => x.IlanTarihi).ToList();
+
+                return View(model);
+            }
+        }
+
+        public ActionResult SifremiUnuttum()
+        {
+            return View();
+        }
+
+        public ActionResult SifremiUnuttumMethod(string Eposta)
+        {
+            using (AracKiralamaContext db = new AracKiralamaContext())
+            {
+                //Girilen E-posta sistemde kayıtlı mı diye kontrol ediliyor
+                var kullanici = db.Kurumsal.Where(x => x.Eposta == Eposta).FirstOrDefault();
+
+                string guid = Guid.NewGuid().ToString();
+                guid = guid.Replace("-", string.Empty);
+                guid = guid.Substring(0, 30);
+                if (kullanici != null)
+                {
+                    //Şifre sıfırlayabilmesi için sifreSifirlama tablosuna kayıt ekliyorum ki buradan URL'e ulaşabilsin
+                    SifreSifirlama sifreSifirlama = new SifreSifirlama();
+                    sifreSifirlama.KayitTarihi = DateTime.Now;
+                    sifreSifirlama.Eposta = Eposta;
+                    sifreSifirlama.KullaniciID = kullanici.ID;
+                    sifreSifirlama.Dogrulama = true;
+                    sifreSifirlama.DogrulamaLinki = guid;
+                    db.SifreSifirlama.Add(sifreSifirlama);
+                    db.SaveChanges();
+                }
+
+                //Eğer girilen E-posta bir Personele ait ise bu if koşulunun içine girer
+                //Şifre sıfırlama için gönderdiğim E-posta içeriğini mail'in bodysine ekliyorum
+                string filename = Server.MapPath("~/Views/Mail/SifreSifirlama.cshtml");
+                string mailbody = System.IO.File.ReadAllText(filename);
+
+                //Mail'de yer alan butona bağlantı ekleyebilmek için guid'yi maile içeriğine ekliyorum
+                mailbody = mailbody.Replace("##guid##", guid);
+                SmtpClient client = new SmtpClient();
+
+                //Alttaki kodlar ise mail'in gönderilmesi için gerekli olan kodlar
+                client.Port = 587;
+                client.Host = "smtp-mail.outlook.com";
+                client.EnableSsl = true;
+
+                client.Credentials = new NetworkCredential("yusufsenerproje@outlook.com", "DfnDuw7p159*C");
+
+                MailMessage mail = new MailMessage();
+
+                mail.From = new MailAddress("yusufsenerproje@outlook.com", "Rent A Car");
+
+                mail.To.Add(Eposta);
+                mail.Subject = "Şifre Sıfırlama";
+                mail.IsBodyHtml = true;
+                mail.Body = mailbody;
+                mail.BodyEncoding = UTF8Encoding.UTF8;
+                mail.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
+                client.Send(mail);
+                TempData["mailyok"] = "mailvar";
+                TempData["mail"] = Eposta;
+                //Eğer bu girilen mail sistemde kayıtlı değil ise SifremiUnuttum ekranına yönlendiriyorum
+
+                return RedirectToAction("SifremiUnuttum");
+
+
+            }
+
+        }
+
         public ActionResult Liste(string ara)
         {
             using (AracKiralamaContext db = new AracKiralamaContext())
@@ -194,7 +341,7 @@ namespace AracKiralamaOtomasyonu.Controllers
                 return View(firma);
             }
         }
-
+        [LoginFilter]
         public ActionResult GuncelleMethod(Kurumsal kurumsal)
         {
             using (AracKiralamaContext db = new AracKiralamaContext())
@@ -205,6 +352,25 @@ namespace AracKiralamaOtomasyonu.Controllers
                 firma.Telefon = kurumsal.Telefon;
                 db.SaveChanges();
                 return RedirectToAction("Liste");
+
+            }
+        }
+
+        public String EpostaKontrol(string eposta)
+        {
+            using (AracKiralamaContext db = new AracKiralamaContext())
+            {
+                var kullanici = db.Kurumsal.Where(x => x.Eposta == eposta).FirstOrDefault();
+                if (kullanici != null)
+                {
+                    var data = "basarili";
+                    return data;
+                }
+                else
+                {
+                    var data = "basarisiz";
+                    return data;
+                }
 
             }
         }
