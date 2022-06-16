@@ -15,7 +15,11 @@ namespace AracKiralamaOtomasyonu.Filtre
 
             {
 
-                if (System.Web.HttpContext.Current.Session["KullaniciId"] == null)
+                if (HttpContext.Current.Session["KullaniciId"] != null || HttpContext.Current.Session["KurumsalId"] != null)
+                {
+                   
+                }
+                else
                 {
                     filterContext.Result = new RedirectResult("~/Home/Giris");
                 }

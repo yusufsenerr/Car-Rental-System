@@ -31,27 +31,29 @@ namespace AracKiralamaOtomasyonu.Controllers
                 if (kontrol != null)
                 {
                     IlanViewModel model = new IlanViewModel();
-                var KullaniciIlan = db.Ilanlar.Include("AracMarka").Include("Dosyalar").Include("AracModel").Include("AracGuvenlik").Include("Dosyalar").Include("AracDisDonanim").Include("AracIcDonanim").Include("AracMultiMedya").Include("Kullanici").Where(x => x.IDIlan == id  && x.IDMusteri == Userid).FirstOrDefault();
-                var ilan = db.Ilanlar.Include("AracMarka").Include("Dosyalar").Include("AracModel").Include("AracGuvenlik").Include("Dosyalar").Include("AracDisDonanim").Include("AracIcDonanim").Include("AracMultiMedya").Include("Kullanici").Where(x => x.IDIlan == id && x.Durum == "3").FirstOrDefault();
-
-                if (KullaniciIlan != null)
+                if (Userid != 0)
                 {
-                    model.Ilanlars = KullaniciIlan;
-                    model.Dosyalars = db.Dosyalar.Where(x => x.IDIlan == id && x.tip == "ilan" && x.IDDosya != kontrol.IDDosya).ToList();
-                    model.Dosyalar = db.Dosyalar.Where(x => x.IDIlan == id && x.tip == "ilan" && x.IlkFoto == true).FirstOrDefault();
-                    return View(model);
+                    var KullaniciIlan = db.Ilanlar.Include("AracMarka").Include("Dosyalar").Include("AracModel").Include("AracGuvenlik").Include("Dosyalar").Include("AracDisDonanim").Include("AracIcDonanim").Include("AracMultiMedya").Include("Kullanici").Where(x => x.IDIlan == id && x.IDMusteri == Userid).FirstOrDefault();
+                    if (KullaniciIlan != null)
+                    {
+                        model.Ilanlars = KullaniciIlan;
+                        model.Dosyalars = db.Dosyalar.Where(x => x.IDIlan == id && x.tip == "ilan" && x.IDDosya != kontrol.IDDosya).ToList();
+                        model.Dosyalar = db.Dosyalar.Where(x => x.IDIlan == id && x.tip == "ilan" && x.IlkFoto == true).FirstOrDefault();
+                        return View(model);
+                    }
+                }
+                var ilan = db.Ilanlar.Include("AracMarka").Include("Dosyalar").Include("AracModel").Include("AracGuvenlik").Include("Dosyalar").Include("AracDisDonanim").Include("AracIcDonanim").Include("AracMultiMedya").Where(x => x.IDIlan == id && x.Durum == 3).FirstOrDefault();
+                if (ilan == null)
+                {
+                    return RedirectToAction("Ilanlar", "Ilan");
                 }
 
-                if (ilan == null)
-                    {
-                        return RedirectToAction("IlanListesi", "Ilan");
-                    }
                     model.Ilanlars = ilan;
                     model.Dosyalars = db.Dosyalar.Where(x => x.IDIlan == id && x.tip == "ilan" && x.IDDosya != kontrol.IDDosya).ToList();
                     model.Dosyalar = db.Dosyalar.Where(x => x.IDIlan == id && x.tip == "ilan" && x.IlkFoto == true).FirstOrDefault();
                     return View(model);
                 }
-                return RedirectToAction("IlanListesi","Ilan");
+                return RedirectToAction("Ilanlar","Ilan");
         }
         [LoginFilter]
         public ActionResult Ilanlarim()
@@ -69,7 +71,7 @@ namespace AracKiralamaOtomasyonu.Controllers
 
                 return View(model);
             }
-            return RedirectToAction("IlanListesi", "Ilan");
+            return RedirectToAction("Ilanlar", "Ilan");
         }
         [LoginFilter]
         public ActionResult IlanEkle()
@@ -143,7 +145,7 @@ namespace AracKiralamaOtomasyonu.Controllers
             //Formdan gelen Arac hakkındaki bilgilerini tabloya ekliyorum
             Ilanlar ilanlar = new Ilanlar();
             //Durumu 2 yapıyorum çünkü ilan yayınlanmadan önce onaya gitmeli
-            ilanlar.Durum = "2";
+
             ilanlar.IDAracDisDonanim = aracDisDonanim.IDAracDisDonanim;
             ilanlar.IDAracGuvenlik = aracGuvenlik.IDAracGuvenlik;
             ilanlar.IDAracIcDonanim = aracIcDonanim.IDAracIcDonanim;
@@ -161,13 +163,15 @@ namespace AracKiralamaOtomasyonu.Controllers
             ilanlar.MotorGucu = ilanlars.MotorGucu;
             ilanlar.MotorHacmi = ilanlars.MotorHacmi;
             ilanlar.Cekis = ilanlars.Cekis;
-            if (UserID != null)
+            if (UserID != 0)
             {
                 ilanlar.IDMusteri = UserID;
+                ilanlar.Durum = 2;
             }
             else
             {
                 ilanlar.IDKurumsal = KurumsalID;
+                ilanlar.Durum = 3;
             }
 
             ilanlar.IDDosya = 1;
@@ -313,7 +317,7 @@ namespace AracKiralamaOtomasyonu.Controllers
                 ilanlars.Baslik = ilanlar.Baslik;
                 ilanlars.IDAracMarka = ilanlar.IDAracMarka;
                 ilanlars.IDAracModel = ilanlar.IDAracModel;
-                ilanlars.Durum = "2";
+                ilanlars.Durum = 2;
                 ilanlars.Aciklama = ilanlar.Aciklama;
                 ilanlars.Cekis = ilanlar.Cekis;
                 ilanlars.Fiyat = ilanlar.Fiyat;
@@ -415,12 +419,12 @@ namespace AracKiralamaOtomasyonu.Controllers
         }
         
 
-        public ActionResult IlanListesi(string ara,string marka, string modeli, string vites,string kasa, string yakit,string cekis, int? minfiyat, int? maxfiyat)
+        public ActionResult Ilanlar(string ara,string marka, string modeli, string vites,string kasa, string yakit,string cekis, int? minfiyat, int? maxfiyat)
         {
 
             IlanListeViewModel model = new IlanListeViewModel();
 
-            var sorgu = db.Ilanlar.Include("AracMarka").Include("AracModel").Include("AracGuvenlik").Include("AracDisDonanim").Include("AracIcDonanim").Include("AracMultiMedya").Include("Kullanici").Include("Dosyalar").Where(x=>x.Durum =="3").ToList();
+            var sorgu = db.Ilanlar.Include("AracMarka").Include("AracModel").Include("AracGuvenlik").Include("AracDisDonanim").Include("AracIcDonanim").Include("AracMultiMedya").Include("Kurumsal").Include("Dosyalar").Where(x=>x.Durum ==3).ToList();
 
             if (ara != "" && ara != null)
             {
@@ -484,7 +488,7 @@ namespace AracKiralamaOtomasyonu.Controllers
                 var ilanlar = db.Ilanlar.Include("AracMarka").Include("AracModel").Include("Kullanici").Include("Dosyalar").Include("AracGuvenlik").Include("AracIcDonanim").Include("AracDisDonanim").Include("AracMultiMedya").Where(x => x.IDIlan == id && x.IDMusteri == Userid).FirstOrDefault();
                 if (ilanlar == null)
                 {
-                    return RedirectToAction("IlanListesi");
+                    return RedirectToAction("Ilanlar");
                 }
                 ViewBag.gorseller = db.Dosyalar.Where(x => x.IDIlan == ilanlar.IDIlan && x.tip == "ilan").ToList();
                 return View(ilanlar);

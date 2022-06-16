@@ -616,7 +616,7 @@
     <Content Include="Views\Shared\ContentPartial.cshtml" />
     <Content Include="Views\Kullanici\Index.cshtml" />
     <Content Include="Views\Ilan\IlanEkle.cshtml" />
-    <Content Include="Views\Ilan\IlanListesi.cshtml" />
+    <Content Include="Views\Ilan\Ilanlar.cshtml" />
     <Content Include="Views\Ilan\IlanDuzenle.cshtml" />
     <Content Include="Views\Ilan\Ilanlarim.cshtml" />
     <Content Include="Views\Kurumsal\Liste.cshtml" />

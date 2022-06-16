@@ -13,7 +13,7 @@ namespace AracKiralamaOtomasyonu.Models
         public int IDIlan { get; set; }
         public int IDAracMarka { get; set; }
         public int IDAracModel { get; set; }
-        public int IDMusteri { get; set; }
+        public Nullable<int> IDMusteri { get; set; }
 
         public Nullable<int> IDAracIcDonanim { get; set; }
         public Nullable<int> IDAracGuvenlik { get; set; }
@@ -22,7 +22,8 @@ namespace AracKiralamaOtomasyonu.Models
         public Nullable<int> IDKurumsal { get; set; }
         public int IDDosya { get; set; }
 
-        public string Durum { get; set; }
+
+        public byte Durum { get; set; }
         public string Baslik { get; set; }
         public int Fiyat { get; set; }
         public string Kilometre { get; set; }

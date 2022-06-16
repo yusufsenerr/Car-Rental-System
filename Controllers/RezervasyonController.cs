@@ -40,10 +40,10 @@ namespace AracKiralamaOtomasyonu.Controllers
                 db.SaveChanges();
 
                 var ilan = db.Ilanlar.Where(x => x.IDIlan == IDIlan).FirstOrDefault();
-                ilan.Durum = "4";
+                ilan.Durum = 4;
                 db.SaveChanges();
             }
-            return RedirectToAction("IlanListesi", "Ilan");
+            return RedirectToAction("Ilanlar", "Ilan");
         }
         public ActionResult Liste()
         {

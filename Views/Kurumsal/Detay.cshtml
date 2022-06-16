@@ -94,7 +94,7 @@
     <div class="container">
         <div class="row mt-3 mb-5">
             <div class="col-md-12 nopadding  justify-content-center">
-                <form method="post" action="/Ilan/IlanListesi">
+                <form method="post" action="/Ilan/Ilanlar">
 
 
                     <div class="dropdown" style="min-width:220px!important">
@@ -208,7 +208,7 @@
                         <button type="submit" class="btn btn-primary" title="Ara"><i class="fa fa-filter"></i></button>
                         @if (Model.arama != null || Model.marka != null || Model.modeli != null || Model.cekis != null || Model.kasa != null || Model.yakit != null || Model.vites != null)
                         {
-                            <a href="IlanListesi" class="btn btn-primary" title="Filtreyi Temizle"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                            <a href="Ilanlar" class="btn btn-primary" title="Filtreyi Temizle"><i class="fa fa-trash" aria-hidden="true"></i></a>
                         }
                     </div>
                     <div style="display:block!important;margin:10px!important;">

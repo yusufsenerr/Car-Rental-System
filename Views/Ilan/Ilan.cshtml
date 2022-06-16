@@ -73,7 +73,7 @@
             <div class="col-md-6 mb-5">
                 <div class="text">
                     <span style="color:dodgerblue; font-size:18px!important">@Model.Ilanlars.Fiyat ₺</span>                <div class=" float-end">
-    @if (Model.Ilanlars.Durum != "4" || Model.Ilanlars.IDMusteri != Convert.ToInt16(Session["KullaniciId"]))
+    @if (Model.Ilanlars.Durum != 4 || Model.Ilanlars.IDMusteri != Convert.ToInt16(Session["KullaniciId"]))
     {
         if (Session["KullaniciId"] == null)
         {
@@ -141,10 +141,6 @@
                     <tr>
                         <td>Motor Hacmi</td>
                         <td>@Model.Ilanlars.MotorHacmi cc</td>
-                    </tr>
-                    <tr>
-                        <td>Aracın Bulunduğu Adres</td>
-                        <td>@Model.Ilanlars.Kullanici.Adres</td>
                     </tr>
                 </table>
 

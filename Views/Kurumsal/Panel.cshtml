@@ -34,15 +34,15 @@
                                 <td class="text-center">@item.AracMarka.Ad</td>
                                 <td class="text-center">@item.AracModel.ModelAd</td>
                                 <td class="text-center">@item.IlanTarihi.ToString("dd MMMMMMMM yyyy")</td>
-                                @if (item.Durum == "3")
+                                @if (item.Durum == 3)
                                 {
                                     <td class="text-center"><span class="badge bg-label-success me-1">Yayında</span></td>
                                 }
-                                @if (item.Durum == "1")
+                                @if (item.Durum == 1)
                                 {
                                     <td class="text-center"><span class="badge bg-label-danger me-1">Yayından Kaldırıldı</span></td>
                                 }
-                                @if (item.Durum == "4")
+                                @if (item.Durum == 4)
                                 {
                                     <td class="text-center"><span class="badge bg-label-danger me-1">Araç Kiralandı</span></td>
                                 }

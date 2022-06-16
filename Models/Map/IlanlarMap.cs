@@ -16,7 +16,7 @@ namespace AracKiralamaOtomasyonu.Models.Map
             this.ToTable("Ilanlar");
             this.Property(p => p.IDIlan).HasColumnType("int");
             this.Property(p => p.IDIlan).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-            this.Property(p => p.Durum).HasColumnType("nvarchar").HasMaxLength(10);
+            this.Property(p => p.Durum).HasColumnType("tinyint");
             this.Property(p => p.Baslik).HasColumnType("nvarchar").HasMaxLength(250);
             this.Property(p => p.Cekis).HasColumnType("nvarchar").HasMaxLength(30);
             this.Property(p => p.Fiyat).HasColumnType("nvarchar").HasColumnType("int");
@@ -32,6 +32,7 @@ namespace AracKiralamaOtomasyonu.Models.Map
 
 
             this.HasRequired(p => p.Kullanici).WithMany(p => p.Ilanlars).HasForeignKey(p => p.IDMusteri);
+            this.HasRequired(p => p.Kurumsal).WithMany(p => p.Ilanlars).HasForeignKey(p => p.IDKurumsal);
             this.HasRequired(p => p.Dosyalar).WithMany(p => p.Ilanlars).HasForeignKey(p => p.IDDosya);
             this.HasRequired(p => p.AracMarka).WithMany(p => p.Ilanlars).HasForeignKey(p => p.IDAracMarka);
             this.HasRequired(p => p.AracModel).WithMany(p => p.Ilanlars).HasForeignKey(p => p.IDAracModel);
@@ -39,7 +40,7 @@ namespace AracKiralamaOtomasyonu.Models.Map
             this.HasRequired(p => p.AracIcDonanim).WithMany(p => p.Ilanlars).HasForeignKey(p => p.IDAracIcDonanim);
             this.HasRequired(p => p.AracDisDonanim).WithMany(p => p.Ilanlars).HasForeignKey(p => p.IDAracDisDonanim);
             this.HasRequired(p => p.AracMultiMedya).WithMany(p => p.Ilanlars).HasForeignKey(p => p.IDAracMultiMedya);
-            this.HasRequired(p => p.Kurumsal).WithMany(p => p.Ilanlars).HasForeignKey(p => p.IDKurumsal);
+
 
 
 

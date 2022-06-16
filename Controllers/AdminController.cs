@@ -26,10 +26,10 @@ namespace AracKiralamaOtomasyonu.Controllers
             {
                 var ilan = db.Ilanlar;
 
-                ViewBag.ToplamOnaylanmayanIlan = ilan.Where(x => x.Durum == "2").Count();
+                ViewBag.ToplamOnaylanmayanIlan = ilan.Where(x => x.Durum == 2).Count();
                 ViewBag.ToplamIlan = ilan.ToList().Count();
                 PanelViewModel model = new PanelViewModel();
-                model.Ilanlars = ilan.Include("AracMarka").Include("AracModel").Where(x=>x.Durum=="2").OrderByDescending(x => x.IlanTarihi).ToList();
+                model.Ilanlars = ilan.Include("AracMarka").Include("AracModel").Where(x=>x.Durum==2).OrderByDescending(x => x.IlanTarihi).ToList();
                 model.Kullanicis = db.Kullanici.Where(x => x.Dogrulama == true).ToList();
                 model.Personels = db.Personel.OrderBy(x => x.Ad).ToList();
 
@@ -75,7 +75,7 @@ namespace AracKiralamaOtomasyonu.Controllers
                 ilanlars.Baslik = ilanlar.Baslik;
                 ilanlars.IDAracMarka = ilanlar.IDAracMarka;
                 ilanlars.IDAracModel = ilanlar.IDAracModel;
-                ilanlars.Durum = "3";
+                ilanlars.Durum = 3;
                 ilanlars.Aciklama = ilanlar.Aciklama;
                 ilanlars.Cekis = ilanlar.Cekis;
                 ilanlars.Fiyat = ilanlar.Fiyat;
@@ -99,7 +99,7 @@ namespace AracKiralamaOtomasyonu.Controllers
 
                 var ilanlars = db.Ilanlar.Where(x => x.IDIlan == IlanID).FirstOrDefault();
 
-                ilanlars.Durum = "1";
+                ilanlars.Durum = 1;
                 db.SaveChanges();
 
 
