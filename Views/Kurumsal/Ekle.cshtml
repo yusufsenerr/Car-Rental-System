@@ -61,21 +61,11 @@
 
     function Onay() {
 
-        var baslik = document.getElementById('Baslik').value;
-        var Marka = document.getElementById('IDAracMarka').value;
-        var Model = document.getElementById('IDAracModel').value;
-        var Fiyat = document.getElementById('Fiyat').value;
-        var Yil = document.getElementById('Yil').value;
-        var Kilometre = document.getElementById('Kilometre').value;
-        var Yakit = document.getElementById('Yakit').value;
-        var Vites = document.getElementById('Vites').value;
-        var Kasa = document.getElementById('Kasa').value;
-        var MotorGucu = document.getElementById('MotorGucu').value;
-        var MotorHacmi = document.getElementById('MotorHacmi').value;
-        var Cekis = document.getElementById('Cekis').value;
-        var Aciklama = document.getElementById('Aciklama').value;
+        var Ad = document.getElementById('Ad').value;
+        var Telefon = document.getElementById('Telefon').value;
+        var Adres = document.getElementById('Adres').value;
 
-        if (baslik == "") {
+        if (Ad == "") {
             const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
                     confirmButton: 'swal2-confirm',
@@ -84,7 +74,7 @@
                 buttonsStyling: true
             })
             swalWithBootstrapButtons.fire({
-                text: "Başlığı lütfen yazınız",
+                text: "Firma adını lütfen yazınız",
                 icon: 'warning',
                 showCancelButton: false,
             }).then((result) => {
@@ -98,7 +88,7 @@
             })
         }
 
-        else if (Marka == "") {
+        else if (Telefon == "") {
             const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
                     confirmButton: 'swal2-confirm',
@@ -107,7 +97,7 @@
                 buttonsStyling: true
             })
             swalWithBootstrapButtons.fire({
-                text: "Markayı lütfen yazınız",
+                text: "Telefonu lütfen yazınız",
                 icon: 'warning',
                 showCancelButton: false,
             }).then((result) => {
@@ -121,7 +111,7 @@
             })
         }
 
-        else if (Model == "") {
+        else if (Adres == "") {
             const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
                     confirmButton: 'swal2-confirm',
@@ -130,7 +120,7 @@
                 buttonsStyling: true
             })
             swalWithBootstrapButtons.fire({
-                text: "Modeli lütfen yazınız",
+                text: "Adresi lütfen yazınız",
                 icon: 'warning',
                 showCancelButton: false,
             }).then((result) => {

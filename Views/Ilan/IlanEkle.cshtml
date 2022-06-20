@@ -436,6 +436,7 @@
         var MotorHacmi = document.getElementById('MotorHacmi').value;
         var Cekis = document.getElementById('Cekis').value;
         var Aciklama = document.getElementById('Aciklama').value;
+        var dosya = document.getElementById('UploadFiles').value;
 
         if (baslik == "") {
             const swalWithBootstrapButtons = Swal.mixin({
@@ -470,6 +471,116 @@
             })
             swalWithBootstrapButtons.fire({
                 text: "Markayı lütfen yazınız",
+                icon: 'warning',
+                showCancelButton: false,
+            }).then((result) => {
+                if (result.value) {
+                    result.dismiss === Swal.DismissReason.cancel
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                }
+            })
+        }
+        else if (MotorGucu == "") {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'swal2-confirm',
+                    cancelButton: 'swal2-cancel'
+                },
+                buttonsStyling: true
+            })
+            swalWithBootstrapButtons.fire({
+                text: "Motor gücünü lütfen yazınız",
+                icon: 'warning',
+                showCancelButton: false,
+            }).then((result) => {
+                if (result.value) {
+                    result.dismiss === Swal.DismissReason.cancel
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                }
+            })
+        }
+        else if (MotorHacmi == "") {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'swal2-confirm',
+                    cancelButton: 'swal2-cancel'
+                },
+                buttonsStyling: true
+            })
+            swalWithBootstrapButtons.fire({
+                text: "Motor hacmini lütfen yazınız",
+                icon: 'warning',
+                showCancelButton: false,
+            }).then((result) => {
+                if (result.value) {
+                    result.dismiss === Swal.DismissReason.cancel
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                }
+            })
+        }
+        else if (Cekis == "") {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'swal2-confirm',
+                    cancelButton: 'swal2-cancel'
+                },
+                buttonsStyling: true
+            })
+            swalWithBootstrapButtons.fire({
+                text: "Çekiş tipini lütfen seçiniz",
+                icon: 'warning',
+                showCancelButton: false,
+            }).then((result) => {
+                if (result.value) {
+                    result.dismiss === Swal.DismissReason.cancel
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                }
+            })
+        }
+        else if (Aciklama == "") {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'swal2-confirm',
+                    cancelButton: 'swal2-cancel'
+                },
+                buttonsStyling: true
+            })
+            swalWithBootstrapButtons.fire({
+                text: "İlan ile ilgili lütfen bir açıklama yazınız",
+                icon: 'warning',
+                showCancelButton: false,
+            }).then((result) => {
+                if (result.value) {
+                    result.dismiss === Swal.DismissReason.cancel
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                }
+            })
+        }
+        else if (dosya == "" || dosya == null) {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'swal2-confirm',
+                    cancelButton: 'swal2-cancel'
+                },
+                buttonsStyling: true
+            })
+            swalWithBootstrapButtons.fire({
+                text: "İlan görsellerini lütfen yükleyiniz",
                 icon: 'warning',
                 showCancelButton: false,
             }).then((result) => {

@@ -24,7 +24,7 @@ namespace AracKiralamaOtomasyonu.Controllers
             {
                 IlanListeViewModel model = new IlanListeViewModel();
 
-                var sorgu = db.Ilanlar.Include("AracMarka").Include("AracModel").Include("AracGuvenlik").Include("AracDisDonanim").Include("AracIcDonanim").Include("AracMultiMedya").Include("Kullanici").Include("Dosyalar").ToList().OrderBy(s=>s.IlanTarihi).Take(10);
+                var sorgu = db.Ilanlar.Include("AracMarka").Include("AracModel").Include("AracGuvenlik").Include("AracDisDonanim").Include("AracIcDonanim").Include("AracMultiMedya").Include("Kullanici").Include("Dosyalar").Where(x=>x.Durum == 3).ToList().OrderBy(s=>s.IlanTarihi).Take(10);
 
                 model.Ilanlars = sorgu.ToList();
                 model.Dosyalar = db.Dosyalar.Where(x => x.tip == "ilan" && x.IlkFoto == true).FirstOrDefault();
@@ -57,7 +57,7 @@ namespace AracKiralamaOtomasyonu.Controllers
             using ( AracKiralamaContext db = new AracKiralamaContext())
             {
                 //Sistemde girilen E-posta kullanıcıya ait mi diye kontrol edilir
-                var Kullanıcıkontrol = db.Kullanici.FirstOrDefault(x => x.Eposta == eposta);
+                var Kullanıcıkontrol = db.Kullanici.Where(x => x.Eposta == eposta).FirstOrDefault();
                 //Eğer kullanıcıya ait değilse bu kodun içine girer
                 if (Kullanıcıkontrol == null)
                 {
@@ -187,7 +187,7 @@ namespace AracKiralamaOtomasyonu.Controllers
 
                 MailMessage mail = new MailMessage();
 
-                mail.From = new MailAddress("yusufsenerproje@gmail.com", "Rent A Car");
+                mail.From = new MailAddress("yusufsenerproje@outlook.com", "Rent A Car");
 
                 mail.To.Add(eposta);
                 mail.Subject = "E-Posta Doğrulama";
@@ -370,8 +370,8 @@ namespace AracKiralamaOtomasyonu.Controllers
                 HashingHelper.CreatePasswordHash(sifreyeni, out passwordHashnew, out passwordSaltnew);
                 if (kullanici != null)
                 {
-                    kurumsal.SifreHash = passwordHashnew;
-                    kurumsal.SifreSalt = passwordSaltnew;
+                    kullanici.SifreHash = passwordHashnew;
+                    kullanici.SifreSalt = passwordSaltnew;
                     db.SaveChanges();
 
 
